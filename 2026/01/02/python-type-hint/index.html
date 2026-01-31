@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/silver/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"awa-obli.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"nord","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tags","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Python笔记：类型注解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python类型注解（Type Hint）">
+<meta property="og:url" content="https://awa-obli.github.io/2026/01/02/python-type-hint/index.html">
+<meta property="og:site_name" content="awa&#39;s blog">
+<meta property="og:description" content="Python笔记：类型注解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s41.ax1x.com/2026/01/02/pZUJJxA.png">
+<meta property="og:image" content="https://s41.ax1x.com/2026/01/02/pZUJtKI.png">
+<meta property="article:published_time" content="2026-01-02T04:28:16.000Z">
+<meta property="article:modified_time" content="2026-01-17T07:32:17.316Z">
+<meta property="article:author" content="awa">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="类型注解">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s41.ax1x.com/2026/01/02/pZUJJxA.png">
+
+
+<link rel="canonical" href="https://awa-obli.github.io/2026/01/02/python-type-hint/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://awa-obli.github.io/2026/01/02/python-type-hint/","path":"2026/01/02/python-type-hint/","title":"Python类型注解（Type Hint）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python类型注解（Type Hint） | awa's blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">awa's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3%E4%BB%8B%E7%BB%8D"><span class="nav-text">一. 类型注解介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B"><span class="nav-text">二. 基础类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E5%AE%B9%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text">三. 容器类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%97%E8%A1%A8"><span class="nav-text">1. 列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%83%E7%BB%84"><span class="nav-text">2. 元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AD%97%E5%85%B8"><span class="nav-text">3. 字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%9B%86%E5%90%88"><span class="nav-text">4. 集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E8%BF%9B%E9%98%B6%E7%B1%BB%E5%9E%8B"><span class="nav-text">四. 进阶类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A4%9A%E7%A7%8D%E7%B1%BB%E5%9E%8B"><span class="nav-text">1. 多种类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8F%AF%E9%80%89%E7%B1%BB%E5%9E%8B"><span class="nav-text">2. 可选类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">3. 任意类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="nav-text">4. 无返回值类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%8F%AF%E8%B0%83%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text">5. 可调用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">6. 字面量类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%B3%9B%E5%9E%8B"><span class="nav-text">7. 泛型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D"><span class="nav-text">五. 类型别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B"><span class="nav-text">六. 自定义类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5%E5%99%A8"><span class="nav-text">七. 静态类型检查器</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="awa"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">awa</p>
+  <div class="site-description" itemprop="description">你好鸭~</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/images/weixin_qr.jpg" title="微信 → &#x2F;images&#x2F;weixin_qr.jpg" rel="noopener me"><i class="fab fa-weixin fa-fw"></i>微信</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/wCGFRl1JBK" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;wCGFRl1JBK" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yzh_0162cc@outlook.com" title="E-Mail → mailto:yzh_0162cc@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/awa-obli" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;awa-obli" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://awa-obli.github.io/2026/01/02/python-type-hint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="awa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="awa's blog">
+      <meta itemprop="description" content="你好鸭~">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python类型注解（Type Hint） | awa's blog">
+      <meta itemprop="description" content="Python笔记：类型注解">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python类型注解（Type Hint）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-01-02 12:28:16" itemprop="dateCreated datePublished" datetime="2026-01-02T12:28:16+08:00">2026-01-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-17 15:32:17" itemprop="dateModified" datetime="2026-01-17T15:32:17+08:00">2026-01-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">Python进阶</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">Python笔记：类型注解</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一-类型注解介绍"><a class="header-anchor" href="#一-类型注解介绍"></a>一. 类型注解介绍</h2>
+<p>众所周知，Python是一门动态类型语言。与C、C++等静态类型语言不同，在Python中，定义变量不需要声明类型，一个变量上一秒是整型，下一秒就可以是字符串。</p>
+<p>这种灵活的特性可以给我们带来极大的便利，但也有一些缺点：我们没法一眼看出这个变量是什么类型、这个函数的返回值是什么类型、应该传什么类型的参数等等，必要时还需要自己进入函数去研究它的源代码。由类型引发的错误可能会随着代码量的上升而增加。💩</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">divide</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">return</span> num // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">divide(<span class="string">&#x27;10&#x27;</span>)  <span class="comment"># 你试试会不会报错:)</span></span><br></pre></td></tr></table></figure>
+<p>为了解决这个问题，Python从3.5版本逐渐引入了类型注解的特性。它可以让你在写Python代码时可选地为变量、参数、返回值标注类型。</p>
+<p>类型注解的优势：</p>
+<ul>
+<li>可以提高代码的可读性和可维护性；</li>
+<li>在运行前就能通过静态类型检查器检测出类型导致的错误；</li>
+<li>让代码编辑器提供更全面的智能补全功能。<s>偷懒这一块</s></li>
+</ul>
+<h2 id="二-基础类型"><a class="header-anchor" href="#二-基础类型"></a>二. 基础类型</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 变量</span></span><br><span class="line">name: <span class="built_in">str</span> = <span class="string">&quot;张三&quot;</span></span><br><span class="line">age: <span class="built_in">int</span> = <span class="number">5</span></span><br><span class="line">price: <span class="built_in">float</span> = <span class="number">19.99</span></span><br><span class="line">is_active: <span class="built_in">bool</span> = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数参数和返回值</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greet</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;Hello, <span class="subst">&#123;name&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三-容器类型"><a class="header-anchor" href="#三-容器类型"></a>三. 容器类型</h2>
+<p>注：<code>typing</code>模块自Python 3.5引入，用于支持类型注解，包含了丰富的类型注解工具。</p>
+<h3 id="1-列表"><a class="header-anchor" href="#1-列表"></a>1. 列表</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line">s: <span class="type">List</span>[<span class="built_in">int</span>] = [<span class="number">4</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_average</span>(<span class="params">scores: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(scores) / <span class="built_in">len</span>(scores)</span><br></pre></td></tr></table></figure>
+<h3 id="2-元组"><a class="header-anchor" href="#2-元组"></a>2. 元组</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line">p: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>] = (<span class="number">300</span>, <span class="number">400</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_dis</span>(<span class="params">point: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    x, y = point</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> + y**<span class="number">2</span>) ** <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-字典"><a class="header-anchor" href="#3-字典"></a>3. 字典</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span></span><br><span class="line"></span><br><span class="line">g: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>] = &#123;</span><br><span class="line">    <span class="string">&quot;语文&quot;</span>: <span class="number">90</span>,</span><br><span class="line">    <span class="string">&quot;数学&quot;</span>: <span class="number">85</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_average</span>(<span class="params">grades: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(grades.values()) / <span class="built_in">len</span>(grades)</span><br></pre></td></tr></table></figure>
+<h3 id="4-集合"><a class="header-anchor" href="#4-集合"></a>4. 集合</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Set</span></span><br><span class="line"></span><br><span class="line">s: <span class="type">Set</span>[<span class="built_in">int</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_max</span>(<span class="params">ids: <span class="type">Set</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(ids)</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>可以直接使用内置容器类型进行注解（但内置容器类型后直接加方括号的语法直到Python 3.9后才支持），如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_average</span>(<span class="params">scores: <span class="built_in">list</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(scores) / <span class="built_in">len</span>(scores)</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="四-进阶类型"><a class="header-anchor" href="#四-进阶类型"></a>四. 进阶类型</h2>
+<h3 id="1-多种类型"><a class="header-anchor" href="#1-多种类型"></a>1. 多种类型</h3>
+<p><code>Union</code>表示一个值可以是多种类型中的一种。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Union</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="literal">None</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>自Python 3.10版本起可以使用<code>|</code>语法代替：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="built_in">int</span> | <span class="literal">None</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+</div>
+<h3 id="2-可选类型"><a class="header-anchor" href="#2-可选类型"></a>2. 可选类型</h3>
+<p><code>Optional[T]</code>等价于<code>Union[T, None]</code>，表示一个值可以是类型<code>T</code>或者<code>None</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Optional</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Optional</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<h3 id="3-任意类型"><a class="header-anchor" href="#3-任意类型"></a>3. 任意类型</h3>
+<p><code>Any</code>表示可以是任意类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Any</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Any</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>避免过度使用<code>Any</code>，尽可能使用具体的类型来注解。</p>
+</div>
+<h3 id="4-无返回值类型"><a class="header-anchor" href="#4-无返回值类型"></a>4. 无返回值类型</h3>
+<p><code>NoReturn</code>表示不会正常返回的函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> NoReturn</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">error</span>() -&gt; NoReturn:</span><br><span class="line">    <span class="keyword">raise</span> ValueError</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exit</span>() -&gt; NoReturn:</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">forever</span>() -&gt; NoReturn:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-可调用类型"><a class="header-anchor" href="#5-可调用类型"></a>5. 可调用类型</h3>
+<p><code>Callable</code>表示可以被调用的类型。</p>
+<p>高阶函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Callable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">operate</span>(<span class="params">func: <span class="type">Callable</span>[[<span class="built_in">int</span>, <span class="built_in">int</span>], <span class="built_in">int</span>], x: <span class="built_in">int</span>, y: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> func(x, y)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">power</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> a ** b</span><br></pre></td></tr></table></figure>
+<p><code>Callable</code>可以做进一步的定义，即这个可调用对象的参数类型和返回值类型。</p>
+<p>第一个是参数类型，需要使用方括号包裹，第二个是返回值类型。</p>
+<p>装饰器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Callable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dec</span>(<span class="params">f: <span class="type">Callable</span>[[<span class="built_in">int</span>, <span class="built_in">int</span>], <span class="built_in">int</span>]</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;args = <span class="subst">&#123;a&#125;</span>, <span class="subst">&#123;b&#125;</span>&#x27;</span>)</span><br><span class="line">        ret = f(a, b)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;result = <span class="subst">&#123;ret&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@dec</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br></pre></td></tr></table></figure>
+<h3 id="6-字面量类型"><a class="header-anchor" href="#6-字面量类型"></a>6. 字面量类型</h3>
+<p><code>Literal</code>表示必须是某个具体的值，而不仅仅是某个类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Literal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_status</span>(<span class="params">status: <span class="type">Literal</span>[<span class="string">&quot;success&quot;</span>, <span class="string">&quot;error&quot;</span>, <span class="string">&quot;pending&quot;</span>]</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Status: <span class="subst">&#123;status&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>对于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Literal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name: <span class="built_in">str</span>, gender: <span class="type">Literal</span>[<span class="string">&quot;male&quot;</span>, <span class="string">&quot;female&quot;</span>]</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.gender = gender</span><br><span class="line"></span><br><span class="line">g = <span class="string">&quot;female&quot;</span></span><br><span class="line">a = Person(<span class="string">&quot;Bob&quot;</span>, g)</span><br><span class="line">b = Person(<span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;male&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: Argument 2 to &quot;Person&quot; has incompatible type &quot;str&quot;; expected &quot;Literal[&#x27;male&#x27;, &#x27;female&#x27;]&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
+<p>因为Python只知道<code>g</code>是一个字符串，而不知道它是具体的&quot;female&quot;这个值。</p>
+<p>此时需要注解<code>g</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g: <span class="type">Literal</span>[<span class="string">&quot;male&quot;</span>, <span class="string">&quot;female&quot;</span>] = <span class="string">&quot;female&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+<h3 id="7-泛型"><a class="header-anchor" href="#7-泛型"></a>7. 泛型</h3>
+<p>泛型表示可重用的类型模板：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> TypeVar</span><br><span class="line"></span><br><span class="line">T = TypeVar(<span class="string">&#x27;T&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_two_items</span>(<span class="params">a: T, b: T</span>) -&gt; T:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<p><code>T</code>表示任意类型，但是函数参数<code>a</code>、<code>b</code>和返回值类型必须都是这个类型。</p>
+<p>可以进一步约束类型，限制<code>T</code>是整数、浮点数或者字符串：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T = TypeVar(<span class="string">&#x27;T&#x27;</span>, <span class="built_in">int</span>, <span class="built_in">float</span>, <span class="built_in">str</span>)</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>Python 3.12提供了简化语法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_two_items</span>[T: (<span class="built_in">int</span>, <span class="built_in">float</span>, <span class="built_in">str</span>)](a: T, b: T) -&gt; T:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">0.9</span>, <span class="number">1.9</span>))</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="五-类型别名"><a class="header-anchor" href="#五-类型别名"></a>五. 类型别名</h2>
+<p>类型注解本身也是一个对象，因此我们可以为复杂类型创建别名来提高可读性，例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line">PointType = <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_dis</span>(<span class="params">loc: PointType</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    x, y = loc</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> + y**<span class="number">2</span>) ** <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h2 id="六-自定义类型"><a class="header-anchor" href="#六-自定义类型"></a>六. 自定义类型</h2>
+<p>给类型起别名并不会创建一个新的类型。对于人类而言，别名和原名具有不同的逻辑含义，但在类型检查器眼中，它们本质上是同一个类型。所以如果你不小心混用了这些名称，类型检查器无法检测出这种逻辑上的错误：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">UserId = <span class="built_in">int</span></span><br><span class="line">OrderId = <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span>: UserId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除用户 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>(<span class="params"><span class="built_in">id</span>: OrderId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除订单 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">user_id: UserId = <span class="number">1</span></span><br><span class="line">order_id: OrderId = <span class="number">123</span></span><br><span class="line"></span><br><span class="line">delete_user(order_id)  <span class="comment"># 错写</span></span><br><span class="line">delete_order(user_id)  <span class="comment"># 错写</span></span><br></pre></td></tr></table></figure>
+<p>虽然写错了，但由于<code>order_id</code>、<code>UserId</code>和<code>int</code>被视为同一个东西，类型检查器无法检测出这个漏洞。要解决这个问题，必须创建真正的自定义类型，将<code>int</code>、<code>UserId</code>、<code>OrderId</code>三者区分开来。</p>
+<p><code>NewType</code>可以创建真正的自定义类型，语法为：<code>新类型名称 = NewType('新类型名称', 自定义类型)</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> NewType</span><br><span class="line"></span><br><span class="line">UserId = NewType(<span class="string">&quot;UserId&quot;</span>, <span class="built_in">int</span>)</span><br><span class="line">OrderId = NewType(<span class="string">&quot;OrderId&quot;</span>, <span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span>: UserId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除用户 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>(<span class="params"><span class="built_in">id</span>: OrderId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除订单 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">user_id = UserId(<span class="number">1</span>)</span><br><span class="line">order_id = OrderId(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line">delete_user(order_id)</span><br><span class="line">delete_order(user_id)</span><br></pre></td></tr></table></figure>
+<p>现在静态类型检查器可以检测出问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test.py:15: error: Argument 1 to &quot;delete_user&quot; has incompatible type &quot;OrderId&quot;; expected &quot;UserId&quot;  [arg-type]</span><br><span class="line">test.py:16: error: Argument 1 to &quot;delete_order&quot; has incompatible type &quot;UserId&quot;; expected &quot;OrderId&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>要使用<code>NewType</code>创建的新类型，需要显式地将值转换成这个新类型，否则会被视为两个不一样的类型。</p>
+<p>在上面的例子中，必须用<code>UserId(1)</code>和<code>OrderId(123)</code>将<code>1</code>和<code>123</code>转化成<code>UserId</code>和<code>OrderId</code>，因为<code>int</code>、<code>UserId</code>、<code>OrderId</code>三者均被视为不同的类型。</p>
+<p>如果写成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user_id = <span class="number">1</span></span><br><span class="line">order_id = <span class="number">123</span></span><br></pre></td></tr></table></figure>
+<p>就会<s>爆炸</s>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test.py:15: error: Argument 1 to &quot;delete_user&quot; has incompatible type &quot;int&quot;; expected &quot;UserId&quot;  [arg-type]</span><br><span class="line">test.py:16: error: Argument 1 to &quot;delete_order&quot; has incompatible type &quot;int&quot;; expected &quot;OrderId&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="七-静态类型检查器"><a class="header-anchor" href="#七-静态类型检查器"></a>七. 静态类型检查器</h2>
+<p><strong>静态类型检查器</strong>是一种在代码运行前进行类型分析的工具。</p>
+<p><strong>mypy</strong>是一个流行的静态类型检查工具。</p>
+<p>安装：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install mypy</span><br></pre></td></tr></table></figure>
+<p>运行类型检查：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mypy *.py</span><br></pre></td></tr></table></figure>
+<hr>
+<p>VS Code内置了Pyright作为其类型检查工具（需要安装Pylance扩展），开启方式为：</p>
+<ol>
+<li>
+<p>点击右下角状态栏花括号，点击“选择类型检查模式”：</p>
+<p><img src="https://s41.ax1x.com/2026/01/02/pZUJJxA.png" alt="VS Code1"></p>
+</li>
+<li>
+<p>选择模式：</p>
+<p><img src="https://s41.ax1x.com/2026/01/02/pZUJtKI.png" alt="VS Code2"></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>awa
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://awa-obli.github.io/2026/01/02/python-type-hint/" title="Python类型注解（Type Hint）">https://awa-obli.github.io/2026/01/02/python-type-hint/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3/" rel="tag"># 类型注解</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/10/25/python-decorator-iterator-generator/" rel="prev" title="Python三大器">
+                  <i class="fa fa-angle-left"></i> Python三大器
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2025 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">awa</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"awa-obli/blog-comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/silver/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"awa-obli.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"nord","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tags","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="详解字符编码、乱码问题，教你如何孵化出乱码神兽“锟斤拷”！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符编码">
+<meta property="og:url" content="https://awa-obli.github.io/2025/08/21/character-encoding/index.html">
+<meta property="og:site_name" content="awa&#39;s blog">
+<meta property="og:description" content="详解字符编码、乱码问题，教你如何孵化出乱码神兽“锟斤拷”！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/22/pVDodsI.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/22/pVDoro8.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/22/pVDoDdf.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/22/pVDoaQA.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/22/pVDowLt.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/22/pVDoyFS.png">
+<meta property="article:published_time" content="2025-08-21T11:17:49.000Z">
+<meta property="article:modified_time" content="2025-10-26T02:09:37.711Z">
+<meta property="article:author" content="awa">
+<meta property="article:tag" content="字符编码">
+<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="计算机社">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s21.ax1x.com/2025/08/22/pVDodsI.png">
+
+
+<link rel="canonical" href="https://awa-obli.github.io/2025/08/21/character-encoding/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://awa-obli.github.io/2025/08/21/character-encoding/","path":"2025/08/21/character-encoding/","title":"字符编码"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>字符编码 | awa's blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">awa's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E4%B9%B1%E7%A0%81"><span class="nav-text">一. 乱码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E4%B9%B1%E7%A0%81%E6%98%AF%E6%80%8E%E4%B9%88%E6%9D%A5%E7%9A%84%EF%BC%9F"><span class="nav-text">二. 乱码是怎么来的？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ASCII"><span class="nav-text">1. ASCII</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B6%E4%BB%96%E7%BC%96%E7%A0%81"><span class="nav-text">2. 其他编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B9%B1%E7%A0%81%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="nav-text">3. 乱码的由来</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3"><span class="nav-text">三. 乱码问题的解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-Unicode%E7%9A%84%E7%BC%96%E7%A0%81"><span class="nav-text">四. Unicode的编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-UTF-8"><span class="nav-text">五. UTF-8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E2%80%9C%E9%94%9F%E6%96%A4%E6%8B%B7%E2%80%9D"><span class="nav-text">六. “锟斤拷”</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="awa"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">awa</p>
+  <div class="site-description" itemprop="description">你好鸭~</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/images/weixin_qr.jpg" title="微信 → &#x2F;images&#x2F;weixin_qr.jpg" rel="noopener me"><i class="fab fa-weixin fa-fw"></i>微信</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/wCGFRl1JBK" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;wCGFRl1JBK" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yzh_0162cc@outlook.com" title="E-Mail → mailto:yzh_0162cc@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/awa-obli" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;awa-obli" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://awa-obli.github.io/2025/08/21/character-encoding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="awa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="awa's blog">
+      <meta itemprop="description" content="你好鸭~">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="字符编码 | awa's blog">
+      <meta itemprop="description" content="详解字符编码、乱码问题，教你如何孵化出乱码神兽“锟斤拷”！">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符编码
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-08-21 19:17:49" itemprop="dateCreated datePublished" datetime="2025-08-21T19:17:49+08:00">2025-08-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-10-26 10:09:37" itemprop="dateModified" datetime="2025-10-26T10:09:37+08:00">2025-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/" itemprop="url" rel="index"><span itemprop="name">计算机社</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">详解字符编码、乱码问题，教你如何孵化出乱码神兽“锟斤拷”！</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>“手持两把锟斤拷，口中疾呼烫烫烫”</p>
+</blockquote>
+<h2 id="一-乱码"><a class="header-anchor" href="#一-乱码"></a>一. 乱码</h2>
+<p>在使用电脑时，你是否遇见过下面的场景：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDodsI.png" alt="乱码" title="乱码"></p>
+<p>那么，乱码是怎么来的？“锟斤拷”又是什么鬼？</p>
+<h2 id="二-乱码是怎么来的？"><a class="header-anchor" href="#二-乱码是怎么来的？"></a>二. 乱码是怎么来的？</h2>
+<h3 id="1-ASCII"><a class="header-anchor" href="#1-ASCII"></a>1. ASCII</h3>
+<p>要知道，计算机可不认识什么文字，它们只认识数字<br>
+更准确地来讲，计算机只能够存储0和1的二进制数字</p>
+<p>所以，要想让计算机显示出文字，就得让这些字符以某种方式转换为二进制数字来存储，并在需要的时候进行读取</p>
+<p>1963年，ANSI<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>推出了<strong>ASCII</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，作为计算机及其他设备的文本字符编码标准</p>
+<p>ASCII包含了<strong>0~9的阿拉伯数字</strong>、<strong>小写英文字母</strong>、<strong>大写英文字母</strong>、<strong>常用的英文符号</strong>以及<strong>控制字符</strong></p>
+<p>ASCII一共收录了<strong>128</strong>个字符，每一个字符都有一个对应的数字，称为“<strong>码点</strong>”，ASCII字符集的码点，为0~127之间的数字，比如“A”对应码点65。</p>
+<p>标准所支持的所有字符及其对应码点的集合，叫做“<strong>字符集</strong>”，下面就是ASCII的字符集：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoro8.png" alt="ASCII" title="ASCII"></p>
+<p>计算机可以储存码点的二进制，由于最大的码点是127，二进制的长度都会小于或等于7比特，但由于计算机一般以1字节（8比特）为基本单位进行读写。所以为了凑整，这些二进制数在储存时，会在前面补零，用固定的8比特来储存每个字符。</p>
+<p>我们把从字符到计算机实际存储的内容之间的映射，叫做“<strong>编码</strong>”</p>
+<h3 id="2-其他编码"><a class="header-anchor" href="#2-其他编码"></a>2. 其他编码</h3>
+<p>但ASCII只支持128个字符，对于其他语言就不够用了，尤其是中、日、韩等国家的文字<br>
+于是，不同国家和地区开始制定自己的编码标准…</p>
+<p>比如我国大陆有1980年制定<strong>GB2312</strong><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，港澳台有<strong>Big5</strong><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。后来还有对GB2312进行扩展的<strong>GBK</strong><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>（收录了简繁体汉字、日文、韩文等），以及现在使用的<strong>GB18030</strong><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
+<h3 id="3-乱码的由来"><a class="header-anchor" href="#3-乱码的由来"></a>3. 乱码的由来</h3>
+<p>但标准不统一时，乱码问题也随之产生。</p>
+<p>因为计算机内存里的同一个数字，在不同的字符集里，代表的可能是完全不同的字符。</p>
+<p>如果你用一个GBK编码的文本编辑器，给你香港的朋友写个文档发送过去，在用大五码的文本编辑器读取后，就会变成这样：<br>
+<img src="https://s21.ax1x.com/2025/08/22/pVDoDdf.png" alt="乱码例子" title="乱码例子"></p>
+<h2 id="三-乱码问题的解决"><a class="header-anchor" href="#三-乱码问题的解决"></a>三. 乱码问题的解决</h2>
+<p>正因如此，人们急需一种囊括了人类世界所有字符的字符集，让全世界的人都能够使用<br>
+于是，<strong><a target="_blank" rel="noopener" href="https://home.unicode.org/">Unicode</a></strong><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>诞生了：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoaQA.png" alt="UNICODE" title="UNICODE"></p>
+<p>随着版本的迭代，Unicode囊括的字符越来越多，包括汉字、平片假名、藏文、阿拉伯文，甚至是古象形文字。2010年，emoji也被纳入Unicode。如今Unicode已经包含了超过十四万个字符</p>
+<p><strong>拓展</strong>：在Python中，可以使用<code>ord('💩')  # return 128169</code>来查询字符对应的Unicode码点</p>
+<h2 id="四-Unicode的编码"><a class="header-anchor" href="#四-Unicode的编码"></a>四. Unicode的编码</h2>
+<p>需要注意的是，字符集只是字符及字符对应码点的集合，不代表字符一定会以对应码点被储存在计算机里，字符编码才是真正定义了从字符到计算机储存内容的映射。</p>
+<p>曾经大部分的字符集，都只有一种编码方式。而超级大的字符集Unicode，却有很多种编码<br>
+比如：<strong>UTF-8</strong>、<strong>UTF-16</strong>、<strong>UTF-32</strong>等</p>
+<p>其中，UTF-32让每个字符都以32比特，即4字节的长度来储存，位数不够就向前补零，32比特足够表示Unicode里所有字符。固定的长度，能够帮助计算机明确每个字符的截断范围。</p>
+<p>But，这样真的好吗？</p>
+<p>原本只占一个字节的英文字符（ASCII），放到UTF-32里却要占四个字节，这使得相同内容的英文文本，<b>UTF-32所占空间会是ASCII的四倍！</b>而且英文字符的码点在Unicode里数字较小，实际上很多空间都用来放零了。</p>
+<p><s>英文使用者：🤬🤬🤬</s></p>
+<p>同样的，原本只占两个字节的汉字（GBK），放到UTF-32里却要占四个字节，<strong>空间多占一倍！</strong></p>
+<p>为了改善空间效率，UTF-8于1992年诞生了！</p>
+<h2 id="五-UTF-8"><a class="header-anchor" href="#五-UTF-8"></a>五. UTF-8</h2>
+<p>UTF-8是针对Unicode的可变长度编码。<br>
+不同于编码后长度因定为32比特的UTF-32，UTF-8针对不同字符，编码后的长度可以是：32比特、24比特、16比特、8比特。</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDowLt.png" alt="可变长度编码" title="可变长度编码"></p>
+<p>规则：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoyFS.png" alt="UTF-8规则" title="UTF-8规则"></p>
+<p>优点：</p>
+<ol>
+<li>
+<p><strong>兼容ASCII</strong></p>
+<p>Unicode前128个字符，正好也是ASCIl的字符，码点一样。而且UTF-8也会把那些字符，映射为1字节长度，和ASCII编码相同</p>
+</li>
+<li>
+<p><strong>节约空间</strong></p>
+<p>UTF-8让Unicode里码点小的字符，也相应拥有更短的长度，通过前缀信息进行字符长度分辨，也解决了分割不明的问题</p>
+</li>
+</ol>
+<p>如今，UTF-8已经成为了最主流的编码，大部分时候它都是文本编辑器的默认选择，但有时仍然需要留意，UTF-8是否被支持或兼容，避免出现乱码。</p>
+<h2 id="六-“锟斤拷”"><a class="header-anchor" href="#六-“锟斤拷”"></a>六. “锟斤拷”</h2>
+<p>常见乱码“<strong>锟斤拷</strong>”是怎么来的？</p>
+<p>它一般在UTF-8和中文编码的转换过程中产生。</p>
+<p>Unicode字符集有一个特殊的替换符号：�，专门用于表示无法识别或展示的字符。<br>
+一些编辑器在通过UTF-8打开文本时，会把无法识别或展示的字符自动替换为这个替换符号，用于提示用户。<br>
+它在UTF-8编码后是这个3字节长度的二进制数字：</p>
+<p><code>11101111 10111111 10111101</code></p>
+<p>对应十六进制：</p>
+<p><code>EF BF BD</code></p>
+<p>如果用户在编辑器替换后点了保存，这个特殊符号就会被写入文件内容里。</p>
+<p>如果有两个替换符号恰好连在一起：��</p>
+<p>文件内容里就会有这个：</p>
+<p><code>EF BF BD EF BF BD</code></p>
+<p>如果这个时候，把文件再用GBK编码读取，打开后就会看到所有以前是两个替换符号的地方，现在都变成了“锟斤拷”。</p>
+<p>因为在GBK中，每个汉字占用两个字节，储存在计算机里的<code>EF BF</code>对应汉字“锟”，<code>BD EF</code>对应汉字“斤”，<code>BF BD</code>对应汉字”拷“</p>
+<p>连起来，就是”锟斤拷“</p>
+<hr>
+<p>参考资料：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xP4y1J7CS/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">你懂乱码吗？锟斤拷烫烫烫（详解ASCII、Unicode、UTF-32、UTF-8编码）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cB4y177QR/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">锟斤拷�⊠是怎样炼成的——中文显示“⼊”门指南【柴知道】</a></p>
+</blockquote>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><strong>ANSI</strong>美国国家标准学会(<em>AMERICAN NATIONAL STANDARDS INSTITUTE</em>)成立于1918年。致力于制订统一的通用标准 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><strong>ASCII</strong>(<em>American Standard Code for Information Interchange</em>)：美国信息交换标准代码是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><strong>GB2312</strong>是由中国国家标准总局1980年发布，1981年5月1日开始实施的一套国家标准 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><strong>Big5</strong>又称为大五码或五大码，是使用繁体中文（正体中文）社区中最常用的电脑汉字字符集标准，共收录13,060个汉字。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p><strong>GBK</strong>编码方案于1995年10月制定， 1995年12月正式发布。是在GB2312-80标准基础上的内码扩展规范，共23940个码位，共收录了21003个汉字，完全兼容GB2312-80标准。 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p><strong>GB18030</strong>于2022年7月28日发布，2023年8月1日正式实施。新国标共收录汉字87887个，比上一版增加录入了1.7万余个生僻汉字，覆盖中国绝大部分人名、地名用生僻字以及文献、科技等专业领域的用字，能够满足各类使用需求。 <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p><strong>Unicode</strong>，统一码，也叫万国码、单一码，由统一码联盟开发，是计算机科学领域里的一项业界标准，包括字符集、编码方案等。1990年开始研发，1994年正式发布1.0版本。 <a href="#fnref7" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>awa
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://awa-obli.github.io/2025/08/21/character-encoding/" title="字符编码">https://awa-obli.github.io/2025/08/21/character-encoding/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/" rel="tag"># 计算机社</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" rel="tag"># 计算机基础</a>
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag"># 字符编码</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/08/17/preparations-before-programming/" rel="prev" title="1. 开始编程前的准备">
+                  <i class="fa fa-angle-left"></i> 1. 开始编程前的准备
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/10/25/python-decorator-iterator-generator/" rel="next" title="Python三大器">
+                  Python三大器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2025 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">awa</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"awa-obli/blog-comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+</body>
+</html>

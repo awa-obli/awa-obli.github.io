@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/silver/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"awa-obli.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"nord","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tags","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="这是学习编程的第一节课。详细介绍了编程中所涉及的各种基础概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0. 编程入门">
+<meta property="og:url" content="https://awa-obli.github.io/2025/08/17/programming-intro/index.html">
+<meta property="og:site_name" content="awa&#39;s blog">
+<meta property="og:description" content="这是学习编程的第一节课。详细介绍了编程中所涉及的各种基础概念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/16/pV0DqRe.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/16/pV0DrV0.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/16/pV0DXMd.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/16/pV0DLxH.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/16/pV0DTIK.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/16/pV0DbGD.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/08/16/pV0DHPO.png">
+<meta property="article:published_time" content="2025-08-17T03:44:00.000Z">
+<meta property="article:modified_time" content="2025-10-24T05:19:07.026Z">
+<meta property="article:author" content="awa">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="计算机社">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s21.ax1x.com/2025/08/16/pV0DqRe.png">
+
+
+<link rel="canonical" href="https://awa-obli.github.io/2025/08/17/programming-intro/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://awa-obli.github.io/2025/08/17/programming-intro/","path":"2025/08/17/programming-intro/","title":"0. 编程入门"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>0. 编程入门 | awa's blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">awa's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text">Part.1 编程基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E7%A8%8B-Programming-%EF%BC%9F"><span class="nav-text">一. 什么是编程(Programming)？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A3%E7%A0%81-Code-%EF%BC%9F"><span class="nav-text">二. 什么是代码(Code)？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-text">特点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E7%BC%96%E7%A8%8B%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">三. 为什么要用编程解决问题？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text">Part.2 编程语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%EF%BC%9F"><span class="nav-text">四. 什么是编程语言？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%9B%B8%E5%AF%B9%E6%A6%82%E5%BF%B5%EF%BC%9A%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80-Natural-language"><span class="nav-text">1. 相对概念：自然语言(Natural language)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%EF%BC%9F"><span class="nav-text">2. 为什么要有编程语言？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80-Programming-language"><span class="nav-text">3. 编程语言(Programming language)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B%EF%BC%9A"><span class="nav-text">4. 发展历程：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%9A%84%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-text">五. 编程语言的选择？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%92%A1%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A"><span class="nav-text">💡路线图：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text">Part.3 Python 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-Python%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F"><span class="nav-text">六. Python的前世今生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Python-%E8%B5%B7%E6%BA%90"><span class="nav-text">1. Python - 起源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Python-%E5%8F%91%E5%B1%95"><span class="nav-text">2. Python - 发展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Python-%E5%B4%9B%E8%B5%B7"><span class="nav-text">3. Python - 崛起</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-Python%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9A"><span class="nav-text">七. Python的优缺点：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BC%98%E7%82%B9"><span class="nav-text">1. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BC%BA%E7%82%B9"><span class="nav-text">2. 缺点</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="awa"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">awa</p>
+  <div class="site-description" itemprop="description">你好鸭~</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/images/weixin_qr.jpg" title="微信 → &#x2F;images&#x2F;weixin_qr.jpg" rel="noopener me"><i class="fab fa-weixin fa-fw"></i>微信</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/wCGFRl1JBK" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;wCGFRl1JBK" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yzh_0162cc@outlook.com" title="E-Mail → mailto:yzh_0162cc@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/awa-obli" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;awa-obli" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://awa-obli.github.io/2025/08/17/programming-intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="awa">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="awa's blog">
+      <meta itemprop="description" content="你好鸭~">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="0. 编程入门 | awa's blog">
+      <meta itemprop="description" content="这是学习编程的第一节课。详细介绍了编程中所涉及的各种基础概念。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          0. 编程入门
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-08-17 11:44:00" itemprop="dateCreated datePublished" datetime="2025-08-17T11:44:00+08:00">2025-08-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-10-24 13:19:07" itemprop="dateModified" datetime="2025-10-24T13:19:07+08:00">2025-10-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/" itemprop="url" rel="index"><span itemprop="name">计算机社</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">这是学习编程的第一节课。详细介绍了编程中所涉及的各种基础概念。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>“<em>Programming is the art of understanding.</em>”</p>
+</blockquote>
+<h1 style="text-align: center;">Part.1 编程基础</h1>
+<h2 id="一-什么是编程-Programming-？"><a class="header-anchor" href="#一-什么是编程-Programming-？"></a>一. 什么是编程(<em>Programming</em>)？</h2>
+<blockquote>
+<p>编写程序：<strong>用<mark>代码</mark>指挥计算机做事</strong></p>
+</blockquote>
+<h2 id="二-什么是代码-Code-？"><a class="header-anchor" href="#二-什么是代码-Code-？"></a>二. 什么是代码(Code)？</h2>
+<blockquote>
+<p><strong>给计算机下达的指令</strong></p>
+</blockquote>
+<h3 id="特点："><a class="header-anchor" href="#特点："></a>特点：</h3>
+<ol>
+<li><strong>简洁</strong></li>
+<li><strong>无歧义</strong></li>
+</ol>
+<h2 id="三-为什么要用编程解决问题？"><a class="header-anchor" href="#三-为什么要用编程解决问题？"></a>三. 为什么要用编程解决问题？</h2>
+<ol>
+<li><strong>准确性</strong></li>
+<li><strong>速度快</strong></li>
+</ol>
+<hr>
+<h1 style="text-align: center;">Part.2 编程语言</h1>
+<h2 id="四-什么是编程语言？"><a class="header-anchor" href="#四-什么是编程语言？"></a>四. 什么是编程语言？</h2>
+<h3 id="1-相对概念：自然语言-Natural-language"><a class="header-anchor" href="#1-相对概念：自然语言-Natural-language"></a>1. 相对概念：自然语言(<em>Natural language</em>)</h3>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DqRe.png" alt="自然语言" title="自然语言"></p>
+<blockquote>
+<p><strong>人类发展进程中随文化自然而然形成的语言</strong></p>
+<p>如：中文、英语、法语、日语…</p>
+</blockquote>
+<h3 id="2-为什么要有编程语言？"><a class="header-anchor" href="#2-为什么要有编程语言？"></a>2. 为什么要有编程语言？</h3>
+<p>第一台通用计算机<strong>ENIAC</strong><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>在二十世纪四十年代发明，当时计算机的各项控制主要是由<strong>人工操作</strong>来实现的：</p>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DrV0.png" alt="ENIAC" title="ENIAC"></p>
+<p>因其在便利性方面存在严重不足，经过多年的发展，相关人员提出了利用编程语言来控制计算机的构想。。。</p>
+<h3 id="3-编程语言-Programming-language"><a class="header-anchor" href="#3-编程语言-Programming-language"></a>3. 编程语言(<em>Programming language</em>)</h3>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DXMd.png" alt="编程语言" title="编程语言"></p>
+<blockquote>
+<p><strong>计算机和人类都能识别的语言</strong></p>
+<p>如(高级语言)：Python、C++、Java、C、C#、JavaScript、Go、SQL、Visual Basic…(&gt;600)</p>
+</blockquote>
+<h3 id="4-发展历程："><a class="header-anchor" href="#4-发展历程："></a>4. 发展历程：</h3>
+<ol>
+<li>
+<p><strong>机器语言：</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1001000110111000001100011110100111000100101010</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>计算机能直接识别和执行的二进制代码</strong></p>
+</blockquote>
+</li>
+<li>
+<p><strong>汇编语言：</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C_S SEGMENT</span><br><span class="line">    ASSUME CS:C_S,DS:C_S</span><br><span class="line">S_T:</span><br><span class="line">    MOV AX,C_S</span><br><span class="line">    MOV DS,AX</span><br><span class="line">    LEA DX,P_S</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>用一些容易理解和记忆的缩写单词来代替一些特定的指令</strong></p>
+</blockquote>
+</li>
+<li>
+<p><strong>高级语言：</strong></p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello!&quot;</span>)  <span class="comment"># 我是高级语言哦~</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>更加接近人类的自然语言，易于理解和编写，同时屏蔽了底层硬件的细节</strong></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="五-编程语言的选择？"><a class="header-anchor" href="#五-编程语言的选择？"></a>五. 编程语言的选择？</h2>
+<h3 id="💡路线图："><a class="header-anchor" href="#💡路线图："></a>💡路线图：</h3>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DLxH.png" alt="编程语言的选择" title="编程语言的选择"></p>
+<ul>
+<li>[x] <strong>请选择你的英雄！</strong></li>
+</ul>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DTIK.png" alt="python-logo" title="python"></p>
+<blockquote>
+<p><strong>人生苦短，我用python</strong>。</p>
+</blockquote>
+<hr>
+<h1 style="text-align: center;">Part.3 Python 简介</h1>
+<h2 id="六-Python的前世今生"><a class="header-anchor" href="#六-Python的前世今生"></a>六. Python的前世今生</h2>
+<h3 id="1-Python-起源"><a class="header-anchor" href="#1-Python-起源"></a>1. Python - 起源</h3>
+<p>​        Python的创始人为荷兰人<strong>吉多·范罗苏姆</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>（<em>Guido van Rossum</em>）。1989年圣诞节期间，在阿姆斯特丹，龟叔为了打发圣诞节的无趣，决心开发一个新的脚本解释程序，作为<u>ABC语言</u><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>的一种继承。</p>
+<p>🌟<strong>Guido van Rossum:</strong></p>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DbGD.jpg" alt="“龟叔”" title="“龟叔”"></p>
+<p>之所以选中单词Python（谐音”蟒蛇“🐍）作为该编程语言的名字，是因为英国20世纪70年代首播的电视喜剧《蒙提·派森的飞行马戏团》（<em>Monty Python’s Flying Circus</em>🎈），龟叔是它的超级无敌宇宙螺旋大粉丝。</p>
+<h3 id="2-Python-发展"><a class="header-anchor" href="#2-Python-发展"></a>2. Python - 发展</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时间段</th>
+<th style="text-align:center">版本</th>
+<th style="text-align:left">主要特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><u>1991年-1995年</u></td>
+<td style="text-align:center"><strong>1.x</strong></td>
+<td style="text-align:left">引入了类、异常处理、函数式编程等特性</td>
+</tr>
+<tr>
+<td style="text-align:left"><u>1996年-2000年</u></td>
+<td style="text-align:center"><strong>2.x</strong></td>
+<td style="text-align:left">增加了垃圾回收机制、列表推导式、生成器等特性</td>
+</tr>
+<tr>
+<td style="text-align:left"><u>2000年-2008年</u></td>
+<td style="text-align:center"><strong>2.x</strong></td>
+<td style="text-align:left">继续发展，推出了多个版本，逐步完善</td>
+</tr>
+<tr>
+<td style="text-align:left"><u>2008年-至今</u></td>
+<td style="text-align:center"><strong>3.x</strong></td>
+<td style="text-align:left">对Python进行了重大更新，不兼容Python 2.x，旨在解决历史遗留问题，提高语言性能</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-Python-崛起"><a class="header-anchor" href="#3-Python-崛起"></a>3. Python - 崛起</h3>
+<p><strong>TIOBE排行榜<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>：</strong></p>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DHPO.png" alt="TIOBE排行榜" title="TIOBE排行榜"></p>
+<p><a target="_blank" rel="noopener" href="https://www.tiobe.com/tiobe-index" title="TIOBE排行榜">↑链接↑</a></p>
+<h2 id="七-Python的优缺点："><a class="header-anchor" href="#七-Python的优缺点："></a>七. Python的优缺点：</h2>
+<h3 id="1-优点"><a class="header-anchor" href="#1-优点"></a>1. 优点</h3>
+<ol>
+<li>
+<p><strong>易学易用</strong>：</p>
+<ul>
+<li>语法简洁，接近自然语言，适合初学者。</li>
+<li>代码可读性强，易于维护。</li>
+</ul>
+</li>
+<li>
+<p><strong>跨平台</strong>：</p>
+<ul>
+<li>支持多平台（Windows、macOS、Linux等），代码无需修改即可运行。</li>
+</ul>
+</li>
+<li>
+<p><strong>丰富的库和框架</strong>：</p>
+<ul>
+<li>拥有大量标准库和第三方库，涵盖Web开发、数据分析、机器学习等领域。</li>
+</ul>
+</li>
+<li>
+<p><strong>动态类型</strong>：</p>
+<ul>
+<li>变量无需声明类型，方便快捷。</li>
+</ul>
+</li>
+<li>
+<p><strong>广泛应用</strong>：</p>
+<ul>
+<li>适用于Web开发、数据科学、人工智能、自动化等多个领域。</li>
+</ul>
+<p>…</p>
+</li>
+</ol>
+<h3 id="2-缺点"><a class="header-anchor" href="#2-缺点"></a>2. 缺点</h3>
+<ol>
+<li>
+<p><strong>性能较低</strong>：</p>
+<ul>
+<li>作为解释型语言，运行速度较C/C++等编译型语言慢。</li>
+</ul>
+</li>
+<li>
+<p><strong>全局解释器锁（GIL）</strong>：</p>
+<ul>
+<li>GIL限制多线程并行执行，影响多核CPU性能。</li>
+</ul>
+</li>
+<li>
+<p><strong>内存消耗大</strong>：</p>
+<ul>
+<li>相比C/C++等语言，Python占用更多内存。</li>
+</ul>
+<p>…</p>
+</li>
+</ol>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><strong>ENIAC</strong>（<em>Electronic Numerical Integrator And Computer ”电子数字积分计算机”</em>）。ENIAC是继ABC（<em>Atanasoff-Berry Computer ”阿塔纳索夫-贝瑞计算机“</em>）之后的<strong>第二台电子计算机</strong>，和<strong>第一台通用计算机</strong>，于<u>1946年2月14日</u>在美国宣告诞生。ENIAC的计算速度为每秒5000次加法或400次乘法，它是完全的电子计算机，能够重新编程，解决各种计算问题。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><strong>吉多·范罗苏姆</strong>（<em>Guido van Rossum</em>）是荷兰计算机科学家，被誉为<u>Python之父</u>。他于1956年1月31日出生于荷兰，毕业于阿姆斯特丹大学，获得计算机科学硕士学位。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><strong>ABC</strong>是由Guido参加设计的一种教学语言。就Guido本人看来，ABC这种语言非常优美和强大，是专门为非专业程序员设计的。但是ABC语言并没有成功，究其原因，Guido认为是其非开放造成的。Guido决心在Python中避免这一错误。同时，他还想实现在ABC中闪现过但未曾实现的东西。 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><strong>TIOBE排行榜</strong>是衡量编程语言流行度的一个权威指数，每月更新一次。它通过统计全球范围内搜索引擎（如Google、Bing、Wikipedia等）的查询结果、课程数量、技术岗位需求等数据，评估各编程语言的流行趋势。其核心目的是为开发者、企业和教育机构提供语言趋势的参考。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>awa
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://awa-obli.github.io/2025/08/17/programming-intro/" title="0. 编程入门">https://awa-obli.github.io/2025/08/17/programming-intro/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/" rel="tag"># 计算机社</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/08/15/number-systems/" rel="prev" title="进制 - 详解">
+                  <i class="fa fa-angle-left"></i> 进制 - 详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/08/17/preparations-before-programming/" rel="next" title="1. 开始编程前的准备">
+                  1. 开始编程前的准备 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2025 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">awa</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"awa-obli/blog-comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
+
+</body>
+</html>
