@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s41.ax1x.com/2026/01/02/pZUJJxA.png">
 <meta property="og:image" content="https://s41.ax1x.com/2026/01/02/pZUJtKI.png">
 <meta property="article:published_time" content="2026-01-02T04:28:16.000Z">
-<meta property="article:modified_time" content="2026-01-17T07:32:17.316Z">
+<meta property="article:modified_time" content="2026-03-22T04:07:44.534Z">
 <meta property="article:author" content="awa">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="类型注解">
@@ -280,7 +280,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-17 15:32:17" itemprop="dateModified" datetime="2026-01-17T15:32:17+08:00">2026-01-17</time>
+      <time title="修改时间：2026-03-22 12:07:44" itemprop="dateModified" datetime="2026-03-22T12:07:44+08:00">2026-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -288,11 +288,11 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Python%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">Python进阶</span></a>
+          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
         </span>
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+          <a href="/categories/Python%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">Python进阶</span></a>
         </span>
     </span>
 
@@ -389,7 +389,7 @@
 <p>类型注解本身也是一个对象，因此我们可以为复杂类型创建别名来提高可读性，例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line">PointType = <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_dis</span>(<span class="params">loc: PointType</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    x, y = loc</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> + y**<span class="number">2</span>) ** <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
 <h2 id="六-自定义类型"><a class="header-anchor" href="#六-自定义类型"></a>六. 自定义类型</h2>
-<p>给类型起别名并不会创建一个新的类型。对于人类而言，别名和原名具有不同的逻辑含义，但在类型检查器眼中，它们本质上是同一个类型。所以如果你不小心混用了这些名称，类型检查器无法检测出这种逻辑上的错误：</p>
+<p>给类型起别名并不会创建一个新的类型，原名和别名本质上是同一个类型。如果你不小心混用了这些名称，类型检查器无法检测出这种逻辑上的错误：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">UserId = <span class="built_in">int</span></span><br><span class="line">OrderId = <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span>: UserId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除用户 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>(<span class="params"><span class="built_in">id</span>: OrderId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除订单 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">user_id: UserId = <span class="number">1</span></span><br><span class="line">order_id: OrderId = <span class="number">123</span></span><br><span class="line"></span><br><span class="line">delete_user(order_id)  <span class="comment"># 错写</span></span><br><span class="line">delete_order(user_id)  <span class="comment"># 错写</span></span><br></pre></td></tr></table></figure>
 <p>虽然写错了，但由于<code>order_id</code>、<code>UserId</code>和<code>int</code>被视为同一个东西，类型检查器无法检测出这个漏洞。要解决这个问题，必须创建真正的自定义类型，将<code>int</code>、<code>UserId</code>、<code>OrderId</code>三者区分开来。</p>
 <p><code>NewType</code>可以创建真正的自定义类型，语法为：<code>新类型名称 = NewType('新类型名称', 自定义类型)</code>：</p>

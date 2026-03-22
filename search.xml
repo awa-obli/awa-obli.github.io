@@ -1,6 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>字符编码</title>
+    <url>/2025/08/21/character-encoding/</url>
+    <content><![CDATA[<blockquote>
+<p>“手持两把锟斤拷，口中疾呼烫烫烫”</p>
+</blockquote>
+<h2 id="一-乱码"><a class="header-anchor" href="#一-乱码"></a>一. 乱码</h2>
+<p>在使用电脑时，你是否遇见过下面的场景：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDodsI.png" alt="乱码" title="乱码"></p>
+<p>那么，乱码是怎么来的？“锟斤拷”又是什么鬼？</p>
+<h2 id="二-乱码是怎么来的？"><a class="header-anchor" href="#二-乱码是怎么来的？"></a>二. 乱码是怎么来的？</h2>
+<h3 id="1-ASCII"><a class="header-anchor" href="#1-ASCII"></a>1. ASCII</h3>
+<p>要知道，计算机可不认识什么文字，它们只认识数字<br>
+更准确地来讲，计算机只能够存储0和1的二进制数字</p>
+<p>所以，要想让计算机显示出文字，就得让这些字符以某种方式转换为二进制数字来存储，并在需要的时候进行读取</p>
+<p>1963年，ANSI<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>推出了<strong>ASCII</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，作为计算机及其他设备的文本字符编码标准</p>
+<p>ASCII包含了<strong>0~9的阿拉伯数字</strong>、<strong>小写英文字母</strong>、<strong>大写英文字母</strong>、<strong>常用的英文符号</strong>以及<strong>控制字符</strong></p>
+<p>ASCII一共收录了<strong>128</strong>个字符，每一个字符都有一个对应的数字，称为“<strong>码点</strong>”，ASCII字符集的码点，为0~127之间的数字，比如“A”对应码点65。</p>
+<p>标准所支持的所有字符及其对应码点的集合，叫做“<strong>字符集</strong>”，下面就是ASCII的字符集：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoro8.png" alt="ASCII" title="ASCII"></p>
+<p>计算机可以储存码点的二进制，由于最大的码点是127，二进制的长度都会小于或等于7比特，但由于计算机一般以1字节（8比特）为基本单位进行读写。所以为了凑整，这些二进制数在储存时，会在前面补零，用固定的8比特来储存每个字符。</p>
+<p>我们把从字符到计算机实际存储的内容之间的映射，叫做“<strong>编码</strong>”</p>
+<h3 id="2-其他编码"><a class="header-anchor" href="#2-其他编码"></a>2. 其他编码</h3>
+<p>但ASCII只支持128个字符，对于其他语言就不够用了，尤其是中、日、韩等国家的文字<br>
+于是，不同国家和地区开始制定自己的编码标准…</p>
+<p>比如我国大陆有1980年制定<strong>GB2312</strong><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，港澳台有<strong>Big5</strong><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。后来还有对GB2312进行扩展的<strong>GBK</strong><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>（收录了简繁体汉字、日文、韩文等），以及现在使用的<strong>GB18030</strong><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
+<h3 id="3-乱码的由来"><a class="header-anchor" href="#3-乱码的由来"></a>3. 乱码的由来</h3>
+<p>但标准不统一时，乱码问题也随之产生。</p>
+<p>因为计算机内存里的同一个数字，在不同的字符集里，代表的可能是完全不同的字符。</p>
+<p>如果你用一个GBK编码的文本编辑器，给你香港的朋友写个文档发送过去，在用大五码的文本编辑器读取后，就会变成这样：<br>
+<img src="https://s21.ax1x.com/2025/08/22/pVDoDdf.png" alt="乱码例子" title="乱码例子"></p>
+<h2 id="三-乱码问题的解决"><a class="header-anchor" href="#三-乱码问题的解决"></a>三. 乱码问题的解决</h2>
+<p>正因如此，人们急需一种囊括了人类世界所有字符的字符集，让全世界的人都能够使用<br>
+于是，<strong><a href="https://home.unicode.org/">Unicode</a></strong><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>诞生了：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoaQA.png" alt="UNICODE" title="UNICODE"></p>
+<p>随着版本的迭代，Unicode囊括的字符越来越多，包括汉字、平片假名、藏文、阿拉伯文，甚至是古象形文字。2010年，emoji也被纳入Unicode。如今Unicode已经包含了超过十四万个字符</p>
+<p><strong>拓展</strong>：在Python中，可以使用<code>ord('💩')  # return 128169</code>来查询字符对应的Unicode码点</p>
+<h2 id="四-Unicode的编码"><a class="header-anchor" href="#四-Unicode的编码"></a>四. Unicode的编码</h2>
+<p>需要注意的是，字符集只是字符及字符对应码点的集合，不代表字符一定会以对应码点被储存在计算机里，字符编码才是真正定义了从字符到计算机储存内容的映射。</p>
+<p>曾经大部分的字符集，都只有一种编码方式。而超级大的字符集Unicode，却有很多种编码<br>
+比如：<strong>UTF-8</strong>、<strong>UTF-16</strong>、<strong>UTF-32</strong>等</p>
+<p>其中，UTF-32让每个字符都以32比特，即4字节的长度来储存，位数不够就向前补零，32比特足够表示Unicode里所有字符。固定的长度，能够帮助计算机明确每个字符的截断范围。</p>
+<p>But，这样真的好吗？</p>
+<p>原本只占一个字节的英文字符（ASCII），放到UTF-32里却要占四个字节，这使得相同内容的英文文本，<b>UTF-32所占空间会是ASCII的四倍！</b>而且英文字符的码点在Unicode里数字较小，实际上很多空间都用来放零了。</p>
+<p><s>英文使用者：🤬🤬🤬</s></p>
+<p>同样的，原本只占两个字节的汉字（GBK），放到UTF-32里却要占四个字节，<strong>空间多占一倍！</strong></p>
+<p>为了改善空间效率，UTF-8于1992年诞生了！</p>
+<h2 id="五-UTF-8"><a class="header-anchor" href="#五-UTF-8"></a>五. UTF-8</h2>
+<p>UTF-8是针对Unicode的可变长度编码。<br>
+不同于编码后长度因定为32比特的UTF-32，UTF-8针对不同字符，编码后的长度可以是：32比特、24比特、16比特、8比特。</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDowLt.png" alt="可变长度编码" title="可变长度编码"></p>
+<p>规则：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoyFS.png" alt="UTF-8规则" title="UTF-8规则"></p>
+<p>优点：</p>
+<ol>
+<li>
+<p><strong>兼容ASCII</strong></p>
+<p>Unicode前128个字符，正好也是ASCIl的字符，码点一样。而且UTF-8也会把那些字符，映射为1字节长度，和ASCII编码相同</p>
+</li>
+<li>
+<p><strong>节约空间</strong></p>
+<p>UTF-8让Unicode里码点小的字符，也相应拥有更短的长度，通过前缀信息进行字符长度分辨，也解决了分割不明的问题</p>
+</li>
+</ol>
+<p>如今，UTF-8已经成为了最主流的编码，大部分时候它都是文本编辑器的默认选择，但有时仍然需要留意，UTF-8是否被支持或兼容，避免出现乱码。</p>
+<h2 id="六-“锟斤拷”"><a class="header-anchor" href="#六-“锟斤拷”"></a>六. “锟斤拷”</h2>
+<p>常见乱码“<strong>锟斤拷</strong>”是怎么来的？</p>
+<p>它一般在UTF-8和中文编码的转换过程中产生。</p>
+<p>Unicode字符集有一个特殊的替换符号：�，专门用于表示无法识别或展示的字符。<br>
+一些编辑器在通过UTF-8打开文本时，会把无法识别或展示的字符自动替换为这个替换符号，用于提示用户。<br>
+它在UTF-8编码后是这个3字节长度的二进制数字：</p>
+<p><code>11101111 10111111 10111101</code></p>
+<p>对应十六进制：</p>
+<p><code>EF BF BD</code></p>
+<p>如果用户在编辑器替换后点了保存，这个特殊符号就会被写入文件内容里。</p>
+<p>如果有两个替换符号恰好连在一起：��</p>
+<p>文件内容里就会有这个：</p>
+<p><code>EF BF BD EF BF BD</code></p>
+<p>如果这个时候，把文件再用GBK编码读取，打开后就会看到所有以前是两个替换符号的地方，现在都变成了“锟斤拷”。</p>
+<p>因为在GBK中，每个汉字占用两个字节，储存在计算机里的<code>EF BF</code>对应汉字“锟”，<code>BD EF</code>对应汉字“斤”，<code>BF BD</code>对应汉字”拷“</p>
+<p>连起来，就是”锟斤拷“</p>
+<hr>
+<p>参考资料：</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1xP4y1J7CS/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">你懂乱码吗？锟斤拷烫烫烫（详解ASCII、Unicode、UTF-32、UTF-8编码）</a></p>
+<p><a href="https://www.bilibili.com/video/BV1cB4y177QR/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">锟斤拷�⊠是怎样炼成的——中文显示“⼊”门指南【柴知道】</a></p>
+</blockquote>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><strong>ANSI</strong>美国国家标准学会(<em>AMERICAN NATIONAL STANDARDS INSTITUTE</em>)成立于1918年。致力于制订统一的通用标准 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><strong>ASCII</strong>(<em>American Standard Code for Information Interchange</em>)：美国信息交换标准代码是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><strong>GB2312</strong>是由中国国家标准总局1980年发布，1981年5月1日开始实施的一套国家标准 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><strong>Big5</strong>又称为大五码或五大码，是使用繁体中文（正体中文）社区中最常用的电脑汉字字符集标准，共收录13,060个汉字。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p><strong>GBK</strong>编码方案于1995年10月制定， 1995年12月正式发布。是在GB2312-80标准基础上的内码扩展规范，共23940个码位，共收录了21003个汉字，完全兼容GB2312-80标准。 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p><strong>GB18030</strong>于2022年7月28日发布，2023年8月1日正式实施。新国标共收录汉字87887个，比上一版增加录入了1.7万余个生僻汉字，覆盖中国绝大部分人名、地名用生僻字以及文献、科技等专业领域的用字，能够满足各类使用需求。 <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p><strong>Unicode</strong>，统一码，也叫万国码、单一码，由统一码联盟开发，是计算机科学领域里的一项业界标准，包括字符集、编码方案等。1990年开始研发，1994年正式发布1.0版本。 <a href="#fnref7" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+]]></content>
+      <categories>
+        <category>计算机社</category>
+      </categories>
+      <tags>
+        <tag>计算机社</tag>
+        <tag>计算机基础</tag>
+        <tag>字符编码</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>进制 - 详解</title>
     <url>/2025/08/15/number-systems/</url>
     <content><![CDATA[<blockquote>
@@ -431,122 +547,6 @@
       </tags>
   </entry>
   <entry>
-    <title>字符编码</title>
-    <url>/2025/08/21/character-encoding/</url>
-    <content><![CDATA[<blockquote>
-<p>“手持两把锟斤拷，口中疾呼烫烫烫”</p>
-</blockquote>
-<h2 id="一-乱码"><a class="header-anchor" href="#一-乱码"></a>一. 乱码</h2>
-<p>在使用电脑时，你是否遇见过下面的场景：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDodsI.png" alt="乱码" title="乱码"></p>
-<p>那么，乱码是怎么来的？“锟斤拷”又是什么鬼？</p>
-<h2 id="二-乱码是怎么来的？"><a class="header-anchor" href="#二-乱码是怎么来的？"></a>二. 乱码是怎么来的？</h2>
-<h3 id="1-ASCII"><a class="header-anchor" href="#1-ASCII"></a>1. ASCII</h3>
-<p>要知道，计算机可不认识什么文字，它们只认识数字<br>
-更准确地来讲，计算机只能够存储0和1的二进制数字</p>
-<p>所以，要想让计算机显示出文字，就得让这些字符以某种方式转换为二进制数字来存储，并在需要的时候进行读取</p>
-<p>1963年，ANSI<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>推出了<strong>ASCII</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，作为计算机及其他设备的文本字符编码标准</p>
-<p>ASCII包含了<strong>0~9的阿拉伯数字</strong>、<strong>小写英文字母</strong>、<strong>大写英文字母</strong>、<strong>常用的英文符号</strong>以及<strong>控制字符</strong></p>
-<p>ASCII一共收录了<strong>128</strong>个字符，每一个字符都有一个对应的数字，称为“<strong>码点</strong>”，ASCII字符集的码点，为0~127之间的数字，比如“A”对应码点65。</p>
-<p>标准所支持的所有字符及其对应码点的集合，叫做“<strong>字符集</strong>”，下面就是ASCII的字符集：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDoro8.png" alt="ASCII" title="ASCII"></p>
-<p>计算机可以储存码点的二进制，由于最大的码点是127，二进制的长度都会小于或等于7比特，但由于计算机一般以1字节（8比特）为基本单位进行读写。所以为了凑整，这些二进制数在储存时，会在前面补零，用固定的8比特来储存每个字符。</p>
-<p>我们把从字符到计算机实际存储的内容之间的映射，叫做“<strong>编码</strong>”</p>
-<h3 id="2-其他编码"><a class="header-anchor" href="#2-其他编码"></a>2. 其他编码</h3>
-<p>但ASCII只支持128个字符，对于其他语言就不够用了，尤其是中、日、韩等国家的文字<br>
-于是，不同国家和地区开始制定自己的编码标准…</p>
-<p>比如我国大陆有1980年制定<strong>GB2312</strong><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，港澳台有<strong>Big5</strong><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。后来还有对GB2312进行扩展的<strong>GBK</strong><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>（收录了简繁体汉字、日文、韩文等），以及现在使用的<strong>GB18030</strong><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
-<h3 id="3-乱码的由来"><a class="header-anchor" href="#3-乱码的由来"></a>3. 乱码的由来</h3>
-<p>但标准不统一时，乱码问题也随之产生。</p>
-<p>因为计算机内存里的同一个数字，在不同的字符集里，代表的可能是完全不同的字符。</p>
-<p>如果你用一个GBK编码的文本编辑器，给你香港的朋友写个文档发送过去，在用大五码的文本编辑器读取后，就会变成这样：<br>
-<img src="https://s21.ax1x.com/2025/08/22/pVDoDdf.png" alt="乱码例子" title="乱码例子"></p>
-<h2 id="三-乱码问题的解决"><a class="header-anchor" href="#三-乱码问题的解决"></a>三. 乱码问题的解决</h2>
-<p>正因如此，人们急需一种囊括了人类世界所有字符的字符集，让全世界的人都能够使用<br>
-于是，<strong><a href="https://home.unicode.org/">Unicode</a></strong><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>诞生了：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDoaQA.png" alt="UNICODE" title="UNICODE"></p>
-<p>随着版本的迭代，Unicode囊括的字符越来越多，包括汉字、平片假名、藏文、阿拉伯文，甚至是古象形文字。2010年，emoji也被纳入Unicode。如今Unicode已经包含了超过十四万个字符</p>
-<p><strong>拓展</strong>：在Python中，可以使用<code>ord('💩')  # return 128169</code>来查询字符对应的Unicode码点</p>
-<h2 id="四-Unicode的编码"><a class="header-anchor" href="#四-Unicode的编码"></a>四. Unicode的编码</h2>
-<p>需要注意的是，字符集只是字符及字符对应码点的集合，不代表字符一定会以对应码点被储存在计算机里，字符编码才是真正定义了从字符到计算机储存内容的映射。</p>
-<p>曾经大部分的字符集，都只有一种编码方式。而超级大的字符集Unicode，却有很多种编码<br>
-比如：<strong>UTF-8</strong>、<strong>UTF-16</strong>、<strong>UTF-32</strong>等</p>
-<p>其中，UTF-32让每个字符都以32比特，即4字节的长度来储存，位数不够就向前补零，32比特足够表示Unicode里所有字符。固定的长度，能够帮助计算机明确每个字符的截断范围。</p>
-<p>But，这样真的好吗？</p>
-<p>原本只占一个字节的英文字符（ASCII），放到UTF-32里却要占四个字节，这使得相同内容的英文文本，<b>UTF-32所占空间会是ASCII的四倍！</b>而且英文字符的码点在Unicode里数字较小，实际上很多空间都用来放零了。</p>
-<p><s>英文使用者：🤬🤬🤬</s></p>
-<p>同样的，原本只占两个字节的汉字（GBK），放到UTF-32里却要占四个字节，<strong>空间多占一倍！</strong></p>
-<p>为了改善空间效率，UTF-8于1992年诞生了！</p>
-<h2 id="五-UTF-8"><a class="header-anchor" href="#五-UTF-8"></a>五. UTF-8</h2>
-<p>UTF-8是针对Unicode的可变长度编码。<br>
-不同于编码后长度因定为32比特的UTF-32，UTF-8针对不同字符，编码后的长度可以是：32比特、24比特、16比特、8比特。</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDowLt.png" alt="可变长度编码" title="可变长度编码"></p>
-<p>规则：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDoyFS.png" alt="UTF-8规则" title="UTF-8规则"></p>
-<p>优点：</p>
-<ol>
-<li>
-<p><strong>兼容ASCII</strong></p>
-<p>Unicode前128个字符，正好也是ASCIl的字符，码点一样。而且UTF-8也会把那些字符，映射为1字节长度，和ASCII编码相同</p>
-</li>
-<li>
-<p><strong>节约空间</strong></p>
-<p>UTF-8让Unicode里码点小的字符，也相应拥有更短的长度，通过前缀信息进行字符长度分辨，也解决了分割不明的问题</p>
-</li>
-</ol>
-<p>如今，UTF-8已经成为了最主流的编码，大部分时候它都是文本编辑器的默认选择，但有时仍然需要留意，UTF-8是否被支持或兼容，避免出现乱码。</p>
-<h2 id="六-“锟斤拷”"><a class="header-anchor" href="#六-“锟斤拷”"></a>六. “锟斤拷”</h2>
-<p>常见乱码“<strong>锟斤拷</strong>”是怎么来的？</p>
-<p>它一般在UTF-8和中文编码的转换过程中产生。</p>
-<p>Unicode字符集有一个特殊的替换符号：�，专门用于表示无法识别或展示的字符。<br>
-一些编辑器在通过UTF-8打开文本时，会把无法识别或展示的字符自动替换为这个替换符号，用于提示用户。<br>
-它在UTF-8编码后是这个3字节长度的二进制数字：</p>
-<p><code>11101111 10111111 10111101</code></p>
-<p>对应十六进制：</p>
-<p><code>EF BF BD</code></p>
-<p>如果用户在编辑器替换后点了保存，这个特殊符号就会被写入文件内容里。</p>
-<p>如果有两个替换符号恰好连在一起：��</p>
-<p>文件内容里就会有这个：</p>
-<p><code>EF BF BD EF BF BD</code></p>
-<p>如果这个时候，把文件再用GBK编码读取，打开后就会看到所有以前是两个替换符号的地方，现在都变成了“锟斤拷”。</p>
-<p>因为在GBK中，每个汉字占用两个字节，储存在计算机里的<code>EF BF</code>对应汉字“锟”，<code>BD EF</code>对应汉字“斤”，<code>BF BD</code>对应汉字”拷“</p>
-<p>连起来，就是”锟斤拷“</p>
-<hr>
-<p>参考资料：</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/BV1xP4y1J7CS/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">你懂乱码吗？锟斤拷烫烫烫（详解ASCII、Unicode、UTF-32、UTF-8编码）</a></p>
-<p><a href="https://www.bilibili.com/video/BV1cB4y177QR/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">锟斤拷�⊠是怎样炼成的——中文显示“⼊”门指南【柴知道】</a></p>
-</blockquote>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><strong>ANSI</strong>美国国家标准学会(<em>AMERICAN NATIONAL STANDARDS INSTITUTE</em>)成立于1918年。致力于制订统一的通用标准 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p><strong>ASCII</strong>(<em>American Standard Code for Information Interchange</em>)：美国信息交换标准代码是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn3" class="footnote-item"><p><strong>GB2312</strong>是由中国国家标准总局1980年发布，1981年5月1日开始实施的一套国家标准 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn4" class="footnote-item"><p><strong>Big5</strong>又称为大五码或五大码，是使用繁体中文（正体中文）社区中最常用的电脑汉字字符集标准，共收录13,060个汉字。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn5" class="footnote-item"><p><strong>GBK</strong>编码方案于1995年10月制定， 1995年12月正式发布。是在GB2312-80标准基础上的内码扩展规范，共23940个码位，共收录了21003个汉字，完全兼容GB2312-80标准。 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn6" class="footnote-item"><p><strong>GB18030</strong>于2022年7月28日发布，2023年8月1日正式实施。新国标共收录汉字87887个，比上一版增加录入了1.7万余个生僻汉字，覆盖中国绝大部分人名、地名用生僻字以及文献、科技等专业领域的用字，能够满足各类使用需求。 <a href="#fnref6" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn7" class="footnote-item"><p><strong>Unicode</strong>，统一码，也叫万国码、单一码，由统一码联盟开发，是计算机科学领域里的一项业界标准，包括字符集、编码方案等。1990年开始研发，1994年正式发布1.0版本。 <a href="#fnref7" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
-]]></content>
-      <categories>
-        <category>计算机社</category>
-      </categories>
-      <tags>
-        <tag>计算机社</tag>
-        <tag>计算机基础</tag>
-        <tag>字符编码</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>1. 开始编程前的准备</title>
     <url>/2025/08/17/preparations-before-programming/</url>
     <content><![CDATA[<div class="note warning"><p>以下安装教程<u>仅适用于Windows</u>，请确保你的电脑版本在<u>Win10及以上</u>，信息有效性截止于<u>2025/4/19</u>，请注意甄别。</p>
@@ -719,6 +719,135 @@
       <tags>
         <tag>计算机社</tag>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Test Post</title>
+    <url>/2025/08/15/test-post/</url>
+    <content><![CDATA[<h1>本文章仅用于测试</h1>
+<p>测试测试测试</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Python类型注解（Type Hint）</title>
+    <url>/2026/01/02/python-type-hint/</url>
+    <content><![CDATA[<h2 id="一-类型注解介绍"><a class="header-anchor" href="#一-类型注解介绍"></a>一. 类型注解介绍</h2>
+<p>众所周知，Python是一门动态类型语言。与C、C++等静态类型语言不同，在Python中，定义变量不需要声明类型，一个变量上一秒是整型，下一秒就可以是字符串。</p>
+<p>这种灵活的特性可以给我们带来极大的便利，但也有一些缺点：我们没法一眼看出这个变量是什么类型、这个函数的返回值是什么类型、应该传什么类型的参数等等，必要时还需要自己进入函数去研究它的源代码。由类型引发的错误可能会随着代码量的上升而增加。💩</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">divide</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">return</span> num // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">divide(<span class="string">&#x27;10&#x27;</span>)  <span class="comment"># 你试试会不会报错:)</span></span><br></pre></td></tr></table></figure>
+<p>为了解决这个问题，Python从3.5版本逐渐引入了类型注解的特性。它可以让你在写Python代码时可选地为变量、参数、返回值标注类型。</p>
+<p>类型注解的优势：</p>
+<ul>
+<li>可以提高代码的可读性和可维护性；</li>
+<li>在运行前就能通过静态类型检查器检测出类型导致的错误；</li>
+<li>让代码编辑器提供更全面的智能补全功能。<s>偷懒这一块</s></li>
+</ul>
+<h2 id="二-基础类型"><a class="header-anchor" href="#二-基础类型"></a>二. 基础类型</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 变量</span></span><br><span class="line">name: <span class="built_in">str</span> = <span class="string">&quot;张三&quot;</span></span><br><span class="line">age: <span class="built_in">int</span> = <span class="number">5</span></span><br><span class="line">price: <span class="built_in">float</span> = <span class="number">19.99</span></span><br><span class="line">is_active: <span class="built_in">bool</span> = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数参数和返回值</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greet</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;Hello, <span class="subst">&#123;name&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三-容器类型"><a class="header-anchor" href="#三-容器类型"></a>三. 容器类型</h2>
+<p>注：<code>typing</code>模块自Python 3.5引入，用于支持类型注解，包含了丰富的类型注解工具。</p>
+<h3 id="1-列表"><a class="header-anchor" href="#1-列表"></a>1. 列表</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line">s: <span class="type">List</span>[<span class="built_in">int</span>] = [<span class="number">4</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_average</span>(<span class="params">scores: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(scores) / <span class="built_in">len</span>(scores)</span><br></pre></td></tr></table></figure>
+<h3 id="2-元组"><a class="header-anchor" href="#2-元组"></a>2. 元组</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line">p: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>] = (<span class="number">300</span>, <span class="number">400</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_dis</span>(<span class="params">point: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    x, y = point</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> + y**<span class="number">2</span>) ** <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-字典"><a class="header-anchor" href="#3-字典"></a>3. 字典</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span></span><br><span class="line"></span><br><span class="line">g: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>] = &#123;</span><br><span class="line">    <span class="string">&quot;语文&quot;</span>: <span class="number">90</span>,</span><br><span class="line">    <span class="string">&quot;数学&quot;</span>: <span class="number">85</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_average</span>(<span class="params">grades: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(grades.values()) / <span class="built_in">len</span>(grades)</span><br></pre></td></tr></table></figure>
+<h3 id="4-集合"><a class="header-anchor" href="#4-集合"></a>4. 集合</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Set</span></span><br><span class="line"></span><br><span class="line">s: <span class="type">Set</span>[<span class="built_in">int</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_max</span>(<span class="params">ids: <span class="type">Set</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(ids)</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>可以直接使用内置容器类型进行注解（但内置容器类型后直接加方括号的语法直到Python 3.9后才支持），如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_average</span>(<span class="params">scores: <span class="built_in">list</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(scores) / <span class="built_in">len</span>(scores)</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="四-进阶类型"><a class="header-anchor" href="#四-进阶类型"></a>四. 进阶类型</h2>
+<h3 id="1-多种类型"><a class="header-anchor" href="#1-多种类型"></a>1. 多种类型</h3>
+<p><code>Union</code>表示一个值可以是多种类型中的一种。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Union</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="literal">None</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>自Python 3.10版本起可以使用<code>|</code>语法代替：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="built_in">int</span> | <span class="literal">None</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+</div>
+<h3 id="2-可选类型"><a class="header-anchor" href="#2-可选类型"></a>2. 可选类型</h3>
+<p><code>Optional[T]</code>等价于<code>Union[T, None]</code>，表示一个值可以是类型<code>T</code>或者<code>None</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Optional</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Optional</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<h3 id="3-任意类型"><a class="header-anchor" href="#3-任意类型"></a>3. 任意类型</h3>
+<p><code>Any</code>表示可以是任意类型。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Any</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Any</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>避免过度使用<code>Any</code>，尽可能使用具体的类型来注解。</p>
+</div>
+<h3 id="4-无返回值类型"><a class="header-anchor" href="#4-无返回值类型"></a>4. 无返回值类型</h3>
+<p><code>NoReturn</code>表示不会正常返回的函数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> NoReturn</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">error</span>() -&gt; NoReturn:</span><br><span class="line">    <span class="keyword">raise</span> ValueError</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exit</span>() -&gt; NoReturn:</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">forever</span>() -&gt; NoReturn:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-可调用类型"><a class="header-anchor" href="#5-可调用类型"></a>5. 可调用类型</h3>
+<p><code>Callable</code>表示可以被调用的类型。</p>
+<p>高阶函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Callable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">operate</span>(<span class="params">func: <span class="type">Callable</span>[[<span class="built_in">int</span>, <span class="built_in">int</span>], <span class="built_in">int</span>], x: <span class="built_in">int</span>, y: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> func(x, y)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">power</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> a ** b</span><br></pre></td></tr></table></figure>
+<p><code>Callable</code>可以做进一步的定义，即这个可调用对象的参数类型和返回值类型。</p>
+<p>第一个是参数类型，需要使用方括号包裹，第二个是返回值类型。</p>
+<p>装饰器：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Callable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dec</span>(<span class="params">f: <span class="type">Callable</span>[[<span class="built_in">int</span>, <span class="built_in">int</span>], <span class="built_in">int</span>]</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;args = <span class="subst">&#123;a&#125;</span>, <span class="subst">&#123;b&#125;</span>&#x27;</span>)</span><br><span class="line">        ret = f(a, b)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;result = <span class="subst">&#123;ret&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@dec</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br></pre></td></tr></table></figure>
+<h3 id="6-字面量类型"><a class="header-anchor" href="#6-字面量类型"></a>6. 字面量类型</h3>
+<p><code>Literal</code>表示必须是某个具体的值，而不仅仅是某个类型。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Literal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_status</span>(<span class="params">status: <span class="type">Literal</span>[<span class="string">&quot;success&quot;</span>, <span class="string">&quot;error&quot;</span>, <span class="string">&quot;pending&quot;</span>]</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Status: <span class="subst">&#123;status&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>对于：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Literal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name: <span class="built_in">str</span>, gender: <span class="type">Literal</span>[<span class="string">&quot;male&quot;</span>, <span class="string">&quot;female&quot;</span>]</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.gender = gender</span><br><span class="line"></span><br><span class="line">g = <span class="string">&quot;female&quot;</span></span><br><span class="line">a = Person(<span class="string">&quot;Bob&quot;</span>, g)</span><br><span class="line">b = Person(<span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;male&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">error: Argument 2 to &quot;Person&quot; has incompatible type &quot;str&quot;; expected &quot;Literal[&#x27;male&#x27;, &#x27;female&#x27;]&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
+<p>因为Python只知道<code>g</code>是一个字符串，而不知道它是具体的&quot;female&quot;这个值。</p>
+<p>此时需要注解<code>g</code>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g: <span class="type">Literal</span>[<span class="string">&quot;male&quot;</span>, <span class="string">&quot;female&quot;</span>] = <span class="string">&quot;female&quot;</span></span><br></pre></td></tr></table></figure>
+</div>
+<h3 id="7-泛型"><a class="header-anchor" href="#7-泛型"></a>7. 泛型</h3>
+<p>泛型表示可重用的类型模板：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> TypeVar</span><br><span class="line"></span><br><span class="line">T = TypeVar(<span class="string">&#x27;T&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_two_items</span>(<span class="params">a: T, b: T</span>) -&gt; T:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<p><code>T</code>表示任意类型，但是函数参数<code>a</code>、<code>b</code>和返回值类型必须都是这个类型。</p>
+<p>可以进一步约束类型，限制<code>T</code>是整数、浮点数或者字符串：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">T = TypeVar(<span class="string">&#x27;T&#x27;</span>, <span class="built_in">int</span>, <span class="built_in">float</span>, <span class="built_in">str</span>)</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>Python 3.12提供了简化语法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_two_items</span>[T: (<span class="built_in">int</span>, <span class="built_in">float</span>, <span class="built_in">str</span>)](a: T, b: T) -&gt; T:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">0.9</span>, <span class="number">1.9</span>))</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="五-类型别名"><a class="header-anchor" href="#五-类型别名"></a>五. 类型别名</h2>
+<p>类型注解本身也是一个对象，因此我们可以为复杂类型创建别名来提高可读性，例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line">PointType = <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_dis</span>(<span class="params">loc: PointType</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    x, y = loc</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> + y**<span class="number">2</span>) ** <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h2 id="六-自定义类型"><a class="header-anchor" href="#六-自定义类型"></a>六. 自定义类型</h2>
+<p>给类型起别名并不会创建一个新的类型，原名和别名本质上是同一个类型。如果你不小心混用了这些名称，类型检查器无法检测出这种逻辑上的错误：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">UserId = <span class="built_in">int</span></span><br><span class="line">OrderId = <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span>: UserId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除用户 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>(<span class="params"><span class="built_in">id</span>: OrderId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除订单 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">user_id: UserId = <span class="number">1</span></span><br><span class="line">order_id: OrderId = <span class="number">123</span></span><br><span class="line"></span><br><span class="line">delete_user(order_id)  <span class="comment"># 错写</span></span><br><span class="line">delete_order(user_id)  <span class="comment"># 错写</span></span><br></pre></td></tr></table></figure>
+<p>虽然写错了，但由于<code>order_id</code>、<code>UserId</code>和<code>int</code>被视为同一个东西，类型检查器无法检测出这个漏洞。要解决这个问题，必须创建真正的自定义类型，将<code>int</code>、<code>UserId</code>、<code>OrderId</code>三者区分开来。</p>
+<p><code>NewType</code>可以创建真正的自定义类型，语法为：<code>新类型名称 = NewType('新类型名称', 自定义类型)</code>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> NewType</span><br><span class="line"></span><br><span class="line">UserId = NewType(<span class="string">&quot;UserId&quot;</span>, <span class="built_in">int</span>)</span><br><span class="line">OrderId = NewType(<span class="string">&quot;OrderId&quot;</span>, <span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span>: UserId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除用户 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>(<span class="params"><span class="built_in">id</span>: OrderId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除订单 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">user_id = UserId(<span class="number">1</span>)</span><br><span class="line">order_id = OrderId(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line">delete_user(order_id)</span><br><span class="line">delete_order(user_id)</span><br></pre></td></tr></table></figure>
+<p>现在静态类型检查器可以检测出问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">test.py:15: error: Argument 1 to &quot;delete_user&quot; has incompatible type &quot;OrderId&quot;; expected &quot;UserId&quot;  [arg-type]</span><br><span class="line">test.py:16: error: Argument 1 to &quot;delete_order&quot; has incompatible type &quot;UserId&quot;; expected &quot;OrderId&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>要使用<code>NewType</code>创建的新类型，需要显式地将值转换成这个新类型，否则会被视为两个不一样的类型。</p>
+<p>在上面的例子中，必须用<code>UserId(1)</code>和<code>OrderId(123)</code>将<code>1</code>和<code>123</code>转化成<code>UserId</code>和<code>OrderId</code>，因为<code>int</code>、<code>UserId</code>、<code>OrderId</code>三者均被视为不同的类型。</p>
+<p>如果写成：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user_id = <span class="number">1</span></span><br><span class="line">order_id = <span class="number">123</span></span><br></pre></td></tr></table></figure>
+<p>就会<s>爆炸</s>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">test.py:15: error: Argument 1 to &quot;delete_user&quot; has incompatible type &quot;int&quot;; expected &quot;UserId&quot;  [arg-type]</span><br><span class="line">test.py:16: error: Argument 1 to &quot;delete_order&quot; has incompatible type &quot;int&quot;; expected &quot;OrderId&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="七-静态类型检查器"><a class="header-anchor" href="#七-静态类型检查器"></a>七. 静态类型检查器</h2>
+<p><strong>静态类型检查器</strong>是一种在代码运行前进行类型分析的工具。</p>
+<p><strong>mypy</strong>是一个流行的静态类型检查工具。</p>
+<p>安装：</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install mypy</span><br></pre></td></tr></table></figure>
+<p>运行类型检查：</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mypy *.py</span><br></pre></td></tr></table></figure>
+<hr>
+<p>VS Code内置了Pyright作为其类型检查工具（需要安装Pylance扩展），开启方式为：</p>
+<ol>
+<li>
+<p>点击右下角状态栏花括号，点击“选择类型检查模式”：</p>
+<p><img src="https://s41.ax1x.com/2026/01/02/pZUJJxA.png" alt="VS Code1"></p>
+</li>
+<li>
+<p>选择模式：</p>
+<p><img src="https://s41.ax1x.com/2026/01/02/pZUJtKI.png" alt="VS Code2"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>Python进阶</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>类型注解</tag>
       </tags>
   </entry>
   <entry>
@@ -1150,143 +1279,14 @@
 <p>感谢！<strong>(≧∀≦)ゞ</strong></p>
 ]]></content>
       <categories>
-        <category>教程</category>
         <category>Python进阶</category>
+        <category>教程</category>
       </categories>
       <tags>
         <tag>Python</tag>
         <tag>装饰器</tag>
         <tag>迭代器</tag>
         <tag>生成器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Test Post</title>
-    <url>/2025/08/15/test-post/</url>
-    <content><![CDATA[<h1>本文章仅用于测试</h1>
-<p>测试测试测试</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Python类型注解（Type Hint）</title>
-    <url>/2026/01/02/python-type-hint/</url>
-    <content><![CDATA[<h2 id="一-类型注解介绍"><a class="header-anchor" href="#一-类型注解介绍"></a>一. 类型注解介绍</h2>
-<p>众所周知，Python是一门动态类型语言。与C、C++等静态类型语言不同，在Python中，定义变量不需要声明类型，一个变量上一秒是整型，下一秒就可以是字符串。</p>
-<p>这种灵活的特性可以给我们带来极大的便利，但也有一些缺点：我们没法一眼看出这个变量是什么类型、这个函数的返回值是什么类型、应该传什么类型的参数等等，必要时还需要自己进入函数去研究它的源代码。由类型引发的错误可能会随着代码量的上升而增加。💩</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">divide</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">return</span> num // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">divide(<span class="string">&#x27;10&#x27;</span>)  <span class="comment"># 你试试会不会报错:)</span></span><br></pre></td></tr></table></figure>
-<p>为了解决这个问题，Python从3.5版本逐渐引入了类型注解的特性。它可以让你在写Python代码时可选地为变量、参数、返回值标注类型。</p>
-<p>类型注解的优势：</p>
-<ul>
-<li>可以提高代码的可读性和可维护性；</li>
-<li>在运行前就能通过静态类型检查器检测出类型导致的错误；</li>
-<li>让代码编辑器提供更全面的智能补全功能。<s>偷懒这一块</s></li>
-</ul>
-<h2 id="二-基础类型"><a class="header-anchor" href="#二-基础类型"></a>二. 基础类型</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 变量</span></span><br><span class="line">name: <span class="built_in">str</span> = <span class="string">&quot;张三&quot;</span></span><br><span class="line">age: <span class="built_in">int</span> = <span class="number">5</span></span><br><span class="line">price: <span class="built_in">float</span> = <span class="number">19.99</span></span><br><span class="line">is_active: <span class="built_in">bool</span> = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数参数和返回值</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greet</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;Hello, <span class="subst">&#123;name&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<h2 id="三-容器类型"><a class="header-anchor" href="#三-容器类型"></a>三. 容器类型</h2>
-<p>注：<code>typing</code>模块自Python 3.5引入，用于支持类型注解，包含了丰富的类型注解工具。</p>
-<h3 id="1-列表"><a class="header-anchor" href="#1-列表"></a>1. 列表</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line">s: <span class="type">List</span>[<span class="built_in">int</span>] = [<span class="number">4</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_average</span>(<span class="params">scores: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(scores) / <span class="built_in">len</span>(scores)</span><br></pre></td></tr></table></figure>
-<h3 id="2-元组"><a class="header-anchor" href="#2-元组"></a>2. 元组</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line">p: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>] = (<span class="number">300</span>, <span class="number">400</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_dis</span>(<span class="params">point: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    x, y = point</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> + y**<span class="number">2</span>) ** <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-字典"><a class="header-anchor" href="#3-字典"></a>3. 字典</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span></span><br><span class="line"></span><br><span class="line">g: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>] = &#123;</span><br><span class="line">    <span class="string">&quot;语文&quot;</span>: <span class="number">90</span>,</span><br><span class="line">    <span class="string">&quot;数学&quot;</span>: <span class="number">85</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_average</span>(<span class="params">grades: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(grades.values()) / <span class="built_in">len</span>(grades)</span><br></pre></td></tr></table></figure>
-<h3 id="4-集合"><a class="header-anchor" href="#4-集合"></a>4. 集合</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Set</span></span><br><span class="line"></span><br><span class="line">s: <span class="type">Set</span>[<span class="built_in">int</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_max</span>(<span class="params">ids: <span class="type">Set</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(ids)</span><br></pre></td></tr></table></figure>
-<div class="note info"><p>可以直接使用内置容器类型进行注解（但内置容器类型后直接加方括号的语法直到Python 3.9后才支持），如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_average</span>(<span class="params">scores: <span class="built_in">list</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(scores) / <span class="built_in">len</span>(scores)</span><br></pre></td></tr></table></figure>
-</div>
-<h2 id="四-进阶类型"><a class="header-anchor" href="#四-进阶类型"></a>四. 进阶类型</h2>
-<h3 id="1-多种类型"><a class="header-anchor" href="#1-多种类型"></a>1. 多种类型</h3>
-<p><code>Union</code>表示一个值可以是多种类型中的一种。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Union</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="literal">None</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<div class="note info"><p>自Python 3.10版本起可以使用<code>|</code>语法代替：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="built_in">int</span> | <span class="literal">None</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-</div>
-<h3 id="2-可选类型"><a class="header-anchor" href="#2-可选类型"></a>2. 可选类型</h3>
-<p><code>Optional[T]</code>等价于<code>Union[T, None]</code>，表示一个值可以是类型<code>T</code>或者<code>None</code>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Optional</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Optional</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">if</span> x <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<h3 id="3-任意类型"><a class="header-anchor" href="#3-任意类型"></a>3. 任意类型</h3>
-<p><code>Any</code>表示可以是任意类型。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Any</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x: <span class="type">Any</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<div class="note warning"><p>避免过度使用<code>Any</code>，尽可能使用具体的类型来注解。</p>
-</div>
-<h3 id="4-无返回值类型"><a class="header-anchor" href="#4-无返回值类型"></a>4. 无返回值类型</h3>
-<p><code>NoReturn</code>表示不会正常返回的函数。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> NoReturn</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">error</span>() -&gt; NoReturn:</span><br><span class="line">    <span class="keyword">raise</span> ValueError</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exit</span>() -&gt; NoReturn:</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">forever</span>() -&gt; NoReturn:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-可调用类型"><a class="header-anchor" href="#5-可调用类型"></a>5. 可调用类型</h3>
-<p><code>Callable</code>表示可以被调用的类型。</p>
-<p>高阶函数：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Callable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">operate</span>(<span class="params">func: <span class="type">Callable</span>[[<span class="built_in">int</span>, <span class="built_in">int</span>], <span class="built_in">int</span>], x: <span class="built_in">int</span>, y: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> func(x, y)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">power</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> a ** b</span><br></pre></td></tr></table></figure>
-<p><code>Callable</code>可以做进一步的定义，即这个可调用对象的参数类型和返回值类型。</p>
-<p>第一个是参数类型，需要使用方括号包裹，第二个是返回值类型。</p>
-<p>装饰器：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Callable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dec</span>(<span class="params">f: <span class="type">Callable</span>[[<span class="built_in">int</span>, <span class="built_in">int</span>], <span class="built_in">int</span>]</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;args = <span class="subst">&#123;a&#125;</span>, <span class="subst">&#123;b&#125;</span>&#x27;</span>)</span><br><span class="line">        ret = f(a, b)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;result = <span class="subst">&#123;ret&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@dec</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br></pre></td></tr></table></figure>
-<h3 id="6-字面量类型"><a class="header-anchor" href="#6-字面量类型"></a>6. 字面量类型</h3>
-<p><code>Literal</code>表示必须是某个具体的值，而不仅仅是某个类型。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Literal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_status</span>(<span class="params">status: <span class="type">Literal</span>[<span class="string">&quot;success&quot;</span>, <span class="string">&quot;error&quot;</span>, <span class="string">&quot;pending&quot;</span>]</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Status: <span class="subst">&#123;status&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-<div class="note warning"><p>对于：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Literal</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name: <span class="built_in">str</span>, gender: <span class="type">Literal</span>[<span class="string">&quot;male&quot;</span>, <span class="string">&quot;female&quot;</span>]</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.gender = gender</span><br><span class="line"></span><br><span class="line">g = <span class="string">&quot;female&quot;</span></span><br><span class="line">a = Person(<span class="string">&quot;Bob&quot;</span>, g)</span><br><span class="line">b = Person(<span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;male&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">error: Argument 2 to &quot;Person&quot; has incompatible type &quot;str&quot;; expected &quot;Literal[&#x27;male&#x27;, &#x27;female&#x27;]&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
-<p>因为Python只知道<code>g</code>是一个字符串，而不知道它是具体的&quot;female&quot;这个值。</p>
-<p>此时需要注解<code>g</code>：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">g: <span class="type">Literal</span>[<span class="string">&quot;male&quot;</span>, <span class="string">&quot;female&quot;</span>] = <span class="string">&quot;female&quot;</span></span><br></pre></td></tr></table></figure>
-</div>
-<h3 id="7-泛型"><a class="header-anchor" href="#7-泛型"></a>7. 泛型</h3>
-<p>泛型表示可重用的类型模板：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> TypeVar</span><br><span class="line"></span><br><span class="line">T = TypeVar(<span class="string">&#x27;T&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_two_items</span>(<span class="params">a: T, b: T</span>) -&gt; T:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-<p><code>T</code>表示任意类型，但是函数参数<code>a</code>、<code>b</code>和返回值类型必须都是这个类型。</p>
-<p>可以进一步约束类型，限制<code>T</code>是整数、浮点数或者字符串：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">T = TypeVar(<span class="string">&#x27;T&#x27;</span>, <span class="built_in">int</span>, <span class="built_in">float</span>, <span class="built_in">str</span>)</span><br></pre></td></tr></table></figure>
-<div class="note info"><p>Python 3.12提供了简化语法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_two_items</span>[T: (<span class="built_in">int</span>, <span class="built_in">float</span>, <span class="built_in">str</span>)](a: T, b: T) -&gt; T:</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(add_two_items(<span class="number">0.9</span>, <span class="number">1.9</span>))</span><br></pre></td></tr></table></figure>
-</div>
-<h2 id="五-类型别名"><a class="header-anchor" href="#五-类型别名"></a>五. 类型别名</h2>
-<p>类型注解本身也是一个对象，因此我们可以为复杂类型创建别名来提高可读性，例如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Tuple</span></span><br><span class="line"></span><br><span class="line">PointType = <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_dis</span>(<span class="params">loc: PointType</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    x, y = loc</span><br><span class="line">    <span class="keyword">return</span> (x**<span class="number">2</span> + y**<span class="number">2</span>) ** <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
-<h2 id="六-自定义类型"><a class="header-anchor" href="#六-自定义类型"></a>六. 自定义类型</h2>
-<p>给类型起别名并不会创建一个新的类型。对于人类而言，别名和原名具有不同的逻辑含义，但在类型检查器眼中，它们本质上是同一个类型。所以如果你不小心混用了这些名称，类型检查器无法检测出这种逻辑上的错误：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">UserId = <span class="built_in">int</span></span><br><span class="line">OrderId = <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span>: UserId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除用户 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>(<span class="params"><span class="built_in">id</span>: OrderId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除订单 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">user_id: UserId = <span class="number">1</span></span><br><span class="line">order_id: OrderId = <span class="number">123</span></span><br><span class="line"></span><br><span class="line">delete_user(order_id)  <span class="comment"># 错写</span></span><br><span class="line">delete_order(user_id)  <span class="comment"># 错写</span></span><br></pre></td></tr></table></figure>
-<p>虽然写错了，但由于<code>order_id</code>、<code>UserId</code>和<code>int</code>被视为同一个东西，类型检查器无法检测出这个漏洞。要解决这个问题，必须创建真正的自定义类型，将<code>int</code>、<code>UserId</code>、<code>OrderId</code>三者区分开来。</p>
-<p><code>NewType</code>可以创建真正的自定义类型，语法为：<code>新类型名称 = NewType('新类型名称', 自定义类型)</code>：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> NewType</span><br><span class="line"></span><br><span class="line">UserId = NewType(<span class="string">&quot;UserId&quot;</span>, <span class="built_in">int</span>)</span><br><span class="line">OrderId = NewType(<span class="string">&quot;OrderId&quot;</span>, <span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_user</span>(<span class="params"><span class="built_in">id</span>: UserId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除用户 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>(<span class="params"><span class="built_in">id</span>: OrderId</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;删除订单 <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">user_id = UserId(<span class="number">1</span>)</span><br><span class="line">order_id = OrderId(<span class="number">123</span>)</span><br><span class="line"></span><br><span class="line">delete_user(order_id)</span><br><span class="line">delete_order(user_id)</span><br></pre></td></tr></table></figure>
-<p>现在静态类型检查器可以检测出问题：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">test.py:15: error: Argument 1 to &quot;delete_user&quot; has incompatible type &quot;OrderId&quot;; expected &quot;UserId&quot;  [arg-type]</span><br><span class="line">test.py:16: error: Argument 1 to &quot;delete_order&quot; has incompatible type &quot;UserId&quot;; expected &quot;OrderId&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
-<div class="note warning"><p>要使用<code>NewType</code>创建的新类型，需要显式地将值转换成这个新类型，否则会被视为两个不一样的类型。</p>
-<p>在上面的例子中，必须用<code>UserId(1)</code>和<code>OrderId(123)</code>将<code>1</code>和<code>123</code>转化成<code>UserId</code>和<code>OrderId</code>，因为<code>int</code>、<code>UserId</code>、<code>OrderId</code>三者均被视为不同的类型。</p>
-<p>如果写成：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user_id = <span class="number">1</span></span><br><span class="line">order_id = <span class="number">123</span></span><br></pre></td></tr></table></figure>
-<p>就会<s>爆炸</s>：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">test.py:15: error: Argument 1 to &quot;delete_user&quot; has incompatible type &quot;int&quot;; expected &quot;UserId&quot;  [arg-type]</span><br><span class="line">test.py:16: error: Argument 1 to &quot;delete_order&quot; has incompatible type &quot;int&quot;; expected &quot;OrderId&quot;  [arg-type]</span><br></pre></td></tr></table></figure>
-</div>
-<h2 id="七-静态类型检查器"><a class="header-anchor" href="#七-静态类型检查器"></a>七. 静态类型检查器</h2>
-<p><strong>静态类型检查器</strong>是一种在代码运行前进行类型分析的工具。</p>
-<p><strong>mypy</strong>是一个流行的静态类型检查工具。</p>
-<p>安装：</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install mypy</span><br></pre></td></tr></table></figure>
-<p>运行类型检查：</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mypy *.py</span><br></pre></td></tr></table></figure>
-<hr>
-<p>VS Code内置了Pyright作为其类型检查工具（需要安装Pylance扩展），开启方式为：</p>
-<ol>
-<li>
-<p>点击右下角状态栏花括号，点击“选择类型检查模式”：</p>
-<p><img src="https://s41.ax1x.com/2026/01/02/pZUJJxA.png" alt="VS Code1"></p>
-</li>
-<li>
-<p>选择模式：</p>
-<p><img src="https://s41.ax1x.com/2026/01/02/pZUJtKI.png" alt="VS Code2"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Python进阶</category>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>类型注解</tag>
       </tags>
   </entry>
 </search>
