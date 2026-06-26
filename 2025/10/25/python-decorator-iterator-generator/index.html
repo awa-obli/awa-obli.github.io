@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://s21.ax1x.com/2025/10/25/pVv0yXn.png">
 <meta property="og:image" content="https://s21.ax1x.com/2025/10/25/pVv0cmq.png">
 <meta property="article:published_time" content="2025-10-25T12:25:46.000Z">
-<meta property="article:modified_time" content="2026-01-31T11:28:45.260Z">
+<meta property="article:modified_time" content="2026-06-26T13:19:22.108Z">
 <meta property="article:author" content="awa">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="生成器">
@@ -283,7 +283,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-31 19:28:45" itemprop="dateModified" datetime="2026-01-31T19:28:45+08:00">2026-01-31</time>
+      <time title="修改时间：2026-06-26 21:19:22" itemprop="dateModified" datetime="2026-06-26T21:19:22+08:00">2026-06-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -431,7 +431,7 @@
 <p>这个程序用迭代器实现了链表的遍历。在这里，<code>Node</code>是一个可迭代对象类，<code>NodeIter</code>是一个迭代器类。</p>
 <p>可以看见，<code>Node</code>实现了一个<code>__iter__</code>方法，返回对应的迭代器。<br>
 <code>NodeIter</code>实现了一个<code>__next__</code>方法，返回下一个值（如果有）或者引发一个<code>StopIteration</code>的异常。</p>
-<p>可是，为什么这里的<code>NodeIter</code>没有实现<code>__iter__</code>方法呢？</p>
+<p>按照我们前面的定义，迭代器必须包含<code>__iter__</code>和<code>__next__</code>这两个魔法方法，可是这里的<code>NodeIter</code>没有实现<code>__iter__</code>方法却依然可以正常工作，可见迭代器并不一定要实现<code>__iter__</code>方法，那么为什么还会有这么一条规定呢?</p>
 <p>官方给出的解释是：</p>
 <blockquote>
 <p>迭代器必须具有<code>__iter__()</code>方法用来返回该迭代器对象自身，因此迭代器必定也是可迭代对象，可被用于其他可迭代对象适用的大部分场合。</p>
@@ -574,8 +574,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/08/21/character-encoding/" rel="prev" title="字符编码">
-                  <i class="fa fa-angle-left"></i> 字符编码
+                <a href="/2025/08/17/preparations-before-programming/" rel="prev" title="1. 开始编程前的准备">
+                  <i class="fa fa-angle-left"></i> 1. 开始编程前的准备
                 </a>
             </div>
             <div class="post-nav-item">

@@ -1,195 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>0. 编程入门</title>
-    <url>/2025/08/17/programming-intro/</url>
+    <title>字符编码</title>
+    <url>/2025/08/15/character-encoding/</url>
     <content><![CDATA[<blockquote>
-<p>“<em>Programming is the art of understanding.</em>”</p>
+<p>“手持两把锟斤拷，口中疾呼烫烫烫”</p>
 </blockquote>
-<h1 style="text-align: center;">Part.1 编程基础</h1>
-<h2 id="一-什么是编程-Programming-？"><a class="header-anchor" href="#一-什么是编程-Programming-？"></a>一. 什么是编程(<em>Programming</em>)？</h2>
-<blockquote>
-<p>编写程序：<strong>用<mark>代码</mark>指挥计算机做事</strong></p>
-</blockquote>
-<h2 id="二-什么是代码-Code-？"><a class="header-anchor" href="#二-什么是代码-Code-？"></a>二. 什么是代码(Code)？</h2>
-<blockquote>
-<p><strong>给计算机下达的指令</strong></p>
-</blockquote>
-<h3 id="特点："><a class="header-anchor" href="#特点："></a>特点：</h3>
+<h2 id="一-乱码"><a class="header-anchor" href="#一-乱码"></a>一. 乱码</h2>
+<p>在使用电脑时，你是否遇见过下面的场景：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDodsI.png" alt="乱码" title="乱码"></p>
+<p>那么，乱码是怎么来的？“锟斤拷”又是什么鬼？</p>
+<h2 id="二-乱码是怎么来的？"><a class="header-anchor" href="#二-乱码是怎么来的？"></a>二. 乱码是怎么来的？</h2>
+<h3 id="1-ASCII"><a class="header-anchor" href="#1-ASCII"></a>1. ASCII</h3>
+<p>要知道，计算机可不认识什么文字，它们只认识数字<br>
+更准确地来讲，计算机只能够存储0和1的二进制数字</p>
+<p>所以，要想让计算机显示出文字，就得让这些字符以某种方式转换为二进制数字来存储，并在需要的时候进行读取</p>
+<p>1963年，ANSI<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>推出了<strong>ASCII</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，作为计算机及其他设备的文本字符编码标准</p>
+<p>ASCII包含了<strong>0~9的阿拉伯数字</strong>、<strong>小写英文字母</strong>、<strong>大写英文字母</strong>、<strong>常用的英文符号</strong>以及<strong>控制字符</strong></p>
+<p>ASCII一共收录了<strong>128</strong>个字符，每一个字符都有一个对应的数字，称为“<strong>码点</strong>”，ASCII字符集的码点，为0~127之间的数字，比如“A”对应码点65。</p>
+<p>标准所支持的所有字符及其对应码点的集合，叫做“<strong>字符集</strong>”，下面就是ASCII的字符集：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoro8.png" alt="ASCII" title="ASCII"></p>
+<p>计算机可以储存码点的二进制，由于最大的码点是127，二进制的长度都会小于或等于7比特，但由于计算机一般以1字节（8比特）为基本单位进行读写。所以为了凑整，这些二进制数在储存时，会在前面补零，用固定的8比特来储存每个字符。</p>
+<p>我们把从字符到计算机实际存储的内容之间的映射，叫做“<strong>编码</strong>”</p>
+<h3 id="2-其他编码"><a class="header-anchor" href="#2-其他编码"></a>2. 其他编码</h3>
+<p>但ASCII只支持128个字符，对于其他语言就不够用了，尤其是中、日、韩等国家的文字<br>
+于是，不同国家和地区开始制定自己的编码标准…</p>
+<p>比如我国大陆有1980年制定<strong>GB2312</strong><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，港澳台有<strong>Big5</strong><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。后来还有对GB2312进行扩展的<strong>GBK</strong><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>（收录了简繁体汉字、日文、韩文等），以及现在使用的<strong>GB18030</strong><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
+<h3 id="3-乱码的由来"><a class="header-anchor" href="#3-乱码的由来"></a>3. 乱码的由来</h3>
+<p>但标准不统一时，乱码问题也随之产生。</p>
+<p>因为计算机内存里的同一个数字，在不同的字符集里，代表的可能是完全不同的字符。</p>
+<p>如果你用一个GBK编码的文本编辑器，给你香港的朋友写个文档发送过去，在用大五码的文本编辑器读取后，就会变成这样：<br>
+<img src="https://s21.ax1x.com/2025/08/22/pVDoDdf.png" alt="乱码例子" title="乱码例子"></p>
+<h2 id="三-乱码问题的解决"><a class="header-anchor" href="#三-乱码问题的解决"></a>三. 乱码问题的解决</h2>
+<p>正因如此，人们急需一种囊括了人类世界所有字符的字符集，让全世界的人都能够使用<br>
+于是，<strong><a href="https://home.unicode.org/">Unicode</a></strong><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>诞生了：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoaQA.png" alt="UNICODE" title="UNICODE"></p>
+<p>随着版本的迭代，Unicode囊括的字符越来越多，包括汉字、平片假名、藏文、阿拉伯文，甚至是古象形文字。2010年，emoji也被纳入Unicode。如今Unicode已经包含了超过十四万个字符</p>
+<p><strong>拓展</strong>：在Python中，可以使用<code>ord('💩')  # return 128169</code>来查询字符对应的Unicode码点</p>
+<h2 id="四-Unicode的编码"><a class="header-anchor" href="#四-Unicode的编码"></a>四. Unicode的编码</h2>
+<p>需要注意的是，字符集只是字符及字符对应码点的集合，不代表字符一定会以对应码点被储存在计算机里，字符编码才是真正定义了从字符到计算机储存内容的映射。</p>
+<p>曾经大部分的字符集，都只有一种编码方式。而超级大的字符集Unicode，却有很多种编码<br>
+比如：<strong>UTF-8</strong>、<strong>UTF-16</strong>、<strong>UTF-32</strong>等</p>
+<p>其中，UTF-32让每个字符都以32比特，即4字节的长度来储存，位数不够就向前补零，32比特足够表示Unicode里所有字符。固定的长度，能够帮助计算机明确每个字符的截断范围。</p>
+<p>But，这样真的好吗？</p>
+<p>原本只占一个字节的英文字符（ASCII），放到UTF-32里却要占四个字节，这使得相同内容的英文文本，<b>UTF-32所占空间会是ASCII的四倍！</b>而且英文字符的码点在Unicode里数字较小，实际上很多空间都用来放零了。</p>
+<p><s>英文使用者：🤬🤬🤬</s></p>
+<p>同样的，原本只占两个字节的汉字（GBK），放到UTF-32里却要占四个字节，<strong>空间多占一倍！</strong></p>
+<p>为了改善空间效率，UTF-8于1992年诞生了！</p>
+<h2 id="五-UTF-8"><a class="header-anchor" href="#五-UTF-8"></a>五. UTF-8</h2>
+<p>UTF-8是针对Unicode的可变长度编码。<br>
+不同于编码后长度因定为32比特的UTF-32，UTF-8针对不同字符，编码后的长度可以是：32比特、24比特、16比特、8比特。</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDowLt.png" alt="可变长度编码" title="可变长度编码"></p>
+<p>规则：</p>
+<p><img src="https://s21.ax1x.com/2025/08/22/pVDoyFS.png" alt="UTF-8规则" title="UTF-8规则"></p>
+<p>优点：</p>
 <ol>
-<li><strong>简洁</strong></li>
-<li><strong>无歧义</strong></li>
+<li>
+<p><strong>兼容ASCII</strong></p>
+<p>Unicode前128个字符，正好也是ASCIl的字符，码点一样。而且UTF-8也会把那些字符，映射为1字节长度，和ASCII编码相同</p>
+</li>
+<li>
+<p><strong>节约空间</strong></p>
+<p>UTF-8让Unicode里码点小的字符，也相应拥有更短的长度，通过前缀信息进行字符长度分辨，也解决了分割不明的问题</p>
+</li>
 </ol>
-<h2 id="三-为什么要用编程解决问题？"><a class="header-anchor" href="#三-为什么要用编程解决问题？"></a>三. 为什么要用编程解决问题？</h2>
-<ol>
-<li><strong>准确性</strong></li>
-<li><strong>速度快</strong></li>
-</ol>
+<p>如今，UTF-8已经成为了最主流的编码，大部分时候它都是文本编辑器的默认选择，但有时仍然需要留意，UTF-8是否被支持或兼容，避免出现乱码。</p>
+<h2 id="六-“锟斤拷”"><a class="header-anchor" href="#六-“锟斤拷”"></a>六. “锟斤拷”</h2>
+<p>常见乱码“<strong>锟斤拷</strong>”是怎么来的？</p>
+<p>它一般在UTF-8和中文编码的转换过程中产生。</p>
+<p>Unicode字符集有一个特殊的替换符号：�，专门用于表示无法识别或展示的字符。<br>
+一些编辑器在通过UTF-8打开文本时，会把无法识别或展示的字符自动替换为这个替换符号，用于提示用户。<br>
+它在UTF-8编码后是这个3字节长度的二进制数字：</p>
+<p><code>11101111 10111111 10111101</code></p>
+<p>对应十六进制：</p>
+<p><code>EF BF BD</code></p>
+<p>如果用户在编辑器替换后点了保存，这个特殊符号就会被写入文件内容里。</p>
+<p>如果有两个替换符号恰好连在一起：��</p>
+<p>文件内容里就会有这个：</p>
+<p><code>EF BF BD EF BF BD</code></p>
+<p>如果这个时候，把文件再用GBK编码读取，打开后就会看到所有以前是两个替换符号的地方，现在都变成了“锟斤拷”。</p>
+<p>因为在GBK中，每个汉字占用两个字节，储存在计算机里的<code>EF BF</code>对应汉字“锟”，<code>BD EF</code>对应汉字“斤”，<code>BF BD</code>对应汉字”拷“</p>
+<p>连起来，就是”锟斤拷“</p>
 <hr>
-<h1 style="text-align: center;">Part.2 编程语言</h1>
-<h2 id="四-什么是编程语言？"><a class="header-anchor" href="#四-什么是编程语言？"></a>四. 什么是编程语言？</h2>
-<h3 id="1-相对概念：自然语言-Natural-language"><a class="header-anchor" href="#1-相对概念：自然语言-Natural-language"></a>1. 相对概念：自然语言(<em>Natural language</em>)</h3>
-<p><img src="https://s21.ax1x.com/2025/08/16/pV0DqRe.png" alt="自然语言" title="自然语言"></p>
+<p>参考资料：</p>
 <blockquote>
-<p><strong>人类发展进程中随文化自然而然形成的语言</strong></p>
-<p>如：中文、英语、法语、日语…</p>
+<p><a href="https://www.bilibili.com/video/BV1xP4y1J7CS/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">你懂乱码吗？锟斤拷烫烫烫（详解ASCII、Unicode、UTF-32、UTF-8编码）</a></p>
+<p><a href="https://www.bilibili.com/video/BV1cB4y177QR/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">锟斤拷�⊠是怎样炼成的——中文显示“⼊”门指南【柴知道】</a></p>
 </blockquote>
-<h3 id="2-为什么要有编程语言？"><a class="header-anchor" href="#2-为什么要有编程语言？"></a>2. 为什么要有编程语言？</h3>
-<p>第一台通用计算机<strong>ENIAC</strong><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>在二十世纪四十年代发明，当时计算机的各项控制主要是由<strong>人工操作</strong>来实现的：</p>
-<p><img src="https://s21.ax1x.com/2025/08/16/pV0DrV0.png" alt="ENIAC" title="ENIAC"></p>
-<p>因其在便利性方面存在严重不足，经过多年的发展，相关人员提出了利用编程语言来控制计算机的构想。。。</p>
-<h3 id="3-编程语言-Programming-language"><a class="header-anchor" href="#3-编程语言-Programming-language"></a>3. 编程语言(<em>Programming language</em>)</h3>
-<p><img src="https://s21.ax1x.com/2025/08/16/pV0DXMd.png" alt="编程语言" title="编程语言"></p>
-<blockquote>
-<p><strong>计算机和人类都能识别的语言</strong></p>
-<p>如(高级语言)：Python、C++、Java、C、C#、JavaScript、Go、SQL、Visual Basic…(&gt;600)</p>
-</blockquote>
-<h3 id="4-发展历程："><a class="header-anchor" href="#4-发展历程："></a>4. 发展历程：</h3>
-<ol>
-<li>
-<p><strong>机器语言：</strong></p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1001000110111000001100011110100111000100101010</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>计算机能直接识别和执行的二进制代码</strong></p>
-</blockquote>
-</li>
-<li>
-<p><strong>汇编语言：</strong></p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C_S SEGMENT</span><br><span class="line">    ASSUME CS:C_S,DS:C_S</span><br><span class="line">S_T:</span><br><span class="line">    MOV AX,C_S</span><br><span class="line">    MOV DS,AX</span><br><span class="line">    LEA DX,P_S</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>用一些容易理解和记忆的缩写单词来代替一些特定的指令</strong></p>
-</blockquote>
-</li>
-<li>
-<p><strong>高级语言：</strong></p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello!&quot;</span>)  <span class="comment"># 我是高级语言哦~</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>更加接近人类的自然语言，易于理解和编写，同时屏蔽了底层硬件的细节</strong></p>
-</blockquote>
-</li>
-</ol>
-<h2 id="五-编程语言的选择？"><a class="header-anchor" href="#五-编程语言的选择？"></a>五. 编程语言的选择？</h2>
-<h3 id="💡路线图："><a class="header-anchor" href="#💡路线图："></a>💡路线图：</h3>
-<p><img src="https://s21.ax1x.com/2025/08/16/pV0DLxH.png" alt="编程语言的选择" title="编程语言的选择"></p>
-<ul>
-<li>[x] <strong>请选择你的英雄！</strong></li>
-</ul>
-<p><img src="https://s21.ax1x.com/2025/08/16/pV0DTIK.png" alt="python-logo" title="python"></p>
-<blockquote>
-<p><strong>人生苦短，我用python</strong>。</p>
-</blockquote>
-<hr>
-<h1 style="text-align: center;">Part.3 Python 简介</h1>
-<h2 id="六-Python的前世今生"><a class="header-anchor" href="#六-Python的前世今生"></a>六. Python的前世今生</h2>
-<h3 id="1-Python-起源"><a class="header-anchor" href="#1-Python-起源"></a>1. Python - 起源</h3>
-<p>​        Python的创始人为荷兰人<strong>吉多·范罗苏姆</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>（<em>Guido van Rossum</em>）。1989年圣诞节期间，在阿姆斯特丹，龟叔为了打发圣诞节的无趣，决心开发一个新的脚本解释程序，作为<u>ABC语言</u><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>的一种继承。</p>
-<p>🌟<strong>Guido van Rossum:</strong></p>
-<p><img src="https://s21.ax1x.com/2025/08/16/pV0DbGD.jpg" alt="“龟叔”" title="“龟叔”"></p>
-<p>之所以选中单词Python（谐音”蟒蛇“🐍）作为该编程语言的名字，是因为英国20世纪70年代首播的电视喜剧《蒙提·派森的飞行马戏团》（<em>Monty Python’s Flying Circus</em>🎈），龟叔是它的超级无敌宇宙螺旋大粉丝。</p>
-<h3 id="2-Python-发展"><a class="header-anchor" href="#2-Python-发展"></a>2. Python - 发展</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">时间段</th>
-<th style="text-align:center">版本</th>
-<th style="text-align:left">主要特点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><u>1991年-1995年</u></td>
-<td style="text-align:center"><strong>1.x</strong></td>
-<td style="text-align:left">引入了类、异常处理、函数式编程等特性</td>
-</tr>
-<tr>
-<td style="text-align:left"><u>1996年-2000年</u></td>
-<td style="text-align:center"><strong>2.x</strong></td>
-<td style="text-align:left">增加了垃圾回收机制、列表推导式、生成器等特性</td>
-</tr>
-<tr>
-<td style="text-align:left"><u>2000年-2008年</u></td>
-<td style="text-align:center"><strong>2.x</strong></td>
-<td style="text-align:left">继续发展，推出了多个版本，逐步完善</td>
-</tr>
-<tr>
-<td style="text-align:left"><u>2008年-至今</u></td>
-<td style="text-align:center"><strong>3.x</strong></td>
-<td style="text-align:left">对Python进行了重大更新，不兼容Python 2.x，旨在解决历史遗留问题，提高语言性能</td>
-</tr>
-</tbody>
-</table>
-<h3 id="3-Python-崛起"><a class="header-anchor" href="#3-Python-崛起"></a>3. Python - 崛起</h3>
-<p><strong>TIOBE排行榜<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>：</strong></p>
-<p><img src="https://s21.ax1x.com/2025/08/16/pV0DHPO.png" alt="TIOBE排行榜" title="TIOBE排行榜"></p>
-<p><a href="https://www.tiobe.com/tiobe-index" title="TIOBE排行榜">↑链接↑</a></p>
-<h2 id="七-Python的优缺点："><a class="header-anchor" href="#七-Python的优缺点："></a>七. Python的优缺点：</h2>
-<h3 id="1-优点"><a class="header-anchor" href="#1-优点"></a>1. 优点</h3>
-<ol>
-<li>
-<p><strong>易学易用</strong>：</p>
-<ul>
-<li>语法简洁，接近自然语言，适合初学者。</li>
-<li>代码可读性强，易于维护。</li>
-</ul>
-</li>
-<li>
-<p><strong>跨平台</strong>：</p>
-<ul>
-<li>支持多平台（Windows、macOS、Linux等），代码无需修改即可运行。</li>
-</ul>
-</li>
-<li>
-<p><strong>丰富的库和框架</strong>：</p>
-<ul>
-<li>拥有大量标准库和第三方库，涵盖Web开发、数据分析、机器学习等领域。</li>
-</ul>
-</li>
-<li>
-<p><strong>动态类型</strong>：</p>
-<ul>
-<li>变量无需声明类型，方便快捷。</li>
-</ul>
-</li>
-<li>
-<p><strong>广泛应用</strong>：</p>
-<ul>
-<li>适用于Web开发、数据科学、人工智能、自动化等多个领域。</li>
-</ul>
-<p>…</p>
-</li>
-</ol>
-<h3 id="2-缺点"><a class="header-anchor" href="#2-缺点"></a>2. 缺点</h3>
-<ol>
-<li>
-<p><strong>性能较低</strong>：</p>
-<ul>
-<li>作为解释型语言，运行速度较C/C++等编译型语言慢。</li>
-</ul>
-</li>
-<li>
-<p><strong>全局解释器锁（GIL）</strong>：</p>
-<ul>
-<li>GIL限制多线程并行执行，影响多核CPU性能。</li>
-</ul>
-</li>
-<li>
-<p><strong>内存消耗大</strong>：</p>
-<ul>
-<li>相比C/C++等语言，Python占用更多内存。</li>
-</ul>
-<p>…</p>
-</li>
-</ol>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><strong>ENIAC</strong>（<em>Electronic Numerical Integrator And Computer ”电子数字积分计算机”</em>）。ENIAC是继ABC（<em>Atanasoff-Berry Computer ”阿塔纳索夫-贝瑞计算机“</em>）之后的<strong>第二台电子计算机</strong>，和<strong>第一台通用计算机</strong>，于<u>1946年2月14日</u>在美国宣告诞生。ENIAC的计算速度为每秒5000次加法或400次乘法，它是完全的电子计算机，能够重新编程，解决各种计算问题。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p><strong>ANSI</strong>美国国家标准学会(<em>AMERICAN NATIONAL STANDARDS INSTITUTE</em>)成立于1918年。致力于制订统一的通用标准 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn2" class="footnote-item"><p><strong>吉多·范罗苏姆</strong>（<em>Guido van Rossum</em>）是荷兰计算机科学家，被誉为<u>Python之父</u>。他于1956年1月31日出生于荷兰，毕业于阿姆斯特丹大学，获得计算机科学硕士学位。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+<li id="fn2" class="footnote-item"><p><strong>ASCII</strong>(<em>American Standard Code for Information Interchange</em>)：美国信息交换标准代码是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn3" class="footnote-item"><p><strong>ABC</strong>是由Guido参加设计的一种教学语言。就Guido本人看来，ABC这种语言非常优美和强大，是专门为非专业程序员设计的。但是ABC语言并没有成功，究其原因，Guido认为是其非开放造成的。Guido决心在Python中避免这一错误。同时，他还想实现在ABC中闪现过但未曾实现的东西。 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+<li id="fn3" class="footnote-item"><p><strong>GB2312</strong>是由中国国家标准总局1980年发布，1981年5月1日开始实施的一套国家标准 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn4" class="footnote-item"><p><strong>TIOBE排行榜</strong>是衡量编程语言流行度的一个权威指数，每月更新一次。它通过统计全球范围内搜索引擎（如Google、Bing、Wikipedia等）的查询结果、课程数量、技术岗位需求等数据，评估各编程语言的流行趋势。其核心目的是为开发者、企业和教育机构提供语言趋势的参考。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+<li id="fn4" class="footnote-item"><p><strong>Big5</strong>又称为大五码或五大码，是使用繁体中文（正体中文）社区中最常用的电脑汉字字符集标准，共收录13,060个汉字。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p><strong>GBK</strong>编码方案于1995年10月制定， 1995年12月正式发布。是在GB2312-80标准基础上的内码扩展规范，共23940个码位，共收录了21003个汉字，完全兼容GB2312-80标准。 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p><strong>GB18030</strong>于2022年7月28日发布，2023年8月1日正式实施。新国标共收录汉字87887个，比上一版增加录入了1.7万余个生僻汉字，覆盖中国绝大部分人名、地名用生僻字以及文献、科技等专业领域的用字，能够满足各类使用需求。 <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p><strong>Unicode</strong>，统一码，也叫万国码、单一码，由统一码联盟开发，是计算机科学领域里的一项业界标准，包括字符集、编码方案等。1990年开始研发，1994年正式发布1.0版本。 <a href="#fnref7" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
@@ -199,244 +112,8 @@
       </categories>
       <tags>
         <tag>计算机社</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python三大器</title>
-    <url>/2025/10/25/python-decorator-iterator-generator/</url>
-    <content><![CDATA[<div class="note primary"><p>学习Python三大器——装饰器、迭代器、生成器，让你的代码更加Pythonic！</p>
-</div>
-<h2 id="一-装饰器（decorator）"><a class="header-anchor" href="#一-装饰器（decorator）"></a>一. 装饰器（<em>decorator</em>）</h2>
-<h3 id="1-函数的本质"><a class="header-anchor" href="#1-函数的本质"></a>1. 函数的本质</h3>
-<p>在Python中，万物皆对象，函数也不例外。</p>
-<p>当我们在Python中定义一个函数的时候，我们就是在新建一个变量，并在这个变量里保存了一个函数对象。</p>
-<h4 id="1-函数作为参数"><a class="header-anchor" href="#1-函数作为参数"></a>(1) 函数作为参数</h4>
-<p>函数作为一个对象，也可以像其他对象一样被当作参数，传入到其他函数里。</p>
-<p>如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">double</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x*<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">triple</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x*<span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc_number</span>(<span class="params">func, x</span>):</span><br><span class="line">    <span class="built_in">print</span>(func(x))</span><br><span class="line"></span><br><span class="line">calc_number(double,<span class="number">3</span>)</span><br><span class="line">calc_number(triple,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<p>在这里，<code>calc_number</code>函数是<strong>高阶函数</strong>（将函数作为参数的函数），<code>double</code>和<code>triple</code>函数是<strong>回调函数</strong>（被作为参数传入函数的函数）。</p>
-<p>由此可见，函数完全可以像其他的变量一样被相互传递。</p>
-<h4 id="2-函数作为返回值"><a class="header-anchor" href="#2-函数作为返回值"></a>(2) 函数作为返回值</h4>
-<p>函数本身也可以成为一个返回值。</p>
-<p>如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_multiple_func</span>(<span class="params">n</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">multiple</span>(<span class="params">x</span>):</span><br><span class="line">        <span class="keyword">return</span> n * x</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> multiple</span><br><span class="line"></span><br><span class="line">double = get_multiple_func(<span class="number">2</span>)</span><br><span class="line">triple = get_multiple_func(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(double(<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(triple(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
-<p>在这里，<code>get_multiple_func</code>它本身是一个函数，返回值也是一个函数，而它返回的这个函数做什么事情是和它得到的参数<code>n</code>相关的。<code>multiple</code>函数是<strong>闭包函数</strong>（一个函数要成为闭包，需要满足三个条件：1. 函数嵌套；2. 外函数返回内函数；3. 内函数引用外函数的变量），它能够“记住”外部作用域里的函数变量（即使外部函数已经返回），装饰器就是闭包的一个典型应用。</p>
-<h3 id="2-装饰器"><a class="header-anchor" href="#2-装饰器"></a>2. 装饰器</h3>
-<p>装饰器是一种特殊的函数，它接受一个函数作为参数，并返回一个新的函数（通常是包装过的原函数），用于在不修改原函数代码的情况下增强其功能。</p>
-<p>简单来讲，装饰器就是<strong>一个参数是函数、返回值也是函数的函数</strong>。</p>
-<p>这是一个极简的“装饰器”：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dec</span>(<span class="params">f</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@dec</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">double</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># double = dec(double)</span></span><br></pre></td></tr></table></figure>
-<p>在这里，<code>@dec</code>实际上是一个<strong>语法糖</strong>，它完全等价于<code>double = dec(double)</code>。（相比较于后者，使用<code>@</code>语法就像是给函数戴上了一顶帽子，能让我们清晰地看到这个函数被哪个装饰器装饰了，因此我们推荐使用前者来进行装饰）</p>
-<p>也就是说，当我们将装饰器作用于<code>double</code>函数时，<code>double</code>函数就被替代成了<code>dec</code>函数返回的新函数<code>inner</code></p>
-<p>在绝大多数情况下，我们使用装饰器时，会将函数作为装饰器的返回值。并且返回的函数通常是对原函数的“包装”，<strong>它在包含原函数的功能的同时，还给原函数增添了新的功能，达到一种“装饰”的效果</strong>，“装饰器”因此而得名。</p>
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeit</span>(<span class="params">f</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">x</span>):</span><br><span class="line">        start = time.time()</span><br><span class="line">        ret = f(x)</span><br><span class="line">        <span class="built_in">print</span>(time.time()- start)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_func</span>(<span class="params">x</span>):</span><br><span class="line">    time.sleep(x)</span><br><span class="line"></span><br><span class="line">my_func(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p><code>timeit</code>是一个装饰器，它接受的参数<code>f</code>是一个函数，返回值<code>wrapper</code>也是一个函数。</p>
-<p><code>wrapper</code>函数接受和<code>my_func</code>函数相同数目的参数，刚开始记了一个时间戳，然后调用<code>timeit</code>传进来的参数<code>f</code>，记录返回值，打印前后时间差，最后返回返回值。</p>
-<p>显然，这个装饰器实现了一个打印函数运行时间的功能。并且对于不同的函数，你都可以用装饰器来简洁地完成这件事。</p>
-<p>除了打印函数运行时间的功能外，我们还可以用装饰器来实现<u>插入日志、性能测试、权限验证</u>等功能，在不修改函数源代码的前提下，方便地去实现这些功能。😎</p>
-<p><code>wrapper</code>作为要代替<code>func</code>的新函数，那么它的参数数量也需要和<code>func</code>一致，可是我们并不清楚传入进来的<code>func</code>函数参数是什么样的，装饰器不应该只单独服务于某个函数。</p>
-<p>因此，我们可以这么写：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeit</span>(<span class="params">f</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        start = time.time()</span><br><span class="line">        ret = f(*args, **kwargs)</span><br><span class="line">        <span class="built_in">print</span>(time.time()- start)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_func</span>(<span class="params">x</span>):</span><br><span class="line">    time.sleep(x)</span><br><span class="line"></span><br><span class="line">my_func(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>这里的<code>*args, **kwargs</code>是什么鬼呢？</p>
-<p>它们是用于<strong>处理可变数量参数</strong>的特殊语法，能够允许函数接受任意数量的位置参数（ <code>*args</code>）和关键字参数（ <code>**kwargs</code>），提供了极大的灵活性。</p>
-<p><code>*</code>和<code>**</code>操作符可以用于<strong>打包</strong>和<strong>解包</strong>。</p>
-<ul>
-<li>打包：
-<ul>
-<li><code>*</code>：将若干个位置参数打包成元组</li>
-<li><code>**</code>：将若干个关键字参数打包成字典</li>
-</ul>
-</li>
-<li>解包：
-<ul>
-<li><code>*</code>：将可迭代对象（元组）拆分成若干个位置参数</li>
-<li><code>**</code>：将字典拆分成若干个关键字参数</li>
-</ul>
-</li>
-</ul>
-<p>这样，无论函数<code>f</code>需要多少个参数，在装饰器里都能够灵活应对，比如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
-<h3 id="3-带参数的装饰器"><a class="header-anchor" href="#3-带参数的装饰器"></a>3. 带参数的装饰器</h3>
-<p>装饰器调用时可能会带上参数，比如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeit</span>(<span class="params">iteration</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">f</span>):</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">x</span>):</span><br><span class="line">            start = time.time()</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">                ret = f(x)</span><br><span class="line">            <span class="built_in">print</span>(time.time()- start)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit(<span class="params"><span class="number">1000</span></span>)  </span><span class="comment"># 这里带上了参数！</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">double</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">2</span></span><br><span class="line"><span class="comment"># 相当于double = timeit(1000)(double)</span></span><br><span class="line"></span><br><span class="line">double(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<p>在这里，装饰器<code>timeit</code>接受的参数<code>iteration</code>是一个整型，用于定义执行次数，返回值是一个函数<code>inner</code>，而这个<code>inner</code>就是我们原本所说的那个参数是函数、返回值也是函数的装饰器。</p>
-<p>所以它相当于就是在原装饰器的基础之上套了一个壳。参数可以是你指定的任意类型，而返回值是我们原来所说的那种装饰器。</p>
-<h3 id="4-为什么要使用装饰器？"><a class="header-anchor" href="#4-为什么要使用装饰器？"></a>4. 为什么要使用装饰器？</h3>
-<ol>
-<li><b>使用装饰器可以提升代码复用，避免重复冗余代码。</b>如果我有多个函数需要测量执行时间，我可以直接将装饰器应用在这些函数上，而不是给多个函数加上一样的代码。这样的代码既冗余也不方便后面维护。</li>
-<li><b>使用装饰器可以保证函数的逻辑清晰。</b>如果一个本身功能就很复杂的函数，我还要通过修改内部代码来测量运行时间，这样会模糊函数自身的主逻辑。同时，软件开发的一个原则就是单一职责，也就是说，一个函数只应该承担一项责任。</li>
-<li><b>通过装饰器，我们可以扩展别人的函数。</b>想象我们正在使用一个第三方库的函数，但我要添加额外的行为，比如测量运行时间，那我就可以用装饰器去包装，而不是跑到库里面去修改。</li>
-</ol>
-<div class="note info"><h3 id="装饰器-补充"><a class="header-anchor" href="#装饰器-补充"></a>装饰器 - 补充</h3>
-<p>可以使用多个<code>@dec</code>语句来装饰函数，即：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@A</span></span><br><span class="line"><span class="meta">@B</span></span><br><span class="line"><span class="meta">@C</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>包装的顺序为从下往上，即<code>func = A(B(C(func)))</code>。</p>
-<p>让我们来做个汉堡🍔！</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">加面包</span>(<span class="params">肉</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">包装</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🍞 面包&quot;</span>)  <span class="comment"># 最外层</span></span><br><span class="line">        肉()              <span class="comment"># 中间的肉</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🍞 面包&quot;</span>)  <span class="comment"># 最外层</span></span><br><span class="line">    <span class="keyword">return</span> 包装</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">加生菜</span>(<span class="params">肉</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">包装</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥬 生菜&quot;</span>)  <span class="comment"># 外层</span></span><br><span class="line">        肉()              <span class="comment"># 内层</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥬 生菜&quot;</span>)  <span class="comment"># 外层</span></span><br><span class="line">    <span class="keyword">return</span> 包装</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">加肉饼</span>(<span class="params">馅</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">包装</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥩 肉饼&quot;</span>)  <span class="comment"># 内层</span></span><br><span class="line">        馅()              <span class="comment"># 最内层（原函数）</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥩 肉饼&quot;</span>)  <span class="comment"># 内层</span></span><br><span class="line">    <span class="keyword">return</span> 包装</span><br><span class="line"></span><br><span class="line"><span class="meta">@加面包</span></span><br><span class="line"><span class="meta">@加生菜</span></span><br><span class="line"><span class="meta">@加肉饼</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">汉堡馅</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;🧀 芝士酱&quot;</span>)</span><br><span class="line"></span><br><span class="line">汉堡馅()</span><br></pre></td></tr></table></figure>
-</div>
-<h2 id="二-迭代器（iterator）"><a class="header-anchor" href="#二-迭代器（iterator）"></a>二. 迭代器（<em>iterator</em>）</h2>
-<h3 id="1-可迭代对象（iterable）"><a class="header-anchor" href="#1-可迭代对象（iterable）"></a>1. 可迭代对象（<em>iterable</em>）</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_str = <span class="string">&#x27;123&#x27;</span></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> my_str:</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> my_lst:</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_int = <span class="number">123</span></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> my_int:</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
-<p>对于以上三段代码，为什么for循环能作用于字符串和列表，而作用于整数就会报错呢？</p>
-<p>注意到报错信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TypeError: &#x27;int&#x27; object is not iterable</span><br></pre></td></tr></table></figure>
-<p>这里的<code>iterable</code>表示<strong>可迭代对象</strong>。</p>
-<p>在Python中，只有可迭代对象才能被for循环迭代。</p>
-<p><strong>可迭代对象必须实现一个叫做<code>__iter__</code>的魔法方法</strong>，字符串和列表都有这个方法，但是整数没有。</p>
-<p>我们可以通过<code>hasattr</code>这个函数，查看对象是否有某个属性或者方法</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_str = <span class="string">&#x27;123&#x27;</span></span><br><span class="line">my_lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">my_int = <span class="number">123</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(my_str, <span class="string">&#x27;__iter__&#x27;</span>))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(my_lst, <span class="string">&#x27;__iter__&#x27;</span>))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(my_int, <span class="string">&#x27;__iter__&#x27;</span>))  <span class="comment"># False</span></span><br></pre></td></tr></table></figure>
-<p>可是，为什么对象必须有这个方法才能进行迭代呢？这和for循环的实现原理有关。</p>
-<h3 id="2-for循环的实现原理"><a class="header-anchor" href="#2-for循环的实现原理"></a>2. for循环的实现原理</h3>
-<p>流程图：</p>
-<pre><code class="highlight mermaid">flowchart LR
-    A([开始for循环]) --&gt; B[调用__iter__方法&lt;br&gt;获取迭代器]
-    B --&gt; C[调用迭代器的&lt;br&gt;__next__方法]
-    C --&gt; D&#123;是否能获取到下一个值?&#125;
-    D --&gt;|是| E[获取下一个值]
-    E --&gt; F[执行循环体代码]
-    F --&gt; C
-    D --&gt;|否| G([结束for循环])</code></pre>
-<p>所以一个for循环：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> seq:</span><br><span class="line">    do_something_to(i)</span><br></pre></td></tr></table></figure>
-<p>实际上是这样工作的：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">it = <span class="built_in">iter</span>(seq)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">next</span>(it))</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-<p>这里的<code>iter</code>和<code>next</code>函数等价于调用对象的<code>__iter__</code>和<code>__next__</code>方法。</p>
-<p>for循环在循环前，会先调用可迭代对象的<code>__iter__</code>，拿到它的迭代器。然后不断调用迭代器的<code>__next__</code>方法获取下一个值，直到所有值都获取完毕，循环结束。</p>
-<h3 id="3-迭代器（iterator）"><a class="header-anchor" href="#3-迭代器（iterator）"></a>3. 迭代器（<em>iterator</em>）</h3>
-<p>知道了for循环的工作原理，接下来就让我们正式了解<strong>迭代器</strong>这一概念。</p>
-<p>调用可迭代对象的<code>__iter__</code>方法将会返回该对象对应的迭代器。</p>
-<p>迭代器需要包含两个魔法方法：<code>__iter__</code>和<code>__next__</code><br>
-<code>__iter__</code>方法将会返回迭代器本身（这一点似乎有点奇怪，待会会讲），<code>__next__</code>方法会返回迭代器的下一个值，当所有值都获取完毕时，调用<code>__next__</code>将会引发一个<code>StopIteration</code>的异常（for循环会捕捉这个异常，并将其作为循环结束的标志）。</p>
-<p>下面是官方文档的解释：</p>
-<p><img src="https://s21.ax1x.com/2025/10/25/pVv0g00.png" alt="可迭代对象和迭代器官方文档解释" title="官方文档"></p>
-<p>简单来讲，可迭代对象是一个容器，它包含了迭代需要的数据，而迭代器则是实际执行迭代操作的单位。<br>
-<strong>也就是说，可迭代对象是负责指挥的“大哥”，迭代器是负责干活的“小弟”。</strong></p>
-<h3 id="4-迭代器的应用"><a class="header-anchor" href="#4-迭代器的应用"></a>4. 迭代器的应用</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NodeIter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>.curr_node = node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__next__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.curr_node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        node, <span class="variable language_">self</span>.curr_node = <span class="variable language_">self</span>.curr_node, <span class="variable language_">self</span>.curr_node.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> NodeIter(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">node1 = Node(<span class="string">&quot;node1&quot;</span>)</span><br><span class="line">node2 = Node(<span class="string">&quot;node2&quot;</span>)</span><br><span class="line">node3 = Node(<span class="string">&quot;node3&quot;</span>)</span><br><span class="line">node1.<span class="built_in">next</span> = node2</span><br><span class="line">node2.<span class="built_in">next</span> = node3</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> node1:</span><br><span class="line">    <span class="built_in">print</span>(node.name)</span><br></pre></td></tr></table></figure>
-<p>这个程序用迭代器实现了链表的遍历。在这里，<code>Node</code>是一个可迭代对象类，<code>NodeIter</code>是一个迭代器类。</p>
-<p>可以看见，<code>Node</code>实现了一个<code>__iter__</code>方法，返回对应的迭代器。<br>
-<code>NodeIter</code>实现了一个<code>__next__</code>方法，返回下一个值（如果有）或者引发一个<code>StopIteration</code>的异常。</p>
-<p>可是，为什么这里的<code>NodeIter</code>没有实现<code>__iter__</code>方法呢？</p>
-<p>官方给出的解释是：</p>
-<blockquote>
-<p>迭代器必须具有<code>__iter__()</code>方法用来返回该迭代器对象自身，因此迭代器必定也是可迭代对象，可被用于其他可迭代对象适用的大部分场合。</p>
-</blockquote>
-<p>在迭代器中定义<code>__iter__</code>是为了让迭代器也成为可迭代对象，让每个迭代器也是可迭代的。</p>
-<p>那为什么要这么规定呢？</p>
-<p>基于上面的代码，有人可能会这么写：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NodeIter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>.curr_node = node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__next__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.curr_node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        node, <span class="variable language_">self</span>.curr_node = <span class="variable language_">self</span>.curr_node, <span class="variable language_">self</span>.curr_node.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> NodeIter(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">node1 = Node(<span class="string">&quot;node1&quot;</span>)</span><br><span class="line">node2 = Node(<span class="string">&quot;node2&quot;</span>)</span><br><span class="line">node3 = Node(<span class="string">&quot;node3&quot;</span>)</span><br><span class="line">node1.<span class="built_in">next</span> = node2</span><br><span class="line">node2.<span class="built_in">next</span> = node3</span><br><span class="line"></span><br><span class="line">it = <span class="built_in">iter</span>(node1)  <span class="comment"># 显式获取迭代器</span></span><br><span class="line">first = <span class="built_in">next</span>(it)  <span class="comment"># 获取第一个值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> it:  <span class="comment"># 遍历之后的值</span></span><br><span class="line">    <span class="built_in">print</span>(node.name)</span><br></pre></td></tr></table></figure>
-<p>在这里，我们显式地获取了<code>node1</code>的迭代器，然后调用<code>next()</code>获取第一个值，从第二个开始遍历。</p>
-<p>这看起来似乎很合理，但：</p>
-<p><img src="https://s21.ax1x.com/2025/10/25/pVv0yXn.png" alt="报错1"></p>
-<p><code>it</code>虽然是一个迭代器，但由于它本身并不是一个可迭代对象，所以我们不能对它做for循环。但这件事是反直觉的！</p>
-<p>这就是为什么官方规定一个可迭代对象必须也得是一个迭代器——<strong>它可以让迭代器更加灵活地应用于for循环和需要可迭代对象的函数（比如<code>zip()</code>，<code>map()</code>，<code>filter()</code>等）里</strong>。</p>
-<p>实现方法很简单：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NodeIter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>.curr_node = node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__next__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.curr_node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        node, <span class="variable language_">self</span>.curr_node = <span class="variable language_">self</span>.curr_node, <span class="variable language_">self</span>.curr_node.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span></span><br></pre></td></tr></table></figure>
-<p>定义一个<code>__iter__</code>函数，返回<code>self</code>即可。</p>
-<p>在迭代器里定义<code>__iter__</code>这个方法是Python的最佳实践。<s>当然你要是不定义，也没人拦着:)</s></p>
-<h3 id="5-迭代器的特性"><a class="header-anchor" href="#5-迭代器的特性"></a>5. 迭代器的特性</h3>
-<h4 id="1-一次性"><a class="header-anchor" href="#1-一次性"></a>(1) 一次性</h4>
-<p>需要注意的是，<strong>迭代器是一次性的</strong>。</p>
-<p>也就是说迭代器一旦用完，就不能再重新使用了！</p>
-<p>举个例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">iterator = <span class="built_in">iter</span>(my_list)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第一次遍历:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> iterator:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第二次遍历:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> iterator:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
-<p>可以看到<code>&quot;第二次遍历&quot;:</code>下是没有输出的，这是因为在前面一个for循环里，迭代器<code>iterator</code>的元素已经被消耗完了，第二次使用时它就会是空的。</p>
-<p>或者是被函数遍历：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">iterator = <span class="built_in">iter</span>(my_list)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(iterator))  <span class="comment"># [1, 2, 3]</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(iterator))  <span class="comment"># []</span></span><br></pre></td></tr></table></figure>
-<p>可以看到迭代器同样会被消耗。</p>
-<p>如果你需要多次遍历同一可迭代对象，应该重新获取一个迭代器。</p>
-<h4 id="2-惰性"><a class="header-anchor" href="#2-惰性"></a>(2) 惰性</h4>
-<p>迭代器只有在每次调用<code>__next__</code>方法时，才会计算和存储下一个元素，而不是预先一次性计算和存储所有结果。</p>
-<p>换句话说，迭代器是<strong>惰性加载</strong>的，按需计算，用多少就取多少。</p>
-<p>使用迭代器，我们只要用很少的内存就可以存放和处理大量的数据！</p>
-<div class="note info"><h3 id="迭代器-补充"><a class="header-anchor" href="#迭代器-补充"></a>迭代器 - 补充</h3>
-<p>在Python中，有很多返回值是迭代器的内置函数，比如：<br>
-<code>zip()</code>、<code>map()</code>、<code>filter()</code>、<code>reversed()</code>等</p>
-<p><s>或许你曾经以为他们是列表</s></p>
-</div>
-<h2 id="三-生成器（generator）"><a class="header-anchor" href="#三-生成器（generator）"></a>三. 生成器（<em>generator</em>）</h2>
-<h3 id="1-什么是生成器？"><a class="header-anchor" href="#1-什么是生成器？"></a>1. 什么是生成器？</h3>
-<p>在了解迭代器之后，你可能会觉得实现迭代器有点麻烦：需要定义一个类，实现<code>__iter__</code>和<code>__next__</code>方法，还要手动处理<code>StopIteration</code>异常。</p>
-<p>那有没有什么更简单的方法推荐一下的呢？有的兄弟，有的。<br>
-它就是<strong>生成器</strong>。</p>
-<p><strong>生成器是一种特殊的迭代器</strong>，它让你能用更简洁、更直观的方式创建迭代器。</p>
-<p>生成器和迭代器具有许多相同的特性，它们都包含有<code>__iter__</code>和<code>__next__</code>方法，都能被for循环迭代，都具有“一次性”和“惰性”。</p>
-<p>生成器有两种写法，分别是<strong>生成器函数</strong>和<strong>生成器表达式</strong>。</p>
-<h3 id="2-生成器函数"><a class="header-anchor" href="#2-生成器函数"></a>2. 生成器函数</h3>
-<p>下面是一个简单的例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gen</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">while</span> num &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">yield</span> num</span><br><span class="line">        num -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">g = gen(<span class="number">5</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-<p>在这里，<code>gen</code>就是<strong>生成器函数</strong>，而<code>g</code>是<strong>生成器对象</strong>。</p>
-<p>当Python在编译期间发现一个函数里有<code>yield</code>关键字时，就会把这个函数视作生成器函数，而不是普通的函数。调用生成器函数，会直接返回一个生成器对象，而不会去执行内部的具体语句来返回别的值。</p>
-<p>只有对生成器对象调用<code>next()</code>，生成器对象才会进入函数体执行具体语句，它的运行规则是：<br>
-<strong>当函数执行到<code>yield</code>时，会在此暂停执行并返回一个值，下次调用<code>next()</code>时又从此处继续，直到再次遇到<code>yield</code>或是函数执行完毕。</strong></p>
-<p><strong>生成器执行完毕（即return）将会引发<code>StopIteration</code>的异常。</strong></p>
-<p>可以看下面这个实例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_generator</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;开始执行&quot;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;继续执行&quot;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;最后执行&quot;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用生成器函数不会立即执行，而是返回一个生成器对象</span></span><br><span class="line">gen = my_generator()</span><br><span class="line"><span class="built_in">print</span>(gen)  <span class="comment"># &lt;generator object my_generator at 0x...&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 每次调用next()，函数执行到下一个yield</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">next</span>(gen))  <span class="comment"># 开始执行 → 1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">next</span>(gen))  <span class="comment"># 继续执行 → 2</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">next</span>(gen))  <span class="comment"># 最后执行 → 3</span></span><br><span class="line"><span class="comment"># print(next(gen))  # 这里会抛出StopIteration异常</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-生成器表达式"><a class="header-anchor" href="#3-生成器表达式"></a>3. 生成器表达式</h3>
-<p>生成器表达式与列表推导式语法类似，但使用圆括号而不是方括号。</p>
-<p><s>不要跟我说它是元组推导式。。。</s></p>
-<p>举个例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">gen = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>))</span><br><span class="line"><span class="built_in">print</span>(gen)  <span class="comment"># &lt;generator object &lt;genexpr&gt; at 0x...&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> gen:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-<p>它等价于：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">generator_func</span>():</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">        <span class="keyword">yield</span> x * x</span><br></pre></td></tr></table></figure>
-<h3 id="4-生成器的应用"><a class="header-anchor" href="#4-生成器的应用"></a>4. 生成器的应用</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        node = <span class="variable language_">self</span></span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">yield</span> node</span><br><span class="line">            node = node.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">node1 = Node(<span class="string">&quot;node1&quot;</span>)</span><br><span class="line">node2 = Node(<span class="string">&quot;node2&quot;</span>)</span><br><span class="line">node3 = Node(<span class="string">&quot;node3&quot;</span>)</span><br><span class="line">node1.<span class="built_in">next</span> = node2</span><br><span class="line">node2.<span class="built_in">next</span> = node3</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> node1:</span><br><span class="line">    <span class="built_in">print</span>(node.name)</span><br></pre></td></tr></table></figure>
-<p>同样拿前面链表的例子，但现在我们直接将<code>__iter__</code>函数写成一个生成器。这比我们之前写的简洁了不少。</p>
-<h3 id="5-高级用法"><a class="header-anchor" href="#5-高级用法"></a>5. 高级用法</h3>
-<p>生成器还有一个高级用法，就是<b>“发送”</b>。</p>
-<p><code>yield *</code>不仅仅是一个语句，还是一个表达式。<strong>对生成器调用<code>send()</code>方法，能够在恢复生成器执行的同时，向生成器内部发送一个值</strong>。<code>yield *</code>表达式的结果就是你传进来的那个值。</p>
-<p>举个例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gen</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">while</span> num &gt; <span class="number">0</span>:</span><br><span class="line">        tmp = <span class="keyword">yield</span> num</span><br><span class="line">        <span class="keyword">if</span> tmp <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            num = tmp</span><br><span class="line">        num -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">g = gen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">first = <span class="built_in">next</span>(g)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;first: <span class="subst">&#123;first&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;send: <span class="subst">&#123;g.send(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-<p>在这里，<code>g.send(10)</code>使<code>yield num</code>成为了10，于是<code>tmp</code>被赋值为10，条件成立，<code>num</code>也在第五行被赋值为10，在第6行减1，下一次<code>yield num</code>产生的数据就是9了。</p>
-<p>值得一提的是，在生成器中，<strong><code>next(g)</code>完全等价于<code>g.send(None)</code></strong>。因此，最后的for循环相当于是在不停地做<code>g.send(None)</code>，此时if条件不满足，<code>num</code>会不断自减至0，输出就是从8到1。</p>
-<p>请注意，向刚创建的生成器发送非<code>None</code>数据前，必须先用<code>next(g)</code>或<code>g.send(None)</code>将其运行到第一个 <code>yield</code>处，否则会报错（毕竟这时候还没有遇到<code>yield *</code>表达式能够让你发送数据呢）。</p>
-<p>如图：</p>
-<p><img src="https://s21.ax1x.com/2025/10/25/pVv0cmq.png" alt="报错2"></p>
-<p>总的来说，<code>send()</code>函数给了我们一个机制，能够让我们和生成器内部做交互。</p>
-<div class="note info"><h3 id="生成器-补充"><a class="header-anchor" href="#生成器-补充"></a>生成器 - 补充</h3>
-<p><strong>当生成器表达式作为函数的唯一参数时，可以省略外层括号。</strong></p>
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = <span class="built_in">sum</span>(x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>))</span><br><span class="line"><span class="comment"># 等价于：result = sum((x**2 for x in range(5)))</span></span><br><span class="line"><span class="built_in">print</span>(result)  <span class="comment"># 30</span></span><br></pre></td></tr></table></figure></div>
-<p>🎉完结撒花🎉</p>
-<hr>
-<p>参考资料：</p>
-<blockquote>
-<p>装饰器：</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/BV1Gu411Q7JV/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【python】装饰器超详细教学，用尽毕生所学给你解释清楚，以后再也不迷茫了！</a><br>
-<a href="https://www.bilibili.com/video/BV1Uz421Z79L/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【Python 高级特性】装饰器：不修改代码，就能改变函数功能的强大特性</a></p>
-</blockquote>
-<p>迭代器：</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/BV1ca411t7A9/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【python】对迭代器一知半解？看完这个视频就会了。涉及的每个概念，都给你讲清楚！</a><br>
-<a href="https://www.bilibili.com/video/BV1jt421c7yN/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【Python】从迭代器到生成器：小内存也能处理大数据</a><br>
-<a href="https://www.bilibili.com/video/BV18R4y1t7Hg/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">『教程』几分钟听懂迭代器</a></p>
-</blockquote>
-<p>生成器：</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/BV1KS4y1D7Qb/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【python】生成器是什么？怎么用？能干啥？一期视频解决你所有疑问！</a><br>
-<a href="https://www.bilibili.com/video/BV1PW421K7sX/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【Python 高级特性2】生成器：处理大量数据时，节省内存和时间</a></p>
-</blockquote>
-<p>官方文档：</p>
-<p><a href="https://docs.python.org/zh-cn/3.14/glossary.html#term-decorator">术语对照表 — Python 3.14.0 文档</a><br>
-<a href="https://docs.python.org/zh-cn/3.14/glossary.html#term-iterator">术语对照表 — Python 3.14.0 文档</a><br>
-<a href="https://docs.python.org/zh-cn/3.14/glossary.html#term-generator">术语对照表 — Python 3.14.0 文档</a></p>
-</blockquote>
-<p>感谢！<strong>(≧∀≦)ゞ</strong></p>
-]]></content>
-      <categories>
-        <category>Python进阶</category>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>装饰器</tag>
-        <tag>迭代器</tag>
-        <tag>生成器</tag>
+        <tag>计算机基础</tag>
+        <tag>字符编码</tag>
       </tags>
   </entry>
   <entry>
@@ -1045,108 +722,195 @@
       </tags>
   </entry>
   <entry>
-    <title>字符编码</title>
-    <url>/2025/08/21/character-encoding/</url>
+    <title>0. 编程入门</title>
+    <url>/2025/08/17/programming-intro/</url>
     <content><![CDATA[<blockquote>
-<p>“手持两把锟斤拷，口中疾呼烫烫烫”</p>
+<p>“<em>Programming is the art of understanding.</em>”</p>
 </blockquote>
-<h2 id="一-乱码"><a class="header-anchor" href="#一-乱码"></a>一. 乱码</h2>
-<p>在使用电脑时，你是否遇见过下面的场景：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDodsI.png" alt="乱码" title="乱码"></p>
-<p>那么，乱码是怎么来的？“锟斤拷”又是什么鬼？</p>
-<h2 id="二-乱码是怎么来的？"><a class="header-anchor" href="#二-乱码是怎么来的？"></a>二. 乱码是怎么来的？</h2>
-<h3 id="1-ASCII"><a class="header-anchor" href="#1-ASCII"></a>1. ASCII</h3>
-<p>要知道，计算机可不认识什么文字，它们只认识数字<br>
-更准确地来讲，计算机只能够存储0和1的二进制数字</p>
-<p>所以，要想让计算机显示出文字，就得让这些字符以某种方式转换为二进制数字来存储，并在需要的时候进行读取</p>
-<p>1963年，ANSI<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>推出了<strong>ASCII</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，作为计算机及其他设备的文本字符编码标准</p>
-<p>ASCII包含了<strong>0~9的阿拉伯数字</strong>、<strong>小写英文字母</strong>、<strong>大写英文字母</strong>、<strong>常用的英文符号</strong>以及<strong>控制字符</strong></p>
-<p>ASCII一共收录了<strong>128</strong>个字符，每一个字符都有一个对应的数字，称为“<strong>码点</strong>”，ASCII字符集的码点，为0~127之间的数字，比如“A”对应码点65。</p>
-<p>标准所支持的所有字符及其对应码点的集合，叫做“<strong>字符集</strong>”，下面就是ASCII的字符集：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDoro8.png" alt="ASCII" title="ASCII"></p>
-<p>计算机可以储存码点的二进制，由于最大的码点是127，二进制的长度都会小于或等于7比特，但由于计算机一般以1字节（8比特）为基本单位进行读写。所以为了凑整，这些二进制数在储存时，会在前面补零，用固定的8比特来储存每个字符。</p>
-<p>我们把从字符到计算机实际存储的内容之间的映射，叫做“<strong>编码</strong>”</p>
-<h3 id="2-其他编码"><a class="header-anchor" href="#2-其他编码"></a>2. 其他编码</h3>
-<p>但ASCII只支持128个字符，对于其他语言就不够用了，尤其是中、日、韩等国家的文字<br>
-于是，不同国家和地区开始制定自己的编码标准…</p>
-<p>比如我国大陆有1980年制定<strong>GB2312</strong><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，港澳台有<strong>Big5</strong><sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。后来还有对GB2312进行扩展的<strong>GBK</strong><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>（收录了简繁体汉字、日文、韩文等），以及现在使用的<strong>GB18030</strong><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
-<h3 id="3-乱码的由来"><a class="header-anchor" href="#3-乱码的由来"></a>3. 乱码的由来</h3>
-<p>但标准不统一时，乱码问题也随之产生。</p>
-<p>因为计算机内存里的同一个数字，在不同的字符集里，代表的可能是完全不同的字符。</p>
-<p>如果你用一个GBK编码的文本编辑器，给你香港的朋友写个文档发送过去，在用大五码的文本编辑器读取后，就会变成这样：<br>
-<img src="https://s21.ax1x.com/2025/08/22/pVDoDdf.png" alt="乱码例子" title="乱码例子"></p>
-<h2 id="三-乱码问题的解决"><a class="header-anchor" href="#三-乱码问题的解决"></a>三. 乱码问题的解决</h2>
-<p>正因如此，人们急需一种囊括了人类世界所有字符的字符集，让全世界的人都能够使用<br>
-于是，<strong><a href="https://home.unicode.org/">Unicode</a></strong><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>诞生了：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDoaQA.png" alt="UNICODE" title="UNICODE"></p>
-<p>随着版本的迭代，Unicode囊括的字符越来越多，包括汉字、平片假名、藏文、阿拉伯文，甚至是古象形文字。2010年，emoji也被纳入Unicode。如今Unicode已经包含了超过十四万个字符</p>
-<p><strong>拓展</strong>：在Python中，可以使用<code>ord('💩')  # return 128169</code>来查询字符对应的Unicode码点</p>
-<h2 id="四-Unicode的编码"><a class="header-anchor" href="#四-Unicode的编码"></a>四. Unicode的编码</h2>
-<p>需要注意的是，字符集只是字符及字符对应码点的集合，不代表字符一定会以对应码点被储存在计算机里，字符编码才是真正定义了从字符到计算机储存内容的映射。</p>
-<p>曾经大部分的字符集，都只有一种编码方式。而超级大的字符集Unicode，却有很多种编码<br>
-比如：<strong>UTF-8</strong>、<strong>UTF-16</strong>、<strong>UTF-32</strong>等</p>
-<p>其中，UTF-32让每个字符都以32比特，即4字节的长度来储存，位数不够就向前补零，32比特足够表示Unicode里所有字符。固定的长度，能够帮助计算机明确每个字符的截断范围。</p>
-<p>But，这样真的好吗？</p>
-<p>原本只占一个字节的英文字符（ASCII），放到UTF-32里却要占四个字节，这使得相同内容的英文文本，<b>UTF-32所占空间会是ASCII的四倍！</b>而且英文字符的码点在Unicode里数字较小，实际上很多空间都用来放零了。</p>
-<p><s>英文使用者：🤬🤬🤬</s></p>
-<p>同样的，原本只占两个字节的汉字（GBK），放到UTF-32里却要占四个字节，<strong>空间多占一倍！</strong></p>
-<p>为了改善空间效率，UTF-8于1992年诞生了！</p>
-<h2 id="五-UTF-8"><a class="header-anchor" href="#五-UTF-8"></a>五. UTF-8</h2>
-<p>UTF-8是针对Unicode的可变长度编码。<br>
-不同于编码后长度因定为32比特的UTF-32，UTF-8针对不同字符，编码后的长度可以是：32比特、24比特、16比特、8比特。</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDowLt.png" alt="可变长度编码" title="可变长度编码"></p>
-<p>规则：</p>
-<p><img src="https://s21.ax1x.com/2025/08/22/pVDoyFS.png" alt="UTF-8规则" title="UTF-8规则"></p>
-<p>优点：</p>
+<h1 style="text-align: center;">Part.1 编程基础</h1>
+<h2 id="一-什么是编程-Programming-？"><a class="header-anchor" href="#一-什么是编程-Programming-？"></a>一. 什么是编程(<em>Programming</em>)？</h2>
+<blockquote>
+<p>编写程序：<strong>用<mark>代码</mark>指挥计算机做事</strong></p>
+</blockquote>
+<h2 id="二-什么是代码-Code-？"><a class="header-anchor" href="#二-什么是代码-Code-？"></a>二. 什么是代码(Code)？</h2>
+<blockquote>
+<p><strong>给计算机下达的指令</strong></p>
+</blockquote>
+<h3 id="特点："><a class="header-anchor" href="#特点："></a>特点：</h3>
+<ol>
+<li><strong>简洁</strong></li>
+<li><strong>无歧义</strong></li>
+</ol>
+<h2 id="三-为什么要用编程解决问题？"><a class="header-anchor" href="#三-为什么要用编程解决问题？"></a>三. 为什么要用编程解决问题？</h2>
+<ol>
+<li><strong>准确性</strong></li>
+<li><strong>速度快</strong></li>
+</ol>
+<hr>
+<h1 style="text-align: center;">Part.2 编程语言</h1>
+<h2 id="四-什么是编程语言？"><a class="header-anchor" href="#四-什么是编程语言？"></a>四. 什么是编程语言？</h2>
+<h3 id="1-相对概念：自然语言-Natural-language"><a class="header-anchor" href="#1-相对概念：自然语言-Natural-language"></a>1. 相对概念：自然语言(<em>Natural language</em>)</h3>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DqRe.png" alt="自然语言" title="自然语言"></p>
+<blockquote>
+<p><strong>人类发展进程中随文化自然而然形成的语言</strong></p>
+<p>如：中文、英语、法语、日语…</p>
+</blockquote>
+<h3 id="2-为什么要有编程语言？"><a class="header-anchor" href="#2-为什么要有编程语言？"></a>2. 为什么要有编程语言？</h3>
+<p>第一台通用计算机<strong>ENIAC</strong><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>在二十世纪四十年代发明，当时计算机的各项控制主要是由<strong>人工操作</strong>来实现的：</p>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DrV0.png" alt="ENIAC" title="ENIAC"></p>
+<p>因其在便利性方面存在严重不足，经过多年的发展，相关人员提出了利用编程语言来控制计算机的构想。。。</p>
+<h3 id="3-编程语言-Programming-language"><a class="header-anchor" href="#3-编程语言-Programming-language"></a>3. 编程语言(<em>Programming language</em>)</h3>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DXMd.png" alt="编程语言" title="编程语言"></p>
+<blockquote>
+<p><strong>计算机和人类都能识别的语言</strong></p>
+<p>如(高级语言)：Python、C++、Java、C、C#、JavaScript、Go、SQL、Visual Basic…(&gt;600)</p>
+</blockquote>
+<h3 id="4-发展历程："><a class="header-anchor" href="#4-发展历程："></a>4. 发展历程：</h3>
 <ol>
 <li>
-<p><strong>兼容ASCII</strong></p>
-<p>Unicode前128个字符，正好也是ASCIl的字符，码点一样。而且UTF-8也会把那些字符，映射为1字节长度，和ASCII编码相同</p>
+<p><strong>机器语言：</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1001000110111000001100011110100111000100101010</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>计算机能直接识别和执行的二进制代码</strong></p>
+</blockquote>
 </li>
 <li>
-<p><strong>节约空间</strong></p>
-<p>UTF-8让Unicode里码点小的字符，也相应拥有更短的长度，通过前缀信息进行字符长度分辨，也解决了分割不明的问题</p>
+<p><strong>汇编语言：</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C_S SEGMENT</span><br><span class="line">    ASSUME CS:C_S,DS:C_S</span><br><span class="line">S_T:</span><br><span class="line">    MOV AX,C_S</span><br><span class="line">    MOV DS,AX</span><br><span class="line">    LEA DX,P_S</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>用一些容易理解和记忆的缩写单词来代替一些特定的指令</strong></p>
+</blockquote>
+</li>
+<li>
+<p><strong>高级语言：</strong></p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello!&quot;</span>)  <span class="comment"># 我是高级语言哦~</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>更加接近人类的自然语言，易于理解和编写，同时屏蔽了底层硬件的细节</strong></p>
+</blockquote>
 </li>
 </ol>
-<p>如今，UTF-8已经成为了最主流的编码，大部分时候它都是文本编辑器的默认选择，但有时仍然需要留意，UTF-8是否被支持或兼容，避免出现乱码。</p>
-<h2 id="六-“锟斤拷”"><a class="header-anchor" href="#六-“锟斤拷”"></a>六. “锟斤拷”</h2>
-<p>常见乱码“<strong>锟斤拷</strong>”是怎么来的？</p>
-<p>它一般在UTF-8和中文编码的转换过程中产生。</p>
-<p>Unicode字符集有一个特殊的替换符号：�，专门用于表示无法识别或展示的字符。<br>
-一些编辑器在通过UTF-8打开文本时，会把无法识别或展示的字符自动替换为这个替换符号，用于提示用户。<br>
-它在UTF-8编码后是这个3字节长度的二进制数字：</p>
-<p><code>11101111 10111111 10111101</code></p>
-<p>对应十六进制：</p>
-<p><code>EF BF BD</code></p>
-<p>如果用户在编辑器替换后点了保存，这个特殊符号就会被写入文件内容里。</p>
-<p>如果有两个替换符号恰好连在一起：��</p>
-<p>文件内容里就会有这个：</p>
-<p><code>EF BF BD EF BF BD</code></p>
-<p>如果这个时候，把文件再用GBK编码读取，打开后就会看到所有以前是两个替换符号的地方，现在都变成了“锟斤拷”。</p>
-<p>因为在GBK中，每个汉字占用两个字节，储存在计算机里的<code>EF BF</code>对应汉字“锟”，<code>BD EF</code>对应汉字“斤”，<code>BF BD</code>对应汉字”拷“</p>
-<p>连起来，就是”锟斤拷“</p>
-<hr>
-<p>参考资料：</p>
+<h2 id="五-编程语言的选择？"><a class="header-anchor" href="#五-编程语言的选择？"></a>五. 编程语言的选择？</h2>
+<h3 id="💡路线图："><a class="header-anchor" href="#💡路线图："></a>💡路线图：</h3>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DLxH.png" alt="编程语言的选择" title="编程语言的选择"></p>
+<ul>
+<li>[x] <strong>请选择你的英雄！</strong></li>
+</ul>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DTIK.png" alt="python-logo" title="python"></p>
 <blockquote>
-<p><a href="https://www.bilibili.com/video/BV1xP4y1J7CS/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">你懂乱码吗？锟斤拷烫烫烫（详解ASCII、Unicode、UTF-32、UTF-8编码）</a></p>
-<p><a href="https://www.bilibili.com/video/BV1cB4y177QR/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">锟斤拷�⊠是怎样炼成的——中文显示“⼊”门指南【柴知道】</a></p>
+<p><strong>人生苦短，我用python</strong>。</p>
 </blockquote>
+<hr>
+<h1 style="text-align: center;">Part.3 Python 简介</h1>
+<h2 id="六-Python的前世今生"><a class="header-anchor" href="#六-Python的前世今生"></a>六. Python的前世今生</h2>
+<h3 id="1-Python-起源"><a class="header-anchor" href="#1-Python-起源"></a>1. Python - 起源</h3>
+<p>​        Python的创始人为荷兰人<strong>吉多·范罗苏姆</strong><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>（<em>Guido van Rossum</em>）。1989年圣诞节期间，在阿姆斯特丹，龟叔为了打发圣诞节的无趣，决心开发一个新的脚本解释程序，作为<u>ABC语言</u><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>的一种继承。</p>
+<p>🌟<strong>Guido van Rossum:</strong></p>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DbGD.jpg" alt="“龟叔”" title="“龟叔”"></p>
+<p>之所以选中单词Python（谐音”蟒蛇“🐍）作为该编程语言的名字，是因为英国20世纪70年代首播的电视喜剧《蒙提·派森的飞行马戏团》（<em>Monty Python’s Flying Circus</em>🎈），龟叔是它的超级无敌宇宙螺旋大粉丝。</p>
+<h3 id="2-Python-发展"><a class="header-anchor" href="#2-Python-发展"></a>2. Python - 发展</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时间段</th>
+<th style="text-align:center">版本</th>
+<th style="text-align:left">主要特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><u>1991年-1995年</u></td>
+<td style="text-align:center"><strong>1.x</strong></td>
+<td style="text-align:left">引入了类、异常处理、函数式编程等特性</td>
+</tr>
+<tr>
+<td style="text-align:left"><u>1996年-2000年</u></td>
+<td style="text-align:center"><strong>2.x</strong></td>
+<td style="text-align:left">增加了垃圾回收机制、列表推导式、生成器等特性</td>
+</tr>
+<tr>
+<td style="text-align:left"><u>2000年-2008年</u></td>
+<td style="text-align:center"><strong>2.x</strong></td>
+<td style="text-align:left">继续发展，推出了多个版本，逐步完善</td>
+</tr>
+<tr>
+<td style="text-align:left"><u>2008年-至今</u></td>
+<td style="text-align:center"><strong>3.x</strong></td>
+<td style="text-align:left">对Python进行了重大更新，不兼容Python 2.x，旨在解决历史遗留问题，提高语言性能</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-Python-崛起"><a class="header-anchor" href="#3-Python-崛起"></a>3. Python - 崛起</h3>
+<p><strong>TIOBE排行榜<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>：</strong></p>
+<p><img src="https://s21.ax1x.com/2025/08/16/pV0DHPO.png" alt="TIOBE排行榜" title="TIOBE排行榜"></p>
+<p><a href="https://www.tiobe.com/tiobe-index" title="TIOBE排行榜">↑链接↑</a></p>
+<h2 id="七-Python的优缺点："><a class="header-anchor" href="#七-Python的优缺点："></a>七. Python的优缺点：</h2>
+<h3 id="1-优点"><a class="header-anchor" href="#1-优点"></a>1. 优点</h3>
+<ol>
+<li>
+<p><strong>易学易用</strong>：</p>
+<ul>
+<li>语法简洁，接近自然语言，适合初学者。</li>
+<li>代码可读性强，易于维护。</li>
+</ul>
+</li>
+<li>
+<p><strong>跨平台</strong>：</p>
+<ul>
+<li>支持多平台（Windows、macOS、Linux等），代码无需修改即可运行。</li>
+</ul>
+</li>
+<li>
+<p><strong>丰富的库和框架</strong>：</p>
+<ul>
+<li>拥有大量标准库和第三方库，涵盖Web开发、数据分析、机器学习等领域。</li>
+</ul>
+</li>
+<li>
+<p><strong>动态类型</strong>：</p>
+<ul>
+<li>变量无需声明类型，方便快捷。</li>
+</ul>
+</li>
+<li>
+<p><strong>广泛应用</strong>：</p>
+<ul>
+<li>适用于Web开发、数据科学、人工智能、自动化等多个领域。</li>
+</ul>
+<p>…</p>
+</li>
+</ol>
+<h3 id="2-缺点"><a class="header-anchor" href="#2-缺点"></a>2. 缺点</h3>
+<ol>
+<li>
+<p><strong>性能较低</strong>：</p>
+<ul>
+<li>作为解释型语言，运行速度较C/C++等编译型语言慢。</li>
+</ul>
+</li>
+<li>
+<p><strong>全局解释器锁（GIL）</strong>：</p>
+<ul>
+<li>GIL限制多线程并行执行，影响多核CPU性能。</li>
+</ul>
+</li>
+<li>
+<p><strong>内存消耗大</strong>：</p>
+<ul>
+<li>相比C/C++等语言，Python占用更多内存。</li>
+</ul>
+<p>…</p>
+</li>
+</ol>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><strong>ANSI</strong>美国国家标准学会(<em>AMERICAN NATIONAL STANDARDS INSTITUTE</em>)成立于1918年。致力于制订统一的通用标准 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p><strong>ENIAC</strong>（<em>Electronic Numerical Integrator And Computer ”电子数字积分计算机”</em>）。ENIAC是继ABC（<em>Atanasoff-Berry Computer ”阿塔纳索夫-贝瑞计算机“</em>）之后的<strong>第二台电子计算机</strong>，和<strong>第一台通用计算机</strong>，于<u>1946年2月14日</u>在美国宣告诞生。ENIAC的计算速度为每秒5000次加法或400次乘法，它是完全的电子计算机，能够重新编程，解决各种计算问题。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn2" class="footnote-item"><p><strong>ASCII</strong>(<em>American Standard Code for Information Interchange</em>)：美国信息交换标准代码是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+<li id="fn2" class="footnote-item"><p><strong>吉多·范罗苏姆</strong>（<em>Guido van Rossum</em>）是荷兰计算机科学家，被誉为<u>Python之父</u>。他于1956年1月31日出生于荷兰，毕业于阿姆斯特丹大学，获得计算机科学硕士学位。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn3" class="footnote-item"><p><strong>GB2312</strong>是由中国国家标准总局1980年发布，1981年5月1日开始实施的一套国家标准 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+<li id="fn3" class="footnote-item"><p><strong>ABC</strong>是由Guido参加设计的一种教学语言。就Guido本人看来，ABC这种语言非常优美和强大，是专门为非专业程序员设计的。但是ABC语言并没有成功，究其原因，Guido认为是其非开放造成的。Guido决心在Python中避免这一错误。同时，他还想实现在ABC中闪现过但未曾实现的东西。 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn4" class="footnote-item"><p><strong>Big5</strong>又称为大五码或五大码，是使用繁体中文（正体中文）社区中最常用的电脑汉字字符集标准，共收录13,060个汉字。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn5" class="footnote-item"><p><strong>GBK</strong>编码方案于1995年10月制定， 1995年12月正式发布。是在GB2312-80标准基础上的内码扩展规范，共23940个码位，共收录了21003个汉字，完全兼容GB2312-80标准。 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn6" class="footnote-item"><p><strong>GB18030</strong>于2022年7月28日发布，2023年8月1日正式实施。新国标共收录汉字87887个，比上一版增加录入了1.7万余个生僻汉字，覆盖中国绝大部分人名、地名用生僻字以及文献、科技等专业领域的用字，能够满足各类使用需求。 <a href="#fnref6" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn7" class="footnote-item"><p><strong>Unicode</strong>，统一码，也叫万国码、单一码，由统一码联盟开发，是计算机科学领域里的一项业界标准，包括字符集、编码方案等。1990年开始研发，1994年正式发布1.0版本。 <a href="#fnref7" class="footnote-backref">↩︎</a></p>
+<li id="fn4" class="footnote-item"><p><strong>TIOBE排行榜</strong>是衡量编程语言流行度的一个权威指数，每月更新一次。它通过统计全球范围内搜索引擎（如Google、Bing、Wikipedia等）的查询结果、课程数量、技术岗位需求等数据，评估各编程语言的流行趋势。其核心目的是为开发者、企业和教育机构提供语言趋势的参考。 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
@@ -1156,8 +920,7 @@
       </categories>
       <tags>
         <tag>计算机社</tag>
-        <tag>计算机基础</tag>
-        <tag>字符编码</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1288,5 +1051,242 @@
     <content><![CDATA[<h1>本文章仅用于测试</h1>
 <p>测试测试测试</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Python三大器</title>
+    <url>/2025/10/25/python-decorator-iterator-generator/</url>
+    <content><![CDATA[<div class="note primary"><p>学习Python三大器——装饰器、迭代器、生成器，让你的代码更加Pythonic！</p>
+</div>
+<h2 id="一-装饰器（decorator）"><a class="header-anchor" href="#一-装饰器（decorator）"></a>一. 装饰器（<em>decorator</em>）</h2>
+<h3 id="1-函数的本质"><a class="header-anchor" href="#1-函数的本质"></a>1. 函数的本质</h3>
+<p>在Python中，万物皆对象，函数也不例外。</p>
+<p>当我们在Python中定义一个函数的时候，我们就是在新建一个变量，并在这个变量里保存了一个函数对象。</p>
+<h4 id="1-函数作为参数"><a class="header-anchor" href="#1-函数作为参数"></a>(1) 函数作为参数</h4>
+<p>函数作为一个对象，也可以像其他对象一样被当作参数，传入到其他函数里。</p>
+<p>如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">double</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x*<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">triple</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x*<span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc_number</span>(<span class="params">func, x</span>):</span><br><span class="line">    <span class="built_in">print</span>(func(x))</span><br><span class="line"></span><br><span class="line">calc_number(double,<span class="number">3</span>)</span><br><span class="line">calc_number(triple,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>在这里，<code>calc_number</code>函数是<strong>高阶函数</strong>（将函数作为参数的函数），<code>double</code>和<code>triple</code>函数是<strong>回调函数</strong>（被作为参数传入函数的函数）。</p>
+<p>由此可见，函数完全可以像其他的变量一样被相互传递。</p>
+<h4 id="2-函数作为返回值"><a class="header-anchor" href="#2-函数作为返回值"></a>(2) 函数作为返回值</h4>
+<p>函数本身也可以成为一个返回值。</p>
+<p>如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_multiple_func</span>(<span class="params">n</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">multiple</span>(<span class="params">x</span>):</span><br><span class="line">        <span class="keyword">return</span> n * x</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> multiple</span><br><span class="line"></span><br><span class="line">double = get_multiple_func(<span class="number">2</span>)</span><br><span class="line">triple = get_multiple_func(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(double(<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(triple(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>在这里，<code>get_multiple_func</code>它本身是一个函数，返回值也是一个函数，而它返回的这个函数做什么事情是和它得到的参数<code>n</code>相关的。<code>multiple</code>函数是<strong>闭包函数</strong>（一个函数要成为闭包，需要满足三个条件：1. 函数嵌套；2. 外函数返回内函数；3. 内函数引用外函数的变量），它能够“记住”外部作用域里的函数变量（即使外部函数已经返回），装饰器就是闭包的一个典型应用。</p>
+<h3 id="2-装饰器"><a class="header-anchor" href="#2-装饰器"></a>2. 装饰器</h3>
+<p>装饰器是一种特殊的函数，它接受一个函数作为参数，并返回一个新的函数（通常是包装过的原函数），用于在不修改原函数代码的情况下增强其功能。</p>
+<p>简单来讲，装饰器就是<strong>一个参数是函数、返回值也是函数的函数</strong>。</p>
+<p>这是一个极简的“装饰器”：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dec</span>(<span class="params">f</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@dec</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">double</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># double = dec(double)</span></span><br></pre></td></tr></table></figure>
+<p>在这里，<code>@dec</code>实际上是一个<strong>语法糖</strong>，它完全等价于<code>double = dec(double)</code>。（相比较于后者，使用<code>@</code>语法就像是给函数戴上了一顶帽子，能让我们清晰地看到这个函数被哪个装饰器装饰了，因此我们推荐使用前者来进行装饰）</p>
+<p>也就是说，当我们将装饰器作用于<code>double</code>函数时，<code>double</code>函数就被替代成了<code>dec</code>函数返回的新函数<code>inner</code></p>
+<p>在绝大多数情况下，我们使用装饰器时，会将函数作为装饰器的返回值。并且返回的函数通常是对原函数的“包装”，<strong>它在包含原函数的功能的同时，还给原函数增添了新的功能，达到一种“装饰”的效果</strong>，“装饰器”因此而得名。</p>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeit</span>(<span class="params">f</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">x</span>):</span><br><span class="line">        start = time.time()</span><br><span class="line">        ret = f(x)</span><br><span class="line">        <span class="built_in">print</span>(time.time()- start)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_func</span>(<span class="params">x</span>):</span><br><span class="line">    time.sleep(x)</span><br><span class="line"></span><br><span class="line">my_func(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><code>timeit</code>是一个装饰器，它接受的参数<code>f</code>是一个函数，返回值<code>wrapper</code>也是一个函数。</p>
+<p><code>wrapper</code>函数接受和<code>my_func</code>函数相同数目的参数，刚开始记了一个时间戳，然后调用<code>timeit</code>传进来的参数<code>f</code>，记录返回值，打印前后时间差，最后返回返回值。</p>
+<p>显然，这个装饰器实现了一个打印函数运行时间的功能。并且对于不同的函数，你都可以用装饰器来简洁地完成这件事。</p>
+<p>除了打印函数运行时间的功能外，我们还可以用装饰器来实现<u>插入日志、性能测试、权限验证</u>等功能，在不修改函数源代码的前提下，方便地去实现这些功能。😎</p>
+<p><code>wrapper</code>作为要代替<code>func</code>的新函数，那么它的参数数量也需要和<code>func</code>一致，可是我们并不清楚传入进来的<code>func</code>函数参数是什么样的，装饰器不应该只单独服务于某个函数。</p>
+<p>因此，我们可以这么写：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeit</span>(<span class="params">f</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        start = time.time()</span><br><span class="line">        ret = f(*args, **kwargs)</span><br><span class="line">        <span class="built_in">print</span>(time.time()- start)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_func</span>(<span class="params">x</span>):</span><br><span class="line">    time.sleep(x)</span><br><span class="line"></span><br><span class="line">my_func(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的<code>*args, **kwargs</code>是什么鬼呢？</p>
+<p>它们是用于<strong>处理可变数量参数</strong>的特殊语法，能够允许函数接受任意数量的位置参数（ <code>*args</code>）和关键字参数（ <code>**kwargs</code>），提供了极大的灵活性。</p>
+<p><code>*</code>和<code>**</code>操作符可以用于<strong>打包</strong>和<strong>解包</strong>。</p>
+<ul>
+<li>打包：
+<ul>
+<li><code>*</code>：将若干个位置参数打包成元组</li>
+<li><code>**</code>：将若干个关键字参数打包成字典</li>
+</ul>
+</li>
+<li>解包：
+<ul>
+<li><code>*</code>：将可迭代对象（元组）拆分成若干个位置参数</li>
+<li><code>**</code>：将字典拆分成若干个关键字参数</li>
+</ul>
+</li>
+</ul>
+<p>这样，无论函数<code>f</code>需要多少个参数，在装饰器里都能够灵活应对，比如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@timeit</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+<h3 id="3-带参数的装饰器"><a class="header-anchor" href="#3-带参数的装饰器"></a>3. 带参数的装饰器</h3>
+<p>装饰器调用时可能会带上参数，比如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">timeit</span>(<span class="params">iteration</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">f</span>):</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">x</span>):</span><br><span class="line">            start = time.time()</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(iteration):</span><br><span class="line">                ret = f(x)</span><br><span class="line">            <span class="built_in">print</span>(time.time()- start)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@timeit(<span class="params"><span class="number">1000</span></span>)  </span><span class="comment"># 这里带上了参数！</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">double</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">2</span></span><br><span class="line"><span class="comment"># 相当于double = timeit(1000)(double)</span></span><br><span class="line"></span><br><span class="line">double(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>在这里，装饰器<code>timeit</code>接受的参数<code>iteration</code>是一个整型，用于定义执行次数，返回值是一个函数<code>inner</code>，而这个<code>inner</code>就是我们原本所说的那个参数是函数、返回值也是函数的装饰器。</p>
+<p>所以它相当于就是在原装饰器的基础之上套了一个壳。参数可以是你指定的任意类型，而返回值是我们原来所说的那种装饰器。</p>
+<h3 id="4-为什么要使用装饰器？"><a class="header-anchor" href="#4-为什么要使用装饰器？"></a>4. 为什么要使用装饰器？</h3>
+<ol>
+<li><b>使用装饰器可以提升代码复用，避免重复冗余代码。</b>如果我有多个函数需要测量执行时间，我可以直接将装饰器应用在这些函数上，而不是给多个函数加上一样的代码。这样的代码既冗余也不方便后面维护。</li>
+<li><b>使用装饰器可以保证函数的逻辑清晰。</b>如果一个本身功能就很复杂的函数，我还要通过修改内部代码来测量运行时间，这样会模糊函数自身的主逻辑。同时，软件开发的一个原则就是单一职责，也就是说，一个函数只应该承担一项责任。</li>
+<li><b>通过装饰器，我们可以扩展别人的函数。</b>想象我们正在使用一个第三方库的函数，但我要添加额外的行为，比如测量运行时间，那我就可以用装饰器去包装，而不是跑到库里面去修改。</li>
+</ol>
+<div class="note info"><h3 id="装饰器-补充"><a class="header-anchor" href="#装饰器-补充"></a>装饰器 - 补充</h3>
+<p>可以使用多个<code>@dec</code>语句来装饰函数，即：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@A</span></span><br><span class="line"><span class="meta">@B</span></span><br><span class="line"><span class="meta">@C</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>包装的顺序为从下往上，即<code>func = A(B(C(func)))</code>。</p>
+<p>让我们来做个汉堡🍔！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">加面包</span>(<span class="params">肉</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">包装</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🍞 面包&quot;</span>)  <span class="comment"># 最外层</span></span><br><span class="line">        肉()              <span class="comment"># 中间的肉</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🍞 面包&quot;</span>)  <span class="comment"># 最外层</span></span><br><span class="line">    <span class="keyword">return</span> 包装</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">加生菜</span>(<span class="params">肉</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">包装</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥬 生菜&quot;</span>)  <span class="comment"># 外层</span></span><br><span class="line">        肉()              <span class="comment"># 内层</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥬 生菜&quot;</span>)  <span class="comment"># 外层</span></span><br><span class="line">    <span class="keyword">return</span> 包装</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">加肉饼</span>(<span class="params">馅</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">包装</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥩 肉饼&quot;</span>)  <span class="comment"># 内层</span></span><br><span class="line">        馅()              <span class="comment"># 最内层（原函数）</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;🥩 肉饼&quot;</span>)  <span class="comment"># 内层</span></span><br><span class="line">    <span class="keyword">return</span> 包装</span><br><span class="line"></span><br><span class="line"><span class="meta">@加面包</span></span><br><span class="line"><span class="meta">@加生菜</span></span><br><span class="line"><span class="meta">@加肉饼</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">汉堡馅</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;🧀 芝士酱&quot;</span>)</span><br><span class="line"></span><br><span class="line">汉堡馅()</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="二-迭代器（iterator）"><a class="header-anchor" href="#二-迭代器（iterator）"></a>二. 迭代器（<em>iterator</em>）</h2>
+<h3 id="1-可迭代对象（iterable）"><a class="header-anchor" href="#1-可迭代对象（iterable）"></a>1. 可迭代对象（<em>iterable</em>）</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_str = <span class="string">&#x27;123&#x27;</span></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> my_str:</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> my_lst:</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_int = <span class="number">123</span></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> my_int:</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
+<p>对于以上三段代码，为什么for循环能作用于字符串和列表，而作用于整数就会报错呢？</p>
+<p>注意到报错信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TypeError: &#x27;int&#x27; object is not iterable</span><br></pre></td></tr></table></figure>
+<p>这里的<code>iterable</code>表示<strong>可迭代对象</strong>。</p>
+<p>在Python中，只有可迭代对象才能被for循环迭代。</p>
+<p><strong>可迭代对象必须实现一个叫做<code>__iter__</code>的魔法方法</strong>，字符串和列表都有这个方法，但是整数没有。</p>
+<p>我们可以通过<code>hasattr</code>这个函数，查看对象是否有某个属性或者方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_str = <span class="string">&#x27;123&#x27;</span></span><br><span class="line">my_lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">my_int = <span class="number">123</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(my_str, <span class="string">&#x27;__iter__&#x27;</span>))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(my_lst, <span class="string">&#x27;__iter__&#x27;</span>))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(my_int, <span class="string">&#x27;__iter__&#x27;</span>))  <span class="comment"># False</span></span><br></pre></td></tr></table></figure>
+<p>可是，为什么对象必须有这个方法才能进行迭代呢？这和for循环的实现原理有关。</p>
+<h3 id="2-for循环的实现原理"><a class="header-anchor" href="#2-for循环的实现原理"></a>2. for循环的实现原理</h3>
+<p>流程图：</p>
+<pre><code class="highlight mermaid">flowchart LR
+    A([开始for循环]) --&gt; B[调用__iter__方法&lt;br&gt;获取迭代器]
+    B --&gt; C[调用迭代器的&lt;br&gt;__next__方法]
+    C --&gt; D&#123;是否能获取到下一个值?&#125;
+    D --&gt;|是| E[获取下一个值]
+    E --&gt; F[执行循环体代码]
+    F --&gt; C
+    D --&gt;|否| G([结束for循环])</code></pre>
+<p>所以一个for循环：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> seq:</span><br><span class="line">    do_something_to(i)</span><br></pre></td></tr></table></figure>
+<p>实际上是这样工作的：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">it = <span class="built_in">iter</span>(seq)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">next</span>(it))</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>这里的<code>iter</code>和<code>next</code>函数等价于调用对象的<code>__iter__</code>和<code>__next__</code>方法。</p>
+<p>for循环在循环前，会先调用可迭代对象的<code>__iter__</code>，拿到它的迭代器。然后不断调用迭代器的<code>__next__</code>方法获取下一个值，直到所有值都获取完毕，循环结束。</p>
+<h3 id="3-迭代器（iterator）"><a class="header-anchor" href="#3-迭代器（iterator）"></a>3. 迭代器（<em>iterator</em>）</h3>
+<p>知道了for循环的工作原理，接下来就让我们正式了解<strong>迭代器</strong>这一概念。</p>
+<p>调用可迭代对象的<code>__iter__</code>方法将会返回该对象对应的迭代器。</p>
+<p>迭代器需要包含两个魔法方法：<code>__iter__</code>和<code>__next__</code><br>
+<code>__iter__</code>方法将会返回迭代器本身（这一点似乎有点奇怪，待会会讲），<code>__next__</code>方法会返回迭代器的下一个值，当所有值都获取完毕时，调用<code>__next__</code>将会引发一个<code>StopIteration</code>的异常（for循环会捕捉这个异常，并将其作为循环结束的标志）。</p>
+<p>下面是官方文档的解释：</p>
+<p><img src="https://s21.ax1x.com/2025/10/25/pVv0g00.png" alt="可迭代对象和迭代器官方文档解释" title="官方文档"></p>
+<p>简单来讲，可迭代对象是一个容器，它包含了迭代需要的数据，而迭代器则是实际执行迭代操作的单位。<br>
+<strong>也就是说，可迭代对象是负责指挥的“大哥”，迭代器是负责干活的“小弟”。</strong></p>
+<h3 id="4-迭代器的应用"><a class="header-anchor" href="#4-迭代器的应用"></a>4. 迭代器的应用</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NodeIter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>.curr_node = node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__next__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.curr_node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        node, <span class="variable language_">self</span>.curr_node = <span class="variable language_">self</span>.curr_node, <span class="variable language_">self</span>.curr_node.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> NodeIter(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">node1 = Node(<span class="string">&quot;node1&quot;</span>)</span><br><span class="line">node2 = Node(<span class="string">&quot;node2&quot;</span>)</span><br><span class="line">node3 = Node(<span class="string">&quot;node3&quot;</span>)</span><br><span class="line">node1.<span class="built_in">next</span> = node2</span><br><span class="line">node2.<span class="built_in">next</span> = node3</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> node1:</span><br><span class="line">    <span class="built_in">print</span>(node.name)</span><br></pre></td></tr></table></figure>
+<p>这个程序用迭代器实现了链表的遍历。在这里，<code>Node</code>是一个可迭代对象类，<code>NodeIter</code>是一个迭代器类。</p>
+<p>可以看见，<code>Node</code>实现了一个<code>__iter__</code>方法，返回对应的迭代器。<br>
+<code>NodeIter</code>实现了一个<code>__next__</code>方法，返回下一个值（如果有）或者引发一个<code>StopIteration</code>的异常。</p>
+<p>按照我们前面的定义，迭代器必须包含<code>__iter__</code>和<code>__next__</code>这两个魔法方法，可是这里的<code>NodeIter</code>没有实现<code>__iter__</code>方法却依然可以正常工作，可见迭代器并不一定要实现<code>__iter__</code>方法，那么为什么还会有这么一条规定呢?</p>
+<p>官方给出的解释是：</p>
+<blockquote>
+<p>迭代器必须具有<code>__iter__()</code>方法用来返回该迭代器对象自身，因此迭代器必定也是可迭代对象，可被用于其他可迭代对象适用的大部分场合。</p>
+</blockquote>
+<p>在迭代器中定义<code>__iter__</code>是为了让迭代器也成为可迭代对象，让每个迭代器也是可迭代的。</p>
+<p>那为什么要这么规定呢？</p>
+<p>基于上面的代码，有人可能会这么写：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NodeIter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>.curr_node = node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__next__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.curr_node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        node, <span class="variable language_">self</span>.curr_node = <span class="variable language_">self</span>.curr_node, <span class="variable language_">self</span>.curr_node.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> NodeIter(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">node1 = Node(<span class="string">&quot;node1&quot;</span>)</span><br><span class="line">node2 = Node(<span class="string">&quot;node2&quot;</span>)</span><br><span class="line">node3 = Node(<span class="string">&quot;node3&quot;</span>)</span><br><span class="line">node1.<span class="built_in">next</span> = node2</span><br><span class="line">node2.<span class="built_in">next</span> = node3</span><br><span class="line"></span><br><span class="line">it = <span class="built_in">iter</span>(node1)  <span class="comment"># 显式获取迭代器</span></span><br><span class="line">first = <span class="built_in">next</span>(it)  <span class="comment"># 获取第一个值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> it:  <span class="comment"># 遍历之后的值</span></span><br><span class="line">    <span class="built_in">print</span>(node.name)</span><br></pre></td></tr></table></figure>
+<p>在这里，我们显式地获取了<code>node1</code>的迭代器，然后调用<code>next()</code>获取第一个值，从第二个开始遍历。</p>
+<p>这看起来似乎很合理，但：</p>
+<p><img src="https://s21.ax1x.com/2025/10/25/pVv0yXn.png" alt="报错1"></p>
+<p><code>it</code>虽然是一个迭代器，但由于它本身并不是一个可迭代对象，所以我们不能对它做for循环。但这件事是反直觉的！</p>
+<p>这就是为什么官方规定一个可迭代对象必须也得是一个迭代器——<strong>它可以让迭代器更加灵活地应用于for循环和需要可迭代对象的函数（比如<code>zip()</code>，<code>map()</code>，<code>filter()</code>等）里</strong>。</p>
+<p>实现方法很简单：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NodeIter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="variable language_">self</span>.curr_node = node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__next__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.curr_node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        node, <span class="variable language_">self</span>.curr_node = <span class="variable language_">self</span>.curr_node, <span class="variable language_">self</span>.curr_node.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span></span><br></pre></td></tr></table></figure>
+<p>定义一个<code>__iter__</code>函数，返回<code>self</code>即可。</p>
+<p>在迭代器里定义<code>__iter__</code>这个方法是Python的最佳实践。<s>当然你要是不定义，也没人拦着:)</s></p>
+<h3 id="5-迭代器的特性"><a class="header-anchor" href="#5-迭代器的特性"></a>5. 迭代器的特性</h3>
+<h4 id="1-一次性"><a class="header-anchor" href="#1-一次性"></a>(1) 一次性</h4>
+<p>需要注意的是，<strong>迭代器是一次性的</strong>。</p>
+<p>也就是说迭代器一旦用完，就不能再重新使用了！</p>
+<p>举个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">iterator = <span class="built_in">iter</span>(my_list)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第一次遍历:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> iterator:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第二次遍历:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> iterator:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>&quot;第二次遍历&quot;:</code>下是没有输出的，这是因为在前面一个for循环里，迭代器<code>iterator</code>的元素已经被消耗完了，第二次使用时它就会是空的。</p>
+<p>或者是被函数遍历：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">iterator = <span class="built_in">iter</span>(my_list)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(iterator))  <span class="comment"># [1, 2, 3]</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(iterator))  <span class="comment"># []</span></span><br></pre></td></tr></table></figure>
+<p>可以看到迭代器同样会被消耗。</p>
+<p>如果你需要多次遍历同一可迭代对象，应该重新获取一个迭代器。</p>
+<h4 id="2-惰性"><a class="header-anchor" href="#2-惰性"></a>(2) 惰性</h4>
+<p>迭代器只有在每次调用<code>__next__</code>方法时，才会计算和存储下一个元素，而不是预先一次性计算和存储所有结果。</p>
+<p>换句话说，迭代器是<strong>惰性加载</strong>的，按需计算，用多少就取多少。</p>
+<p>使用迭代器，我们只要用很少的内存就可以存放和处理大量的数据！</p>
+<div class="note info"><h3 id="迭代器-补充"><a class="header-anchor" href="#迭代器-补充"></a>迭代器 - 补充</h3>
+<p>在Python中，有很多返回值是迭代器的内置函数，比如：<br>
+<code>zip()</code>、<code>map()</code>、<code>filter()</code>、<code>reversed()</code>等</p>
+<p><s>或许你曾经以为他们是列表</s></p>
+</div>
+<h2 id="三-生成器（generator）"><a class="header-anchor" href="#三-生成器（generator）"></a>三. 生成器（<em>generator</em>）</h2>
+<h3 id="1-什么是生成器？"><a class="header-anchor" href="#1-什么是生成器？"></a>1. 什么是生成器？</h3>
+<p>在了解迭代器之后，你可能会觉得实现迭代器有点麻烦：需要定义一个类，实现<code>__iter__</code>和<code>__next__</code>方法，还要手动处理<code>StopIteration</code>异常。</p>
+<p>那有没有什么更简单的方法推荐一下的呢？有的兄弟，有的。<br>
+它就是<strong>生成器</strong>。</p>
+<p><strong>生成器是一种特殊的迭代器</strong>，它让你能用更简洁、更直观的方式创建迭代器。</p>
+<p>生成器和迭代器具有许多相同的特性，它们都包含有<code>__iter__</code>和<code>__next__</code>方法，都能被for循环迭代，都具有“一次性”和“惰性”。</p>
+<p>生成器有两种写法，分别是<strong>生成器函数</strong>和<strong>生成器表达式</strong>。</p>
+<h3 id="2-生成器函数"><a class="header-anchor" href="#2-生成器函数"></a>2. 生成器函数</h3>
+<p>下面是一个简单的例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gen</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">while</span> num &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">yield</span> num</span><br><span class="line">        num -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">g = gen(<span class="number">5</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+<p>在这里，<code>gen</code>就是<strong>生成器函数</strong>，而<code>g</code>是<strong>生成器对象</strong>。</p>
+<p>当Python在编译期间发现一个函数里有<code>yield</code>关键字时，就会把这个函数视作生成器函数，而不是普通的函数。调用生成器函数，会直接返回一个生成器对象，而不会去执行内部的具体语句来返回别的值。</p>
+<p>只有对生成器对象调用<code>next()</code>，生成器对象才会进入函数体执行具体语句，它的运行规则是：<br>
+<strong>当函数执行到<code>yield</code>时，会在此暂停执行并返回一个值，下次调用<code>next()</code>时又从此处继续，直到再次遇到<code>yield</code>或是函数执行完毕。</strong></p>
+<p><strong>生成器执行完毕（即return）将会引发<code>StopIteration</code>的异常。</strong></p>
+<p>可以看下面这个实例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_generator</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;开始执行&quot;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;继续执行&quot;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;最后执行&quot;</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用生成器函数不会立即执行，而是返回一个生成器对象</span></span><br><span class="line">gen = my_generator()</span><br><span class="line"><span class="built_in">print</span>(gen)  <span class="comment"># &lt;generator object my_generator at 0x...&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 每次调用next()，函数执行到下一个yield</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">next</span>(gen))  <span class="comment"># 开始执行 → 1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">next</span>(gen))  <span class="comment"># 继续执行 → 2</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">next</span>(gen))  <span class="comment"># 最后执行 → 3</span></span><br><span class="line"><span class="comment"># print(next(gen))  # 这里会抛出StopIteration异常</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-生成器表达式"><a class="header-anchor" href="#3-生成器表达式"></a>3. 生成器表达式</h3>
+<p>生成器表达式与列表推导式语法类似，但使用圆括号而不是方括号。</p>
+<p><s>不要跟我说它是元组推导式。。。</s></p>
+<p>举个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">gen = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>))</span><br><span class="line"><span class="built_in">print</span>(gen)  <span class="comment"># &lt;generator object &lt;genexpr&gt; at 0x...&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> gen:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+<p>它等价于：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">generator_func</span>():</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">        <span class="keyword">yield</span> x * x</span><br></pre></td></tr></table></figure>
+<h3 id="4-生成器的应用"><a class="header-anchor" href="#4-生成器的应用"></a>4. 生成器的应用</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        node = <span class="variable language_">self</span></span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">yield</span> node</span><br><span class="line">            node = node.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">node1 = Node(<span class="string">&quot;node1&quot;</span>)</span><br><span class="line">node2 = Node(<span class="string">&quot;node2&quot;</span>)</span><br><span class="line">node3 = Node(<span class="string">&quot;node3&quot;</span>)</span><br><span class="line">node1.<span class="built_in">next</span> = node2</span><br><span class="line">node2.<span class="built_in">next</span> = node3</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> node1:</span><br><span class="line">    <span class="built_in">print</span>(node.name)</span><br></pre></td></tr></table></figure>
+<p>同样拿前面链表的例子，但现在我们直接将<code>__iter__</code>函数写成一个生成器。这比我们之前写的简洁了不少。</p>
+<h3 id="5-高级用法"><a class="header-anchor" href="#5-高级用法"></a>5. 高级用法</h3>
+<p>生成器还有一个高级用法，就是<b>“发送”</b>。</p>
+<p><code>yield *</code>不仅仅是一个语句，还是一个表达式。<strong>对生成器调用<code>send()</code>方法，能够在恢复生成器执行的同时，向生成器内部发送一个值</strong>。<code>yield *</code>表达式的结果就是你传进来的那个值。</p>
+<p>举个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">gen</span>(<span class="params">num</span>):</span><br><span class="line">    <span class="keyword">while</span> num &gt; <span class="number">0</span>:</span><br><span class="line">        tmp = <span class="keyword">yield</span> num</span><br><span class="line">        <span class="keyword">if</span> tmp <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            num = tmp</span><br><span class="line">        num -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">g = gen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">first = <span class="built_in">next</span>(g)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;first: <span class="subst">&#123;first&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;send: <span class="subst">&#123;g.send(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+<p>在这里，<code>g.send(10)</code>使<code>yield num</code>成为了10，于是<code>tmp</code>被赋值为10，条件成立，<code>num</code>也在第五行被赋值为10，在第6行减1，下一次<code>yield num</code>产生的数据就是9了。</p>
+<p>值得一提的是，在生成器中，<strong><code>next(g)</code>完全等价于<code>g.send(None)</code></strong>。因此，最后的for循环相当于是在不停地做<code>g.send(None)</code>，此时if条件不满足，<code>num</code>会不断自减至0，输出就是从8到1。</p>
+<p>请注意，向刚创建的生成器发送非<code>None</code>数据前，必须先用<code>next(g)</code>或<code>g.send(None)</code>将其运行到第一个 <code>yield</code>处，否则会报错（毕竟这时候还没有遇到<code>yield *</code>表达式能够让你发送数据呢）。</p>
+<p>如图：</p>
+<p><img src="https://s21.ax1x.com/2025/10/25/pVv0cmq.png" alt="报错2"></p>
+<p>总的来说，<code>send()</code>函数给了我们一个机制，能够让我们和生成器内部做交互。</p>
+<div class="note info"><h3 id="生成器-补充"><a class="header-anchor" href="#生成器-补充"></a>生成器 - 补充</h3>
+<p><strong>当生成器表达式作为函数的唯一参数时，可以省略外层括号。</strong></p>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = <span class="built_in">sum</span>(x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>))</span><br><span class="line"><span class="comment"># 等价于：result = sum((x**2 for x in range(5)))</span></span><br><span class="line"><span class="built_in">print</span>(result)  <span class="comment"># 30</span></span><br></pre></td></tr></table></figure></div>
+<p>🎉完结撒花🎉</p>
+<hr>
+<p>参考资料：</p>
+<blockquote>
+<p>装饰器：</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1Gu411Q7JV/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【python】装饰器超详细教学，用尽毕生所学给你解释清楚，以后再也不迷茫了！</a><br>
+<a href="https://www.bilibili.com/video/BV1Uz421Z79L/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【Python 高级特性】装饰器：不修改代码，就能改变函数功能的强大特性</a></p>
+</blockquote>
+<p>迭代器：</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1ca411t7A9/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【python】对迭代器一知半解？看完这个视频就会了。涉及的每个概念，都给你讲清楚！</a><br>
+<a href="https://www.bilibili.com/video/BV1jt421c7yN/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【Python】从迭代器到生成器：小内存也能处理大数据</a><br>
+<a href="https://www.bilibili.com/video/BV18R4y1t7Hg/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">『教程』几分钟听懂迭代器</a></p>
+</blockquote>
+<p>生成器：</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1KS4y1D7Qb/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【python】生成器是什么？怎么用？能干啥？一期视频解决你所有疑问！</a><br>
+<a href="https://www.bilibili.com/video/BV1PW421K7sX/?share_source=copy_web&amp;vd_source=604cd7b01e3e6ec1958754b37eee91a9">【Python 高级特性2】生成器：处理大量数据时，节省内存和时间</a></p>
+</blockquote>
+<p>官方文档：</p>
+<p><a href="https://docs.python.org/zh-cn/3.14/glossary.html#term-decorator">术语对照表 — Python 3.14.0 文档</a><br>
+<a href="https://docs.python.org/zh-cn/3.14/glossary.html#term-iterator">术语对照表 — Python 3.14.0 文档</a><br>
+<a href="https://docs.python.org/zh-cn/3.14/glossary.html#term-generator">术语对照表 — Python 3.14.0 文档</a></p>
+</blockquote>
+<p>感谢！<strong>(≧∀≦)ゞ</strong></p>
+]]></content>
+      <categories>
+        <category>Python进阶</category>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>装饰器</tag>
+        <tag>迭代器</tag>
+        <tag>生成器</tag>
+      </tags>
   </entry>
 </search>
